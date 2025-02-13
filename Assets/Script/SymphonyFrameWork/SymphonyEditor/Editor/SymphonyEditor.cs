@@ -8,8 +8,41 @@ namespace SymphonyFrameWork.Editor
 {
     public class StaticFieldEditorUI : EditorWindow
     {
-        private FieldInfo _staticField;
-        private Toggle _pauseToggle;
+        private static VisualElement ElementBase
+        {
+            get
+            {
+                var element = new VisualElement()
+                {
+                    style =
+                    {
+                        alignItems = Align.Center,
+                        alignSelf = Align.Center,
+                        alignContent = Align.Center,
+                        
+                        top = 20,
+                        bottom = 20,
+                    }
+                };
+                return element;
+            }
+        }
+
+        private static Label Title
+        {
+            get
+            {
+                var element = new Label()
+                {
+                    style =
+                    {
+                        fontSize = 20,
+                        bottom = 10,
+                    }
+                };
+                return element;
+            }
+        }
 
         [MenuItem("Window/Static Field Editor UI")]
         public static void ShowWindow()
@@ -21,57 +54,43 @@ namespace SymphonyFrameWork.Editor
         private void OnEnable()
         {
             // `_pause` フィールドを取得
-            _staticField = typeof(PauseManager).GetField("_pause", BindingFlags.Static | BindingFlags.NonPublic);
+            var staticField = typeof(PauseManager).GetField("_pause", BindingFlags.Static | BindingFlags.NonPublic);
 
             // UI を作成
             var root = rootVisualElement;
 
-            VisualElement pause = new VisualElement()
-            {
-                style =
-                {
-                    alignItems = Align.Center,
-                    alignSelf = Align.Center,
-                    alignContent = Align.Center,
-                }
-            };
+            VisualElement pause = ElementBase;
+
             // ラベル
-            Label titleLabel = new Label("Pause 状態")
-            {
-                style =
-                {
-                    top = 10
-                }
-            };
-            pause.Add(titleLabel);
+            Label pauseTitle = Title;
+            pauseTitle.text = "Pause 状態";
+            
+            pause.Add(pauseTitle);
 
             // Toggle (チェックボックス)
-            _pauseToggle = new Toggle("Pause")
+            var pauseVisual = new VisualElement()
             {
                 style =
                 {
-                    marginTop = 10,
+                    width = 40,
+                    height = 40,
                 }
             };
-
+            
             // 初期値を設定
-            if (_staticField != null)
+            if (staticField != null)
             {
-                _pauseToggle.value = (bool)_staticField.GetValue(null);
+                bool active = (bool)staticField.GetValue(null);
+                pauseVisual.style.backgroundColor = active ? Color.green : Color.red;
+            }
+            else
+            {
+                pauseVisual.style.backgroundColor = Color.red;
             }
 
-            // 値が変更されたときの処理
-            _pauseToggle.RegisterValueChangedCallback(evt =>
-            {
-                if (_staticField != null)
-                {
-                    _staticField.SetValue(null, evt.newValue);
-                }
-            });
-
-           pause.Add(_pauseToggle);
+            pause.Add(pauseVisual);
            
-           root.Add(pause);
+            root.Add(pause);
         }
     }
 }
