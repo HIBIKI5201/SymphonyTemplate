@@ -1,15 +1,21 @@
-using UnityEngine;
-using UnityEditor;
-using UnityEngine.UIElements;
-using System.Reflection;
 using SymphonyFrameWork.CoreSystem;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace SymphonyFrameWork.Editor
 {
     public class StaticFieldEditorUI : EditorWindow
     {
-        private FieldInfo _pauseField;
+        private FieldInfo _pauseInfo;
         private VisualElement _pauseVisual;
+
+        private FieldInfo locateInfo;
+        private Dictionary<Type, Component> locateDict;
+        private ListView locateList;
 
         private static VisualElement ElementBase
         {
@@ -22,7 +28,7 @@ namespace SymphonyFrameWork.Editor
                         alignItems = Align.Center,
                         alignSelf = Align.Center,
                         alignContent = Align.Center,
-                        
+
                         top = 20,
                         bottom = 20,
                     }
@@ -40,14 +46,14 @@ namespace SymphonyFrameWork.Editor
                     style =
                     {
                         fontSize = 20,
-                        bottom = 10,
+                        bottom = 5,
                     }
                 };
                 return element;
             }
         }
 
-        [MenuItem("Window/Static Field Editor UI")]
+        [MenuItem("Symphony FrameWork/Admin")]
         public static void ShowWindow()
         {
             StaticFieldEditorUI wnd = GetWindow<StaticFieldEditorUI>();
@@ -56,30 +62,34 @@ namespace SymphonyFrameWork.Editor
 
         private void OnEnable()
         {
-            // `_pause` フィールドを取得
-            _pauseField = typeof(PauseManager).GetField("_pause", BindingFlags.Static | BindingFlags.NonPublic);
-
             // UI を作成
             var root = rootVisualElement;
             PauseInit(root);
+            LocateDictInit(root);
 
             EditorApplication.update += PauseVisualUpdate;
+            EditorApplication.update += UpdateListUpdate;
         }
 
         private void OnDisable()
         {
             EditorApplication.update -= PauseVisualUpdate;
+            EditorApplication.update -= UpdateListUpdate;
         }
 
         private void PauseInit(VisualElement root)
         {
-            VisualElement pause = ElementBase;
+            // `_pause` フィールドを取得
+            _pauseInfo = typeof(PauseManager).GetField("_pause", BindingFlags.Static | BindingFlags.NonPublic);
+
+            VisualElement @base = ElementBase;
+            @base.style.height = 100;
 
             // ラベル
             Label pauseTitle = Title;
             pauseTitle.text = "Pause 状態";
 
-            pause.Add(pauseTitle);
+            @base.Add(pauseTitle);
 
             // Toggle (チェックボックス)
             _pauseVisual = new VisualElement()
@@ -94,22 +104,70 @@ namespace SymphonyFrameWork.Editor
             // 初期値を設定
 
 
-            pause.Add(_pauseVisual);
+            @base.Add(_pauseVisual);
 
-            root.Add(pause);
+            root.Add(@base);
+        }
+
+        private void LocateDictInit(VisualElement root)
+        {
+            locateInfo = typeof(ServiceLocator).GetField("_singletonObjects", BindingFlags.Static | BindingFlags.NonPublic);
+
+            if (locateInfo != null)
+            {
+                locateDict = (Dictionary<Type, Component>)locateInfo.GetValue(null);
+            }
+
+            VisualElement @base = ElementBase;
+
+            Label title = Title;
+            title.text = "ロケート登録しているもの";
+
+            @base.Add(title);
+
+            locateList = new ListView
+            {
+                makeItem = () => new Label(),
+                bindItem = (element, index) =>
+                {
+                    var kvp = GetSceneList()[index];
+                    (element as Label).text = $"type : {kvp.Key.Name} -> obj : {kvp.Value.name}";
+                },
+                itemsSource = GetSceneList(),
+                selectionType = SelectionType.None
+            };
+            @base.Add(locateList);
+
+            root.Add(@base);
+        }
+
+        private List<KeyValuePair<Type, Component>> GetSceneList()
+        {
+            if (locateDict != null)
+            {
+                locateDict = (Dictionary<Type, Component>)locateInfo.GetValue(null);
+            }
+            return locateDict != null ?
+                new List<KeyValuePair<Type, Component>>(locateDict) :
+                new List<KeyValuePair<Type, Component>>();
         }
 
         private void PauseVisualUpdate()
         {
-            if (_pauseField != null)
+            if (_pauseInfo != null)
             {
-                bool active = (bool)_pauseField.GetValue(null);
+                bool active = (bool)_pauseInfo.GetValue(null);
                 _pauseVisual.style.backgroundColor = active ? Color.green : Color.red;
             }
             else
             {
                 _pauseVisual.style.backgroundColor = Color.red;
             }
+        }
+        private void UpdateListUpdate()
+        {
+            locateList.itemsSource = GetSceneList();
+            locateList.Rebuild();
         }
     }
 }
