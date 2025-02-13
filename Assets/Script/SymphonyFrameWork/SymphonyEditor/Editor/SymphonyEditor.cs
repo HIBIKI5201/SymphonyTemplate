@@ -10,13 +10,6 @@ namespace SymphonyFrameWork.Editor
 {
     public class StaticFieldEditorUI : EditorWindow
     {
-        private FieldInfo _pauseInfo;
-        private VisualElement _pauseVisual;
-
-        private FieldInfo locateInfo;
-        private Dictionary<Type, Component> locateDict;
-        private ListView locateList;
-
         private static VisualElement ElementBase
         {
             get
@@ -57,7 +50,7 @@ namespace SymphonyFrameWork.Editor
         public static void ShowWindow()
         {
             StaticFieldEditorUI wnd = GetWindow<StaticFieldEditorUI>();
-            wnd.titleContent = new GUIContent("Static Field Editor UI");
+            wnd.titleContent = new GUIContent("Symphony Admin");
         }
 
         private void OnEnable()
@@ -77,9 +70,36 @@ namespace SymphonyFrameWork.Editor
             EditorApplication.update -= UpdateListUpdate;
         }
 
+        #region Update
+
+        private void PauseVisualUpdate()
+        {
+            if (_pauseInfo != null)
+            {
+                bool active = (bool)_pauseInfo.GetValue(null);
+                _pauseVisual.style.backgroundColor = active ? Color.green : Color.red;
+            }
+            else
+            {
+                _pauseVisual.style.backgroundColor = Color.red;
+            }
+        }
+        private void UpdateListUpdate()
+        {
+            locateList.itemsSource = GetSceneList();
+            locateList.Rebuild();
+        }
+
+        #endregion
+
+        #region PauseManager
+
+        private FieldInfo _pauseInfo;
+        private VisualElement _pauseVisual;
+
         private void PauseInit(VisualElement root)
         {
-            // `_pause` フィールドを取得
+            // _pause フィールドを取得
             _pauseInfo = typeof(PauseManager).GetField("_pause", BindingFlags.Static | BindingFlags.NonPublic);
 
             VisualElement @base = ElementBase;
@@ -108,6 +128,14 @@ namespace SymphonyFrameWork.Editor
 
             root.Add(@base);
         }
+
+        #endregion
+
+        #region ServiceLocator
+
+        private FieldInfo locateInfo;
+        private Dictionary<Type, Component> locateDict;
+        private ListView locateList;
 
         private void LocateDictInit(VisualElement root)
         {
@@ -152,22 +180,6 @@ namespace SymphonyFrameWork.Editor
                 new List<KeyValuePair<Type, Component>>();
         }
 
-        private void PauseVisualUpdate()
-        {
-            if (_pauseInfo != null)
-            {
-                bool active = (bool)_pauseInfo.GetValue(null);
-                _pauseVisual.style.backgroundColor = active ? Color.green : Color.red;
-            }
-            else
-            {
-                _pauseVisual.style.backgroundColor = Color.red;
-            }
-        }
-        private void UpdateListUpdate()
-        {
-            locateList.itemsSource = GetSceneList();
-            locateList.Rebuild();
-        }
+        #endregion
     }
 }
