@@ -8,6 +8,9 @@ namespace SymphonyFrameWork.Editor
 {
     public class StaticFieldEditorUI : EditorWindow
     {
+        private FieldInfo _pauseField;
+        private VisualElement _pauseVisual;
+
         private static VisualElement ElementBase
         {
             get
@@ -54,21 +57,32 @@ namespace SymphonyFrameWork.Editor
         private void OnEnable()
         {
             // `_pause` フィールドを取得
-            var staticField = typeof(PauseManager).GetField("_pause", BindingFlags.Static | BindingFlags.NonPublic);
+            _pauseField = typeof(PauseManager).GetField("_pause", BindingFlags.Static | BindingFlags.NonPublic);
 
             // UI を作成
             var root = rootVisualElement;
+            PauseInit(root);
 
+            EditorApplication.update += PauseVisualUpdate;
+        }
+
+        private void OnDisable()
+        {
+            EditorApplication.update -= PauseVisualUpdate;
+        }
+
+        private void PauseInit(VisualElement root)
+        {
             VisualElement pause = ElementBase;
 
             // ラベル
             Label pauseTitle = Title;
             pauseTitle.text = "Pause 状態";
-            
+
             pause.Add(pauseTitle);
 
             // Toggle (チェックボックス)
-            var pauseVisual = new VisualElement()
+            _pauseVisual = new VisualElement()
             {
                 style =
                 {
@@ -76,21 +90,26 @@ namespace SymphonyFrameWork.Editor
                     height = 40,
                 }
             };
-            
+
             // 初期値を設定
-            if (staticField != null)
+
+
+            pause.Add(_pauseVisual);
+
+            root.Add(pause);
+        }
+
+        private void PauseVisualUpdate()
+        {
+            if (_pauseField != null)
             {
-                bool active = (bool)staticField.GetValue(null);
-                pauseVisual.style.backgroundColor = active ? Color.green : Color.red;
+                bool active = (bool)_pauseField.GetValue(null);
+                _pauseVisual.style.backgroundColor = active ? Color.green : Color.red;
             }
             else
             {
-                pauseVisual.style.backgroundColor = Color.red;
+                _pauseVisual.style.backgroundColor = Color.red;
             }
-
-            pause.Add(pauseVisual);
-           
-            root.Add(pause);
         }
     }
 }

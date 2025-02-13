@@ -25,7 +25,7 @@ public class MyScriptEditor : Editor
         GUILayout.Space(10);
         var storyData = target as Debugger;
 
-        if (GUILayout.Button("テキスト読み込み"))
+        if (GUILayout.Button("ポーズとリズーム"))
         {
             storyData.PauseAndResume();
         }
