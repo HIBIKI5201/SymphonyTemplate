@@ -1,5 +1,4 @@
 using UnityEditor;
-using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -19,9 +18,12 @@ namespace SymphonyFrameWork.Editor
                 string newPath = movedAssets[i];
 
                 // 移動が保護フォルダ内のアセットかどうかを判定
-                if (oldPath.StartsWith(protectedPath) && !newPath.StartsWith(protectedPath))
+                if (oldPath.StartsWith(protectedPath))
                 {
-                    Debug.LogWarning($"移動禁止: {oldPath} を {newPath} に移動しようとしましたが、元の場所に戻します。");
+                    EditorUtility.DisplayDialog(
+                    "移動禁止",
+                    $"'{oldPath}' は移動できません。",
+                    "OK");
 
                     // 移動を元に戻す
                     AssetDatabase.MoveAsset(newPath, oldPath);
