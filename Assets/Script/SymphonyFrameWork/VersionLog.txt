@@ -1,7 +1,11 @@
 #Version
-1.17.0
+1.17.1
 
 #Log
+1.17.1
+[Update]
+SymphonyTask
+
 1.17.0
 [Add]
 SymphonyEditor

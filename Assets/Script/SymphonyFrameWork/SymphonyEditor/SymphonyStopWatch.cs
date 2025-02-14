@@ -4,13 +4,16 @@ using Debug = UnityEngine.Debug;
 
 namespace SymphonyFrameWork.Debugger
 {
+    /// <summary>
+    /// ストップウォッチを提供するクラス
+    /// </summary>
     public static class SymphonyStopWatch
     {
 #if UNITY_EDITOR
         private static Dictionary<int, (Stopwatch watch, string text)> dict = new();
 #endif
         /// <summary>
-        /// 他と被らないIDを指定してください
+        /// 指定されたIDのストップウォッチを計測開始する
         /// </summary>
         /// <param name="id"></param>
         /// <param name="text"></param>
@@ -20,13 +23,13 @@ namespace SymphonyFrameWork.Debugger
 #if UNITY_EDITOR
             if (!dict.TryAdd(id, (Stopwatch.StartNew(), text)))
             {
-                Debug.LogWarning($"ストップウォッチのIDが被っています\n{id}ではない別のIDを指定してください");
+                Debug.LogWarning($"ストップウォッチのIDが被っています\n{id} ではない別のIDを指定してください");
             }
 #endif
         }
 
         /// <summary>
-        /// 開始時と同じIDを入れて下さい
+        /// IDのタイマーを停止しログに出力
         /// </summary>
         /// <param name="id"></param>
         [Conditional("UNITY_EDITOR")]
