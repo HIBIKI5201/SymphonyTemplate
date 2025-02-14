@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace SymphonyFrameWork.Editor
 {
-    public class SymphonyEditor : EditorWindow
+    public class SymphonyWindow : EditorWindow
     {
         private const string WindowName = "Symphony Admin";
 
@@ -51,7 +51,7 @@ namespace SymphonyFrameWork.Editor
         [MenuItem("Window/Symphony FrameWork/" + WindowName)]
         public static void ShowWindow()
         {
-            SymphonyEditor wnd = GetWindow<SymphonyEditor>();
+            SymphonyWindow wnd = GetWindow<SymphonyWindow>();
             wnd.titleContent = new GUIContent(WindowName);
         }
 
