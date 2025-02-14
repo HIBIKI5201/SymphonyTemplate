@@ -73,7 +73,7 @@ namespace SymphonyFrameWork.Editor
 
         private void PauseVisualUpdate()
         {
-            if (_pauseInfo != null)
+            if (_pauseVisual != null && _pauseInfo != null)
             {
                 bool active = (bool)_pauseInfo.GetValue(null);
                 _pauseVisual.style.backgroundColor = new StyleColor(active ? Color.green : Color.red);
