@@ -8,8 +8,10 @@ using UnityEngine.UIElements;
 
 namespace SymphonyFrameWork.Editor
 {
-    public class StaticFieldEditorUI : EditorWindow
+    public class SymphonyEditor : EditorWindow
     {
+        private const string WindowName = "Admin";
+
         private static VisualElement ElementBase
         {
             get
@@ -46,11 +48,11 @@ namespace SymphonyFrameWork.Editor
             }
         }
 
-        [MenuItem("Symphony FrameWork/Admin")]
+        [MenuItem("Symphony FrameWork/" + WindowName)]
         public static void ShowWindow()
         {
-            StaticFieldEditorUI wnd = GetWindow<StaticFieldEditorUI>();
-            wnd.titleContent = new GUIContent("Symphony Admin");
+            SymphonyEditor wnd = GetWindow<SymphonyEditor>();
+            wnd.titleContent = new GUIContent(WindowName);
         }
 
         private void OnEnable()
@@ -86,7 +88,7 @@ namespace SymphonyFrameWork.Editor
         }
         private void UpdateListUpdate()
         {
-            locateList.itemsSource = GetSceneList();
+            locateList.itemsSource = GetLocateList();
             locateList.Rebuild();
         }
 
@@ -158,10 +160,10 @@ namespace SymphonyFrameWork.Editor
                 makeItem = () => new Label(),
                 bindItem = (element, index) =>
                 {
-                    var kvp = GetSceneList()[index];
+                    var kvp = GetLocateList()[index];
                     (element as Label).text = $"type : {kvp.Key.Name} -> obj : {kvp.Value.name}";
                 },
-                itemsSource = GetSceneList(),
+                itemsSource = GetLocateList(),
                 selectionType = SelectionType.None
             };
             @base.Add(locateList);
@@ -169,7 +171,7 @@ namespace SymphonyFrameWork.Editor
             root.Add(@base);
         }
 
-        private List<KeyValuePair<Type, Component>> GetSceneList()
+        private List<KeyValuePair<Type, Component>> GetLocateList()
         {
             if (locateDict != null)
             {
