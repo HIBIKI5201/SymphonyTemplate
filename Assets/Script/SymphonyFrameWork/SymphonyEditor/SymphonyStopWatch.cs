@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 
-namespace SymphonyFrameWork.Editor
+namespace SymphonyFrameWork.Debugger
 {
     public static class SymphonyStopWatch
     {

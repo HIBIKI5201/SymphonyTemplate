@@ -2,7 +2,7 @@ using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace SymphonyFrameWork.Editor
+namespace SymphonyFrameWork.Debugger
 {
     /// <summary>
     /// エディタ用のログを発行するクラス
