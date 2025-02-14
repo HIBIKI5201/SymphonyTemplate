@@ -1,4 +1,5 @@
 using SymphonyFrameWork.Utility;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEditor;
@@ -24,7 +25,14 @@ namespace SymphonyFrameWork.Editor
         };
 
         //static SymphonyPackageLoader() => EditorApplication.delayCall += () => CheckAndInstallPackagesAsync(true);
-        //試した事　EditorApplication.delayCall、SessionState、InitializeOnLoad、
+        //試した事
+        //InitializeOnLoad => コンパイル時（Play時など）に実行される上に
+        //                    実行タイミングが早すぎてエディタの初期化前に実行される
+        //EditorApplication.delayCall => Play時に実行される
+        //SessionState => 実行タイミングが早い問題のせいで処理に失敗して終わる
+        //EditorPrefs => 上記に加え再起動しても実行されない
+        //EditorApplication.update => 非同期実行している間にタスクが重複していく
+
 
 
         /// <summary>
@@ -49,9 +57,7 @@ namespace SymphonyFrameWork.Editor
                 return;
             }
 
-            var missingPackages = requirePackages
-                .Where(pkg => !installedPackages
-                .Any(installedPkg => installedPkg.name == "com.unity." + pkg)).ToArray();
+            var missingPackages = GetMissingPackages(requirePackages, installedPackages);
 
             //パッケージがない場合は終了
             if (missingPackages.Length < 1)
@@ -105,6 +111,26 @@ namespace SymphonyFrameWork.Editor
         }
 
         /// <summary>
+        /// パッケージがロードされているかチェックする
+        /// </summary>
+        private static string[] GetMissingPackages(string[] required, PackageCollection installedPackages)
+        {
+            var missingPackages = new ConcurrentBag<string>();
+
+            Parallel.ForEach(required, pkg =>
+            {
+                string fullPackageName = "com.unity." + pkg;
+
+                if (!installedPackages.Any(installedPkg => installedPkg.name == fullPackageName))
+                {
+                    missingPackages.Add(fullPackageName);
+                }
+            });
+
+            return missingPackages.ToArray();
+        }
+
+        /// <summary>
         /// パッケージをロードする
         /// </summary>
         /// <param name="packageNames"></param>
@@ -113,7 +139,7 @@ namespace SymphonyFrameWork.Editor
         {
             foreach (var name in packageNames)
             {
-                AddRequest addRequest = Client.Add("com.unity." + name);
+                AddRequest addRequest = Client.Add(name);
 
                 // IAsyncOperation を非同期タスクで待機
                 await SymphonyTask.WaitUntil(() => addRequest.IsCompleted);
@@ -128,5 +154,7 @@ namespace SymphonyFrameWork.Editor
                 }
             }
         }
+
+
     }
 }
