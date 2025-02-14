@@ -1,4 +1,6 @@
 using SymphonyFrameWork.CoreSystem;
+using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -22,13 +24,16 @@ namespace SymphonyFrameWork.Editor
             var container = LoadWindow();
 
             PauseInit(container);
+            LocateDictInit(container);
 
             EditorApplication.update += PauseVisualUpdate;
+            EditorApplication.update += LocateListUpdate;
         }
 
         private void OnDisable()
         {
             EditorApplication.update -= PauseVisualUpdate;
+            EditorApplication.update -= LocateListUpdate;
         }
 
         private TemplateContainer LoadWindow()
@@ -65,13 +70,15 @@ namespace SymphonyFrameWork.Editor
                 _pauseVisual.style.backgroundColor = new StyleColor(Color.red);
             }
         }
-        /*
-        private void UpdateListUpdate()
+        
+        private void LocateListUpdate()
         {
-            locateList.itemsSource = GetLocateList();
-            locateList.Rebuild();
+            if (locateList != null)
+            {
+                locateList.itemsSource = GetLocateList();
+                locateList.Rebuild();
+            }
         }
-        */
 
         #endregion
 
@@ -94,7 +101,7 @@ namespace SymphonyFrameWork.Editor
         }
 
         #endregion
-        /*
+
         #region ServiceLocator
 
         private FieldInfo locateInfo;
@@ -110,27 +117,22 @@ namespace SymphonyFrameWork.Editor
                 locateDict = (Dictionary<Type, Component>)locateInfo.GetValue(null);
             }
 
-            VisualElement @base = ElementBase;
+            locateList = root.Q<ListView>("locate-list");
 
-            Label title = Title;
-            title.text = "ロケート登録しているもの";
+            locateList.makeItem =() => new Label();
 
-            @base.Add(title);
-
-            locateList = new ListView
+            // 項目のバインド（データを UI に反映）
+            locateList.bindItem = (element, index) =>
             {
-                makeItem = () => new Label(),
-                bindItem = (element, index) =>
-                {
-                    var kvp = GetLocateList()[index];
-                    (element as Label).text = $"type : {kvp.Key.Name} -> obj : {kvp.Value.name}";
-                },
-                itemsSource = GetLocateList(),
-                selectionType = SelectionType.None
+                var kvp = GetLocateList()[index];
+                (element as Label).text = $"type : {kvp.Key.Name} -> obj : {kvp.Value.name}";
             };
-            @base.Add(locateList);
 
-            root.Add(@base);
+            // データのセット
+            locateList.itemsSource = GetLocateList();
+
+            // 選択タイプの設定
+            locateList.selectionType = SelectionType.None;
         }
 
         private List<KeyValuePair<Type, Component>> GetLocateList()
@@ -145,6 +147,5 @@ namespace SymphonyFrameWork.Editor
         }
 
         #endregion
-        */
     }
 }
