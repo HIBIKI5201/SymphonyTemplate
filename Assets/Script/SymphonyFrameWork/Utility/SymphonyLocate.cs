@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace SymphonyFrameWork.Utility
 {
+    /// <summary>
+    /// ServiceLocatorにロケート登録するクラス
+    /// </summary>
     public class SymphonyLocate : MonoBehaviour
     {
         [SerializeField, Tooltip("ロケートするコンポーネント")]
