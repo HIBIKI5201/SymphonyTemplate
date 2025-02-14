@@ -1,7 +1,13 @@
 #Version
-1.16.8
+1.17.0
 
 #Log
+[Add]
+1.17.0
+[Add]
+SymphonyEditor
+SymphonyAssetPostProcessor
+
 1.16.8
 [Add]
 SymphonySingleton
