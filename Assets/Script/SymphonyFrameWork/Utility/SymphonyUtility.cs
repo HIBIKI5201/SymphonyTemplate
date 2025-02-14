@@ -1,18 +1,9 @@
-using UnityEngine;
-
 namespace SymphonyFrameWork.Utility
 {
+    /// <summary>
+    /// 便利な機能を提供するクラス
+    /// </summary>
     public static class SymphonyUtility
     {
-        public static bool NullCheckComponent(this Component component, string message = "component is not found")
-        {
-            if (component)
-            {
-                return true;
-            }
-
-            Debug.LogError(message);
-            return false;
-        }
     }
 }
