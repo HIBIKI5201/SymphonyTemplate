@@ -18,7 +18,7 @@ public class Debugger : ScriptableObject
 [CustomEditor(typeof(Debugger))]
 public class MyScriptEditor : Editor
 {
-    public override async void OnInspectorGUI()
+    public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
