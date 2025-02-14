@@ -1,6 +1,4 @@
 using SymphonyFrameWork.CoreSystem;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -12,42 +10,6 @@ namespace SymphonyFrameWork.Editor
     {
         private const string WindowName = "Symphony Admin";
 
-        private static VisualElement ElementBase
-        {
-            get
-            {
-                var element = new VisualElement()
-                {
-                    style =
-                    {
-                        alignItems = Align.Center,
-                        alignSelf = Align.Center,
-                        alignContent = Align.Center,
-
-                        top = 20,
-                        bottom = 20,
-                    }
-                };
-                return element;
-            }
-        }
-
-        private static Label Title
-        {
-            get
-            {
-                var element = new Label()
-                {
-                    style =
-                    {
-                        fontSize = 20,
-                        bottom = 5,
-                    }
-                };
-                return element;
-            }
-        }
-
         [MenuItem("Window/Symphony FrameWork/" + WindowName)]
         public static void ShowWindow()
         {
@@ -57,20 +19,37 @@ namespace SymphonyFrameWork.Editor
 
         private void OnEnable()
         {
-            // UI を作成
-            var root = rootVisualElement;
-            PauseInit(root);
-            LocateDictInit(root);
+            var container = LoadWindow();
+
+            PauseInit(container);
 
             EditorApplication.update += PauseVisualUpdate;
-            EditorApplication.update += UpdateListUpdate;
         }
 
         private void OnDisable()
         {
             EditorApplication.update -= PauseVisualUpdate;
-            EditorApplication.update -= UpdateListUpdate;
         }
+
+        private TemplateContainer LoadWindow()
+        {
+            rootVisualElement.Clear();
+
+            var windowTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(DIRECTORY_PATH + "SymphonyWindow.uxml"); ;
+            if (windowTree != null)
+            {
+                var windowElement = windowTree.Instantiate();
+                rootVisualElement.Add(windowElement);
+                return windowElement;
+            }
+            else
+            {
+                Debug.LogError("ウィンドウが見つかりません");
+                return null;
+            }
+        }
+
+        private const string DIRECTORY_PATH = "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/UITK/";
 
         #region Update
 
@@ -79,18 +58,20 @@ namespace SymphonyFrameWork.Editor
             if (_pauseInfo != null)
             {
                 bool active = (bool)_pauseInfo.GetValue(null);
-                _pauseVisual.style.backgroundColor = active ? Color.green : Color.red;
+                _pauseVisual.style.backgroundColor = new StyleColor(active ? Color.green : Color.red);
             }
             else
             {
-                _pauseVisual.style.backgroundColor = Color.red;
+                _pauseVisual.style.backgroundColor = new StyleColor(Color.red);
             }
         }
+        /*
         private void UpdateListUpdate()
         {
             locateList.itemsSource = GetLocateList();
             locateList.Rebuild();
         }
+        */
 
         #endregion
 
@@ -104,35 +85,16 @@ namespace SymphonyFrameWork.Editor
             // _pause フィールドを取得
             _pauseInfo = typeof(PauseManager).GetField("_pause", BindingFlags.Static | BindingFlags.NonPublic);
 
-            VisualElement @base = ElementBase;
-            @base.style.height = 100;
-
-            // ラベル
-            Label pauseTitle = Title;
-            pauseTitle.text = "Pause 状態";
-
-            @base.Add(pauseTitle);
-
-            // Toggle (チェックボックス)
-            _pauseVisual = new VisualElement()
+            if (root == null)
             {
-                style =
-                {
-                    width = 40,
-                    height = 40,
-                }
-            };
+                root = LoadWindow();
+            }
 
-            // 初期値を設定
-
-
-            @base.Add(_pauseVisual);
-
-            root.Add(@base);
+            _pauseVisual = root.Q<VisualElement>("pause");
         }
 
         #endregion
-
+        /*
         #region ServiceLocator
 
         private FieldInfo locateInfo;
@@ -183,5 +145,6 @@ namespace SymphonyFrameWork.Editor
         }
 
         #endregion
+        */
     }
 }
