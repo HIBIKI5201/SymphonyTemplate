@@ -1,3 +1,4 @@
+using SymphonyFrameWork.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,7 +6,7 @@ namespace SymphonyFrameWork.CoreSystem
 {
     public static class SymphonyCoreSystem
     {
-        private static Scene _systemScene;
+        private static Scene? _systemScene;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void GameBeforeSceneLoaded()
@@ -13,9 +14,11 @@ namespace SymphonyFrameWork.CoreSystem
             _systemScene = SceneManager.CreateScene("SymphonySystem");
         }
 
-        public static void MoveObjectToSymphonySystem(GameObject go)
+        public static async void MoveObjectToSymphonySystem(GameObject go)
         {
-            SceneManager.MoveGameObjectToScene(go, _systemScene);
+            await SymphonyTask.WaitUntil(() => _systemScene != null, default);
+
+            SceneManager.MoveGameObjectToScene(go, _systemScene.Value);
         }
     }
 }
