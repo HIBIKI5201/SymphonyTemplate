@@ -1,4 +1,6 @@
+using SymphonyFrameWork.Utility;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
@@ -16,57 +18,55 @@ namespace SymphonyFrameWork.Editor
 
         static SymphonyPackageLoader()
         {
+            CheckAndInstallPackagesAsync();
+        }
+
+
+        static async void CheckAndInstallPackagesAsync()
+        {
+            // パッケージリストを非同期で取得
+            var installedPackages = await GetInstalledPackagesAsync();
+
+            foreach (var packageName in requirePackages)
+            {
+                var isPackageInstalled = installedPackages.Any(pkg => pkg.name == packageName);
+                if (!isPackageInstalled)
+                {
+                    await InstallPackageAsync(packageName);
+                }
+            }
+        }
+
+        static async Task<PackageCollection> GetInstalledPackagesAsync()
+        {
             ListRequest listRequest = Client.List();
 
+            // IAsyncOperation を非同期タスクで待機
+            await SymphonyTask.WaitUntil(() => listRequest.IsCompleted);
 
-            if (listRequest.IsCompleted)
+            if (listRequest.Status == StatusCode.Failure)
             {
-                if (listRequest.Status == StatusCode.Failure)
-                {
-                    Debug.LogError("Failed to fetch package list: " + listRequest.Error.message);
-                    return;
-                }
+                Debug.LogError("Failed to fetch package list: " + listRequest.Error.message);
+                return null;
+            }
 
-                // インストールされているパッケージの名前を取得
-                var installedPackages = listRequest.Result;
-                foreach (var packageName in requirePackages)
-                {
-                    var isPackageInstalled = installedPackages.Any(pkg => pkg.name == packageName);
-                    if (!isPackageInstalled)
-                    {
-                        // パッケージがインストールされていない場合、インストールを試みる
-                        //InstallPackage(packageName);
+            return listRequest.Result;
+        }
 
-                        Debug.Log($"is package installed {isPackageInstalled}");
-                    }
-                }
+        static async Task InstallPackageAsync(string packageName)
+        {
+            AddRequest addRequest = Client.Add(packageName);
 
-                Debug.Log(string.Join(" ", installedPackages));
-            };
+            // IAsyncOperation を非同期タスクで待機
+            await SymphonyTask.WaitUntil(() => addRequest.IsCompleted);
 
-            void InstallPackage(string name)
+            if (addRequest.Status == StatusCode.Failure)
             {
-                // パッケージをインストール
-                AddRequest addRequest = Client.Add(name);
-
-                // インストール処理後のコールバック
-                EditorApplication.update += () =>
-                {
-                    if (addRequest.IsCompleted)
-                    {
-                        if (addRequest.Status == StatusCode.Failure)
-                        {
-                            Debug.LogError($"Failed to install package: {addRequest.Error.message}");
-                        }
-                        else
-                        {
-                            Debug.Log($"Package installed: {name}");
-                        }
-
-                        // 次回更新での処理を停止
-                        EditorApplication.update -= () => { };
-                    }
-                };
+                Debug.LogError("Failed to install package: " + addRequest.Error.message);
+            }
+            else
+            {
+                Debug.Log("Package installed: " + packageName);
             }
         }
     }
