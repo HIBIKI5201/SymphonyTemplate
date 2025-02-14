@@ -11,32 +11,53 @@ namespace SymphonyFrameWork.Editor
     [InitializeOnLoad]
     public static class SymphonyPackageLoader
     {
+        private static bool _isCheck = false;
+
         private static readonly string[] requirePackages = new string[]
         {
             "com.unity.addressables",
+            "com.unity.cinemachine",
+            "com.unity.probuilder",
+            "com.unity.behavior"
         };
 
         static SymphonyPackageLoader()
         {
-            CheckAndInstallPackagesAsync();
+            if (!_isCheck)
+            {
+                _isCheck = true;
+                CheckAndInstallPackagesAsync();
+            }
         }
 
-
+        /// <summary>
+        /// パッケージがロードされているかチェックする
+        /// </summary>
         static async void CheckAndInstallPackagesAsync()
         {
             // パッケージリストを非同期で取得
             var installedPackages = await GetInstalledPackagesAsync();
 
-            foreach (var packageName in requirePackages)
+            var missingPackages = requirePackages.Where(pkg => !installedPackages.Any(installedPkg => installedPkg.name == pkg)).ToArray();
+
+            //パッケージがない場合は終了
+            if (missingPackages.Length <= 0)
             {
-                var isPackageInstalled = installedPackages.Any(pkg => pkg.name == packageName);
-                if (!isPackageInstalled)
-                {
-                    await InstallPackageAsync(packageName);
-                }
+                return;
+            }
+
+            if (EditorUtility.DisplayDialog("SymphonyPackageLoader",
+                $"{string.Join('\n', missingPackages)} をインストールしします",
+                "OK"))
+            {
+                await InstallPackageAsync(missingPackages);
             }
         }
 
+        /// <summary>
+        /// インストールされているパッケージを返す
+        /// </summary>
+        /// <returns></returns>
         static async Task<PackageCollection> GetInstalledPackagesAsync()
         {
             ListRequest listRequest = Client.List();
@@ -53,21 +74,42 @@ namespace SymphonyFrameWork.Editor
             return listRequest.Result;
         }
 
-        static async Task InstallPackageAsync(string packageName)
+        /// <summary>
+        /// パッケージをロードする
+        /// </summary>
+        /// <param name="packageNames"></param>
+        /// <returns></returns>
+        static async Task InstallPackageAsync(string[] packageNames)
         {
-            AddRequest addRequest = Client.Add(packageName);
+            EditorUtility.DisplayProgressBar("パッケージのインストール",
+                "必要なパッケージをインストールしています",
+                0f);
 
-            // IAsyncOperation を非同期タスクで待機
-            await SymphonyTask.WaitUntil(() => addRequest.IsCompleted);
+            int count = 0;
+            foreach (var name in packageNames)
+            {
+                AddRequest addRequest = Client.Add(name);
 
-            if (addRequest.Status == StatusCode.Failure)
-            {
-                Debug.LogError("Failed to install package: " + addRequest.Error.message);
+                // IAsyncOperation を非同期タスクで待機
+                await SymphonyTask.WaitUntil(() => addRequest.IsCompleted);
+
+                if (addRequest.Status == StatusCode.Failure)
+                {
+                    Debug.LogError("Failed to install package: " + addRequest.Error.message);
+                }
+                else
+                {
+                    Debug.Log("Package installed: " + name);
+                }
+
+                count++;
+
+                EditorUtility.DisplayProgressBar("パッケージのインストール",
+                    "必要なパッケージをインストールしています",
+                    count / packageNames.Length);
             }
-            else
-            {
-                Debug.Log("Package installed: " + packageName);
-            }
+
+            EditorUtility.ClearProgressBar();
         }
     }
 }
