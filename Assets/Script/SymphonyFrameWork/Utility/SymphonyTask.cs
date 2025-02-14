@@ -14,7 +14,7 @@ namespace SymphonyFrameWork.Utility
             Debug.Log($"{action.Method} is done");
         }
 
-        public static async Task WaitUntil(Func<bool> action, CancellationToken token)
+        public static async Task WaitUntil(Func<bool> action, CancellationToken token = default)
         {
             while (!action.Invoke())
             {

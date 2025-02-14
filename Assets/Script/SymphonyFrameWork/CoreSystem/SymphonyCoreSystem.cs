@@ -16,7 +16,7 @@ namespace SymphonyFrameWork.CoreSystem
 
         public static async void MoveObjectToSymphonySystem(GameObject go)
         {
-            await SymphonyTask.WaitUntil(() => _systemScene != null, default);
+            await SymphonyTask.WaitUntil(() => _systemScene != null);
 
             SceneManager.MoveGameObjectToScene(go, _systemScene.Value);
         }
