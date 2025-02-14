@@ -10,7 +10,7 @@ namespace SymphonyFrameWork.Editor
 {
     public class SymphonyEditor : EditorWindow
     {
-        private const string WindowName = "Admin";
+        private const string WindowName = "Symphony Admin";
 
         private static VisualElement ElementBase
         {
@@ -48,7 +48,7 @@ namespace SymphonyFrameWork.Editor
             }
         }
 
-        [MenuItem("Symphony FrameWork/" + WindowName)]
+        [MenuItem("Window/Symphony FrameWork/" + WindowName)]
         public static void ShowWindow()
         {
             SymphonyEditor wnd = GetWindow<SymphonyEditor>();
