@@ -13,6 +13,7 @@ namespace SymphonyFrameWork.Editor
     {
         private static readonly string[] requirePackages = new string[]
         {
+            "ai.navigation",
             "addressables",
             "cinemachine",
             "probuilder",
@@ -22,7 +23,7 @@ namespace SymphonyFrameWork.Editor
             "visualeffectgraph"
         };
 
-        static SymphonyPackageLoader() => EditorApplication.delayCall += () => CheckAndInstallPackagesAsync(true);
+        //static SymphonyPackageLoader() => EditorApplication.delayCall += () => CheckAndInstallPackagesAsync(true);
 
         /// <summary>
         /// パッケージがロードされているかチェックする
