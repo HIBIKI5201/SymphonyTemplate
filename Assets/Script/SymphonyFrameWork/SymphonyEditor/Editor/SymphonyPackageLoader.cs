@@ -22,13 +22,15 @@ namespace SymphonyFrameWork.Editor
             "visualeffectgraph"
         };
 
-        static SymphonyPackageLoader() => EditorApplication.delayCall += CheckAndInstallPackagesAsync;
+        static SymphonyPackageLoader() => EditorApplication.delayCall += () => CheckAndInstallPackagesAsync(true);
 
         /// <summary>
         /// パッケージがロードされているかチェックする
         /// </summary>
         [MenuItem("Window/Symphony FrameWork/" + nameof(SymphonyPackageLoader))]
-        private static async void CheckAndInstallPackagesAsync()
+        private static void MenuExecution() => CheckAndInstallPackagesAsync(false);
+
+        private static async void CheckAndInstallPackagesAsync(bool isEnterEditor)
         {
             //パッケージマネージャーの初期化が終わっているか
             if (Client.List() == null)
@@ -51,7 +53,7 @@ namespace SymphonyFrameWork.Editor
             //パッケージがない場合は終了
             if (missingPackages.Length <= 0)
             {
-                if (EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}",
+                if (!isEnterEditor && EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}",
                 "全てのパッケージがインストールされています",
                 "OK"))
                 {
