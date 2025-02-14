@@ -22,25 +22,25 @@ namespace SymphonyFrameWork.Editor
             "visualeffectgraph"
         };
 
-        private const string SESSION_KEY = nameof(SymphonyPackageLoader);
-
-        static SymphonyPackageLoader()
-        {
-            //起動直後かどうか判定する
-            if (!SessionState.GetBool(SESSION_KEY, false))
-            {
-                SessionState.SetBool(SESSION_KEY, true);
-                CheckAndInstallPackagesAsync();
-            }
-        }
-
         /// <summary>
         /// パッケージがロードされているかチェックする
         /// </summary>
+        [MenuItem("Window/Symphony FrameWork/" + nameof(SymphonyPackageLoader))]
         private static async void CheckAndInstallPackagesAsync()
         {
+            //パッケージマネージャーの初期化が終わっているか
+            if (Client.List() == null)
+            {
+                return;
+            }
+
             // パッケージリストを非同期で取得
             var installedPackages = await GetInstalledPackagesAsync();
+
+            if (installedPackages == null)
+            {
+                return;
+            }
 
             var missingPackages = requirePackages
                 .Where(pkg => !installedPackages
@@ -49,14 +49,19 @@ namespace SymphonyFrameWork.Editor
             //パッケージがない場合は終了
             if (missingPackages.Length <= 0)
             {
-                return;
+                if (EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}",
+                "全てのパッケージがインストールされています",
+                "OK"))
+                {
+                    return;
+                }
             }
 
-            if (EditorUtility.DisplayDialog("SymphonyPackageLoader",
-                $"{string.Join('\n', missingPackages)} をインストールしします",
-                "OK"))
+            if (EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}", 
+                "以下のパッケージをインストールします\n" + string.Join('\n', missingPackages),
+                "OK","Cancel"))
             {
-                await InstallPackageAsync(missingPackages);
+                await InstallPackageAsync(missingPackages); 
             }
         }
 
