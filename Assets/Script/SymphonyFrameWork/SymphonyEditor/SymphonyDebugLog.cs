@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -44,10 +45,22 @@ namespace SymphonyFrameWork.Debugger
 #endif
         }
 
+        [Conditional("UNITY_EDITOR")]
+        public static void CheckComponentNull<T>(this T component) where T : Component
+        {
+#if UNITY_EDITOR
+            if (component == null)
+            {
+                Debug.LogWarning($"The component {typeof(T).Name} of {component.name} is null.");
+            }
+#endif
+        }
+
+        [Obsolete("この機能は安全性が保障されていません。CheckComponentNullを使用してください")]
         public static bool IsComponentNotNull<T>(this T component) where T : Component
         {
             if (component == null) {
-                Debug.LogError($"The component of type {typeof(T).Name} is null.");
+                Debug.LogWarning($"The component of type {typeof(T).Name} is null.");
                 return false;
             }
             else {
