@@ -22,6 +22,8 @@ namespace SymphonyFrameWork.Editor
             "visualeffectgraph"
         };
 
+        static SymphonyPackageLoader() => EditorApplication.delayCall += CheckAndInstallPackagesAsync;
+
         /// <summary>
         /// パッケージがロードされているかチェックする
         /// </summary>
