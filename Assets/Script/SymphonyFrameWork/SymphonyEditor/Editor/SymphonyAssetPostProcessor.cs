@@ -17,12 +17,12 @@ namespace SymphonyFrameWork.Editor
                 string oldPath = movedFromAssetPaths[i];
                 string newPath = movedAssets[i];
 
-                // 移動が保護フォルダ内のアセットかどうかを判定
+                // 移動がSymphonyFrameWorkのアセットかどうかを判定
                 if (oldPath.StartsWith(protectedPath))
                 {
                     EditorUtility.DisplayDialog(
                     "移動禁止",
-                    $"'{oldPath}' は移動できません。",
+                    $"SymphonyFrameWorkは移動できません。\npath : '{oldPath}'",
                     "OK");
 
                     // 移動を元に戻す
