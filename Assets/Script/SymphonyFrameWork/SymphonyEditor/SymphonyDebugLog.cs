@@ -13,6 +13,11 @@ namespace SymphonyFrameWork.Debugger
 #if UNITY_EDITOR
         private static string _logText = string.Empty;
 #endif
+
+        /// <summary>
+        /// エディタ上でのみ出力されるデバッグログ
+        /// </summary>
+        /// <param name="text"></param>
         [Conditional("UNITY_EDITOR")]
         public static void DirectLog(string text)
         {
@@ -21,6 +26,10 @@ namespace SymphonyFrameWork.Debugger
 #endif
         }
 
+        /// <summary>
+        /// ログのテキストにメッセージを追加する
+        /// </summary>
+        /// <param name="text"></param>
         [Conditional("UNITY_EDITOR")]
         public static void AddText(string text)
         {
@@ -29,6 +38,9 @@ namespace SymphonyFrameWork.Debugger
 #endif
         }
 
+        /// <summary>
+        /// 追加されたメッセージを削除する
+        /// </summary>
         [Conditional("UNITY_EDITOR")]
         public static void ClearText()
         {
@@ -37,6 +49,9 @@ namespace SymphonyFrameWork.Debugger
 #endif
         }
 
+        /// <summary>
+        /// 追加されたメッセージをログに出力する
+        /// </summary>
         [Conditional("UNITY_EDITOR")]
         public static void TextLog()
         {
@@ -60,7 +75,7 @@ namespace SymphonyFrameWork.Debugger
             }
 #endif
         }
-        
+
         [Obsolete("この機能は安全性が保障されていません。CheckComponentNullを使用してください")]
         public static bool IsComponentNotNull<T>(this T component) where T : Component
         {
