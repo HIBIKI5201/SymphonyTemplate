@@ -40,7 +40,7 @@ namespace SymphonyFrameWork.CoreSystem
         }
 
         /// <summary>
-        /// 入れられたMonoBehaviourを継承するクラスをロケーターに登録する
+        /// 入れられたコンポーネントをロケーターに登録する
         /// </summary>
         /// <typeparam name="T">登録する型</typeparam>
         /// <param name="instance">インスタンス</param>
@@ -125,41 +125,5 @@ namespace SymphonyFrameWork.CoreSystem
             Singleton,
             Locator,
         }
-
-        #region 旧シングルトン用メソッド
-        /// <summary>
-        /// 入れられたMonoBehaviourを継承するクラスをシングルトン化する
-        /// </summary>
-        /// <typeparam name="T">シングルトン化する型</typeparam>
-        /// <param name="instance">シングルトンインスタンス</param>
-        /// <returns>辞書に追加が成功したらtrue、失敗したらfalse</returns>
-        [Obsolete("このメソッドは旧型式です。" + nameof(SetInstance) + "を使ってください")]
-        public static void SetSinglton<T>(T instance) where T : Component
-        {
-            SetInstance(instance, LocateType.Singleton);
-        }
-
-        /// <summary>
-        /// 型のクラスがシングルトン化していた場合はインスタンスを返す
-        /// </summary>
-        /// <typeparam name="T">取得したいシングルトンインスタンスの型</typeparam>
-        /// <returns>指定した型のインスタンス</returns>
-        [Obsolete("このメソッドは旧型式です。" + nameof(GetInstance) + "を使ってください")]
-        public static T GetSingleton<T>() where T : Component
-        {
-            return GetInstance<T>();
-        }
-
-        /// <summary>
-        /// 指定した型のインスタンスを破棄する
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        [Obsolete("このメソッドは旧型式です。" + nameof(DestroyInstance) + "を使ってください")]
-        public static void DestroySingleton<T>() where T : Component
-        {
-            DestroyInstance<T>();
-        }
-
-        #endregion
     }
 }
