@@ -24,6 +24,8 @@ namespace SymphonyFrameWork.Editor
         };
 
         //static SymphonyPackageLoader() => EditorApplication.delayCall += () => CheckAndInstallPackagesAsync(true);
+        //試した事　EditorApplication.delayCall、SessionState、InitializeOnLoad、
+
 
         /// <summary>
         /// パッケージがロードされているかチェックする
@@ -82,10 +84,16 @@ namespace SymphonyFrameWork.Editor
 
             ListRequest listRequest = Client.List();
 
+            float timer = Time.time;
             // IAsyncOperation を非同期タスクで待機
-            await SymphonyTask.WaitUntil(() => listRequest.IsCompleted);
+            await SymphonyTask.WaitUntil(() => listRequest.IsCompleted || timer + 60 < Time.time);
 
             EditorUtility.ClearProgressBar();
+
+            if (timer + 60 < Time.time)
+            {
+                EditorUtility.DisplayDialog(nameof(SymphonyPackageLoader), "タイムアウトしました", "OK");
+            }
 
             if (listRequest.Status == StatusCode.Failure)
             {
