@@ -11,7 +11,7 @@
         </engine:VisualElement>
         <engine:VisualElement class="base text" style="height: 300px;">
             <engine:Label text="サービスロケーターの&#10;登録リスト" class="title" />
-            <engine:ListView name="locate-list" style="width: 100%; height: 180px; margin-top: 15px; margin-right: 0; margin-bottom: 15px; margin-left: 0;" />
+            <engine:ListView name="locate-list" fixed-item-height="50" style="width: 100%; height: 180px; margin-top: 15px; margin-right: 0; margin-bottom: 15px; margin-left: 0;" />
         </engine:VisualElement>
         <engine:VisualElement class="base" style="height: 300px;" />
     </engine:ScrollView>

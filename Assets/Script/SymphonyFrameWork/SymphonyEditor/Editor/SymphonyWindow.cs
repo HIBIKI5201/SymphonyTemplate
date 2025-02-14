@@ -128,13 +128,13 @@ namespace SymphonyFrameWork.Editor
 
             locateList = root.Q<ListView>("locate-list");
 
-            locateList.makeItem =() => new Label();
+            locateList.makeItem = () => new Label();
 
             // 項目のバインド（データを UI に反映）
             locateList.bindItem = (element, index) =>
             {
                 var kvp = GetLocateList()[index];
-                (element as Label).text = $"type : {kvp.Key.Name} -> obj : {kvp.Value.name}";
+                (element as Label).text = $"type : {kvp.Key.Name}\nobj : {kvp.Value.name}";
             };
 
             // データのセット
