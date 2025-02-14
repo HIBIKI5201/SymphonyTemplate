@@ -5,9 +5,15 @@ using UnityEngine.UIElements;
 
 namespace SymphonyFrameWork.Utility
 {
+    /// <summary>
+    /// VisualElementをCSで制御するベースクラス
+    /// </summary>
     [UxmlElement]
     public abstract partial class SymphonyVisualElement : VisualElement
     {
+        /// <summary>
+        /// 初期化処理のタスク
+        /// </summary>
         public Task InitializeTask { get; private set; }
 
         public SymphonyVisualElement(string path, InitializeType type = InitializeType.All)
@@ -15,6 +21,12 @@ namespace SymphonyFrameWork.Utility
             InitializeTask = Initialize(path, type);
         }
 
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
+        /// <param name="path">UXMLのパス</param>
+        /// <param name="type">初期化のタイプ</param>
+        /// <returns></returns>
         private async Task Initialize(string path, InitializeType type)
         {
             VisualTreeAsset treeAsset = default;
@@ -71,8 +83,16 @@ namespace SymphonyFrameWork.Utility
             }
         }
 
+        /// <summary>
+        /// サブクラス固有の初期化処理
+        /// </summary>
+        /// <param name="container">ロードしたUXMLのコンテナ</param>
+        /// <returns></returns>
         protected abstract Task Initialize_S(TemplateContainer container);
 
+        /// <summary>
+        /// 初期化のタイプ
+        /// </summary>
         [Flags]
         public enum InitializeType
         {
