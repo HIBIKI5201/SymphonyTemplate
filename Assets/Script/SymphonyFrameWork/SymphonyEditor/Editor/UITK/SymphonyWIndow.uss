@@ -26,8 +26,16 @@
     margin-top: 10px;
     width: 100%;
     align-items: center;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .text {
     color: rgb(255, 255, 255);
+    font-size: 15px;
 }
