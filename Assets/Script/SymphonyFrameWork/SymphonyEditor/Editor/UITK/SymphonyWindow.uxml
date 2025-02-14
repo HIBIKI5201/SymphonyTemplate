@@ -1,11 +1,11 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/UITK/SymphonyWIndow.uss?fileID=7433441132597879392&amp;guid=16c3f611d15eda644b63e276b16e6925&amp;type=3#SymphonyWIndow" />
-    <engine:VisualElement style="width: 100%; height: 150px; background-color: rgb(0, 0, 0); margin-top: 3px; margin-right: 0; margin-bottom: 10px; margin-left: 0; align-items: center; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+    <engine:VisualElement class="base text" style="height: 150px;">
         <engine:Label text="ポーズ状態" class="title" />
         <engine:VisualElement name="pause" style="width: 60px; height: 60px; background-color: rgb(0, 255, 0); margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;" />
     </engine:VisualElement>
-    <engine:VisualElement style="padding-top: 3%; padding-right: 3%; padding-bottom: 3%; padding-left: 3%; color: rgb(255, 255, 255); font-size: 15px; background-color: rgb(0, 0, 0); margin-top: 10px; margin-bottom: 10px; height: 200px; width: 100%; align-items: center;">
-        <engine:Label text="サービスロケーターの登録リスト" class="title" />
-        <engine:ListView name="locate-list" style="width: 100%; height: 100%; margin-top: 15px; margin-right: 15px; margin-bottom: 15px; margin-left: 15px;" />
+    <engine:VisualElement class="base text" style="height: 200px;">
+        <engine:Label text="サービスロケーターの&#10;登録リスト" class="title" />
+        <engine:ListView name="locate-list" style="width: 100%; height: 100%; margin-top: 15px; margin-right: 0; margin-bottom: 15px; margin-left: 0;" />
     </engine:VisualElement>
 </engine:UXML>
