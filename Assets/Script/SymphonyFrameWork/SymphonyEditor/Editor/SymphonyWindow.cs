@@ -11,7 +11,11 @@ namespace SymphonyFrameWork.Editor
     public class SymphonyWindow : EditorWindow
     {
         private const string WindowName = "Symphony Admin";
+        private const string DIRECTORY_PATH = "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/UITK/";
 
+        /// <summary>
+        /// ウィンドウ表示
+        /// </summary>
         [MenuItem("Window/Symphony FrameWork/" + WindowName)]
         public static void ShowWindow()
         {
@@ -23,11 +27,18 @@ namespace SymphonyFrameWork.Editor
         {
             var container = LoadWindow();
 
-            PauseInit(container);
-            LocateDictInit(container);
+            if (container != null)
+            {
+                PauseInit(container);
+                LocateDictInit(container);
 
-            EditorApplication.update += PauseVisualUpdate;
-            EditorApplication.update += LocateListUpdate;
+                EditorApplication.update += PauseVisualUpdate;
+                EditorApplication.update += LocateListUpdate;
+            }
+            else
+            {
+                Debug.LogWarning("ウィンドウがロードできませんでした");
+            }
         }
 
         private void OnDisable()
@@ -36,6 +47,10 @@ namespace SymphonyFrameWork.Editor
             EditorApplication.update -= LocateListUpdate;
         }
 
+        /// <summary>
+        /// UXMLを追加
+        /// </summary>
+        /// <returns></returns>
         private TemplateContainer LoadWindow()
         {
             rootVisualElement.Clear();
@@ -53,8 +68,6 @@ namespace SymphonyFrameWork.Editor
                 return null;
             }
         }
-
-        private const string DIRECTORY_PATH = "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/UITK/";
 
         #region Update
 
