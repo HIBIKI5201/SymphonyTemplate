@@ -47,8 +47,6 @@ namespace SymphonyFrameWork.CoreSystem
         /// <returns>“o˜^‚ª¬Œ÷‚µ‚½‚çtrueA¸”s‚µ‚½‚çfalse</returns>
         public static void SetInstance<T>(T instance, LocateType type = LocateType.Locator) where T : Component
         {
-            CreateInstance();
-
             // Šù‚É“o˜^‚³‚ê‚Ä‚¢‚éê‡‚Í’Ç‰Á‚Å‚«‚È‚¢
             if (!_singletonObjects.TryAdd(typeof(T), instance))
             {
@@ -61,6 +59,7 @@ namespace SymphonyFrameWork.CoreSystem
 
             if (type == LocateType.Singleton)
             {
+                CreateInstance();
                 instance.transform.SetParent(_instance.transform);
             }
         }
