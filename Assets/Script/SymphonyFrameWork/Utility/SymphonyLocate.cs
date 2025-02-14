@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace SymphonyFrameWork.Utility
 {
-    public class SymphonySingleton : MonoBehaviour
+    public class SymphonyLocate : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("ロケートするコンポーネント")]
         Component _target;
 
         private void OnEnable()
