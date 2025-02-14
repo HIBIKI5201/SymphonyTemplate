@@ -20,7 +20,7 @@ namespace SymphonyFrameWork.Utility
                     .GetMethod(nameof(ServiceLocator.SetInstance))
                     .MakeGenericMethod(targetType);
 
-                method.Invoke(null, new object[] 
+                method.Invoke(null, new object[]
                 { _target, ServiceLocator.LocateType.Locator });
             }
         }
