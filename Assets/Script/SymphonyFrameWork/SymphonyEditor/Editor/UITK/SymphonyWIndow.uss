@@ -1,8 +1,9 @@
 .title {
     -unity-font-style: bold;
     color: rgb(255, 255, 255);
-    font-size: 40px;
+    font-size: 25px;
     -unity-text-align: middle-center;
-    width: 300px;
+    width: 100%;
     height: 50px;
+    white-space: pre-wrap;
 }
