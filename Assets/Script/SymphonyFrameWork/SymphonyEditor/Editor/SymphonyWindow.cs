@@ -31,9 +31,6 @@ namespace SymphonyFrameWork.Editor
             {
                 PauseInit(container);
                 LocateDictInit(container);
-
-                EditorApplication.update += PauseVisualUpdate;
-                EditorApplication.update += LocateListUpdate;
             }
             else
             {
@@ -43,8 +40,8 @@ namespace SymphonyFrameWork.Editor
 
         private void OnDisable()
         {
-            EditorApplication.update -= PauseVisualUpdate;
-            EditorApplication.update -= LocateListUpdate;
+            PauseStop();
+            LocateStop();
         }
 
         /// <summary>
@@ -69,32 +66,6 @@ namespace SymphonyFrameWork.Editor
             }
         }
 
-        #region Update
-
-        private void PauseVisualUpdate()
-        {
-            if (_pauseVisual != null && _pauseInfo != null)
-            {
-                bool active = (bool)_pauseInfo.GetValue(null);
-                _pauseVisual.style.backgroundColor = new StyleColor(active ? Color.green : Color.red);
-            }
-            else
-            {
-                _pauseVisual.style.backgroundColor = new StyleColor(Color.red);
-            }
-        }
-        
-        private void LocateListUpdate()
-        {
-            if (locateList != null)
-            {
-                locateList.itemsSource = GetLocateList();
-                locateList.Rebuild();
-            }
-        }
-
-        #endregion
-
         #region PauseManager
 
         private FieldInfo _pauseInfo;
@@ -111,6 +82,31 @@ namespace SymphonyFrameWork.Editor
             }
 
             _pauseVisual = root.Q<VisualElement>("pause");
+
+            root.Q<Button>("button-pause").clicked += () => PauseManager.Pause = true;
+            root.Q<Button>("button-resume").clicked += () => PauseManager.Pause = false;
+
+            EditorApplication.update += PauseVisualUpdate;
+        }
+
+        private void PauseStop()
+        {
+
+            EditorApplication.update -= PauseVisualUpdate;
+        }
+
+
+        private void PauseVisualUpdate()
+        {
+            if (_pauseVisual != null && _pauseInfo != null)
+            {
+                bool active = (bool)_pauseInfo.GetValue(null);
+                _pauseVisual.style.backgroundColor = new StyleColor(active ? Color.green : Color.red);
+            }
+            else
+            {
+                _pauseVisual.style.backgroundColor = new StyleColor(Color.red);
+            }
         }
 
         #endregion
@@ -146,6 +142,13 @@ namespace SymphonyFrameWork.Editor
 
             // 選択タイプの設定
             locateList.selectionType = SelectionType.None;
+
+            EditorApplication.update += LocateListUpdate;
+        }
+
+        private void LocateStop()
+        {
+            EditorApplication.update -= LocateListUpdate;
         }
 
         private List<KeyValuePair<Type, Component>> GetLocateList()
@@ -157,6 +160,15 @@ namespace SymphonyFrameWork.Editor
             return locateDict != null ?
                 new List<KeyValuePair<Type, Component>>(locateDict) :
                 new List<KeyValuePair<Type, Component>>();
+        }
+
+        private void LocateListUpdate()
+        {
+            if (locateList != null)
+            {
+                locateList.itemsSource = GetLocateList();
+                locateList.Rebuild();
+            }
         }
 
         #endregion
