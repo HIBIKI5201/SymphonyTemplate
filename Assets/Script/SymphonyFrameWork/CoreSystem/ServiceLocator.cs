@@ -11,7 +11,7 @@ namespace SymphonyFrameWork.CoreSystem
     //インスタンスを一時的にシーンロードから切り離したい時にも使用できる
     public static class ServiceLocator
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
         {
             _instance = null;

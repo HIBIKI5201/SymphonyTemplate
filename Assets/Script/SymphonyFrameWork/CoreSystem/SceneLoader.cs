@@ -10,7 +10,7 @@ namespace SymphonyFrameWork.CoreSystem
     {
         private static Dictionary<string, Scene> _sceneDict = new();
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void BeforeSceneLoad()
         {
             _sceneDict.Clear();

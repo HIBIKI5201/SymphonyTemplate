@@ -5,7 +5,7 @@ namespace SymphonyFrameWork.CoreSystem
 {
     public static class SaveDataSystem<DataType> where DataType : new()
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
         {
             _saveData = null;

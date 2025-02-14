@@ -1,13 +1,20 @@
 using SymphonyFrameWork.Utility;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace SymphonyFrameWork.CoreSystem
 {
+    /// <summary>
+    /// SymphonyFrameWorkの管理シーンを持つ
+    /// </summary>
     public static class SymphonyCoreSystem
     {
         private static Scene? _systemScene;
 
+        /// <summary>
+        /// 初期化でシステム用のシーンを作成
+        /// </summary>
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void GameBeforeSceneLoaded()
         {
@@ -16,9 +23,13 @@ namespace SymphonyFrameWork.CoreSystem
 
         public static async void MoveObjectToSymphonySystem(GameObject go)
         {
-            await SymphonyTask.WaitUntil(() => _systemScene != null);
+            //シーンが制作されているか、対象がnullになったら進む
+            await SymphonyTask.WaitUntil(() => _systemScene != null || go == null);
 
-            SceneManager.MoveGameObjectToScene(go, _systemScene.Value);
+            if (go)
+            {
+                SceneManager.MoveGameObjectToScene(go, _systemScene.Value);
+            }
         }
     }
 }

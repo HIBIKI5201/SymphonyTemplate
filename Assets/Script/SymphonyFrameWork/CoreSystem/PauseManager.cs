@@ -9,7 +9,7 @@ namespace SymphonyFrameWork.CoreSystem
 {
     public static class PauseManager
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initiazlze()
         {
             _pause = false;
