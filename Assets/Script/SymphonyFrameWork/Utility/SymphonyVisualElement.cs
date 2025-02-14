@@ -3,6 +3,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace SymphonyFrameWork.Utility
 {
     /// <summary>
@@ -16,9 +20,9 @@ namespace SymphonyFrameWork.Utility
         /// </summary>
         public Task InitializeTask { get; private set; }
 
-        public SymphonyVisualElement(string path, InitializeType type = InitializeType.All)
+        public SymphonyVisualElement(string path, InitializeType initializeType = InitializeType.All, LoadType loadType = LoadType.Resources)
         {
-            InitializeTask = Initialize(path, type);
+            InitializeTask = Initialize(path, initializeType, loadType);
         }
 
         /// <summary>
@@ -27,12 +31,29 @@ namespace SymphonyFrameWork.Utility
         /// <param name="path">UXMLのパス</param>
         /// <param name="type">初期化のタイプ</param>
         /// <returns></returns>
-        private async Task Initialize(string path, InitializeType type)
+        private async Task Initialize(string path, InitializeType type, LoadType loadType)
         {
             VisualTreeAsset treeAsset = default;
             if (!string.IsNullOrEmpty(path))
             {
-                treeAsset = Resources.Load<VisualTreeAsset>(path);
+                switch (loadType)
+                {
+                    case LoadType.Resources:
+                        treeAsset = Resources.Load<VisualTreeAsset>(path);
+                        break;
+
+                    case LoadType.Addressable:
+                        Debug.LogWarning("Addressableは現在使用できません");
+                        break;
+
+                    case LoadType.AssetDataBase:
+#if UNITY_EDITOR
+                        treeAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(path);
+#else
+                        Debug.Log("AssetDataBaseを使用したロードはエディタ専用です");
+#endif
+                        break;
+                }
             }
             else
             {
@@ -101,6 +122,13 @@ namespace SymphonyFrameWork.Utility
             FullRangth = 1 << 1,
             PickModeIgnore = 1 << 2,
             All = Absolute | FullRangth | PickModeIgnore
+        }
+
+        public enum LoadType
+        {
+            Resources = 0,
+            Addressable = 1,
+            AssetDataBase = 2,
         }
     }
 }

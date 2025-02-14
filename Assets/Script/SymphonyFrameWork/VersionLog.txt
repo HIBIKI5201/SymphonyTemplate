@@ -1,7 +1,11 @@
 #Version
-1.17.3
+1.17.4
 
 #Log
+1.17.4
+[Update]
+PauseManager
+
 1.17.3
 [Delete]
 SymphonyUtility
