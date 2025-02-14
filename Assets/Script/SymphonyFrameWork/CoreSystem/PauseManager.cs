@@ -1,3 +1,4 @@
+using SymphonyFrameWork.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -64,6 +65,22 @@ namespace SymphonyFrameWork.CoreSystem
                 {
                     time -= Time.deltaTime;
                 }
+                await Awaitable.NextFrameAsync(token);
+            }
+        }
+
+        /// <summary>
+        /// ポーズ中は待機するWaitUntil
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public static async Task PausableWaitUntil(Func<bool> action, CancellationToken token = default)
+        {
+            await SymphonyTask.WaitUntil(action, token);
+
+            if (_pause)
+            {
                 await Awaitable.NextFrameAsync(token);
             }
         }
