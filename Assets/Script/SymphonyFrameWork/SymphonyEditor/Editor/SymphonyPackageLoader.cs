@@ -51,7 +51,7 @@ namespace SymphonyFrameWork.Editor
                 .Any(installedPkg => installedPkg.name == "com.unity." + pkg)).ToArray();
 
             //パッケージがない場合は終了
-            if (missingPackages.Length <= 0)
+            if (missingPackages.Length < 1)
             {
                 if (!isEnterEditor && EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}",
                 "全てのパッケージがインストールされています",
@@ -60,12 +60,14 @@ namespace SymphonyFrameWork.Editor
                     return;
                 }
             }
-
-            if (EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}", 
-                "以下のパッケージをインストールします\n" + string.Join('\n', missingPackages),
-                "OK","Cancel"))
+            else
             {
-                await InstallPackageAsync(missingPackages); 
+                if (EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}",
+                    "以下のパッケージをインストールします\n" + string.Join('\n', missingPackages),
+                    "OK", "Cancel"))
+                {
+                    await InstallPackageAsync(missingPackages);
+                }
             }
         }
 
@@ -75,10 +77,14 @@ namespace SymphonyFrameWork.Editor
         /// <returns></returns>
         private static async Task<PackageCollection> GetInstalledPackagesAsync()
         {
+            EditorUtility.DisplayProgressBar(nameof(SymphonyPackageLoader), "パッケージを確認中", 0);
+
             ListRequest listRequest = Client.List();
 
             // IAsyncOperation を非同期タスクで待機
             await SymphonyTask.WaitUntil(() => listRequest.IsCompleted);
+
+            EditorUtility.ClearProgressBar();
 
             if (listRequest.Status == StatusCode.Failure)
             {
