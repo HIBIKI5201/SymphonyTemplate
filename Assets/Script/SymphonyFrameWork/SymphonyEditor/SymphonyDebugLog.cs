@@ -45,6 +45,11 @@ namespace SymphonyFrameWork.Debugger
 #endif
         }
 
+        /// <summary>
+        /// コンポーネントだった場合に警告を表示する
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="component"></param>
         [Conditional("UNITY_EDITOR")]
         public static void CheckComponentNull<T>(this T component) where T : Component
         {
@@ -55,7 +60,7 @@ namespace SymphonyFrameWork.Debugger
             }
 #endif
         }
-
+        
         [Obsolete("この機能は安全性が保障されていません。CheckComponentNullを使用してください")]
         public static bool IsComponentNotNull<T>(this T component) where T : Component
         {
