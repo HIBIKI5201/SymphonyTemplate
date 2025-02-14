@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace SymphonyFrameWork.CoreSystem
 {
+    /// <summary>
+    /// ƒ|[ƒYó‘Ô‚ğŠÇ—‚·‚éŒ^
+    /// </summary>
     public static class PauseManager
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

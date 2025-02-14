@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 namespace SymphonyFrameWork.CoreSystem
 {
+    /// <summary>
+    /// シーンのロードを管理するクラス
+    /// </summary>
     public static class SceneLoader
     {
         private static Dictionary<string, Scene> _sceneDict = new();

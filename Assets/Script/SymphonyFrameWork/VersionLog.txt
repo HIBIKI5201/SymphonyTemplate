@@ -1,7 +1,15 @@
 #Version
-1.17.1
+1.17.2
 
 #Log
+1.17.2
+[Fix]
+SymphonyCoreSystem
+ServiceLocator
+SceneLoader
+SaveDataSystem
+PauseManager
+
 1.17.1
 [Update]
 SymphonyTask

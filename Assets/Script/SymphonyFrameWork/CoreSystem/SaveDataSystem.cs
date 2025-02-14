@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace SymphonyFrameWork.CoreSystem
 {
+    /// <summary>
+    /// セーブデータを管理するクラス
+    /// </summary>
+    /// <typeparam name="DataType">データの型</typeparam>
     public static class SaveDataSystem<DataType> where DataType : new()
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
