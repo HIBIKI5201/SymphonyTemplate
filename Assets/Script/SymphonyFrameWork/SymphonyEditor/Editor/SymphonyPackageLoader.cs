@@ -17,11 +17,12 @@ namespace SymphonyFrameWork.Editor
             "ai.navigation",
             "addressables",
             "cinemachine",
-            "probuilder",
             "behavior",
+            "formats.fbx",
+            "probuilder",
             "postprocessing",
             "memoryprofiler",
-            "visualeffectgraph"
+            "visualeffectgraph",
         };
 
         //static SymphonyPackageLoader() => EditorApplication.delayCall += () => CheckAndInstallPackagesAsync(true);
