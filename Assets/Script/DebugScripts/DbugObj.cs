@@ -19,7 +19,7 @@ public class DbugObj : MonoBehaviour
     private void Start()
     {
         _velocity = Vector3.up * _speed;
-        SymphonyTween.Tweening(0, x => Debug.Log(x), 10, 1, _curve);
+        SymphonyTween.PausableTweening(0f, x => Debug.Log(x), 5, 10, _curve);
     }
 
     void Update()
