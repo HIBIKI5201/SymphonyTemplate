@@ -25,7 +25,7 @@ namespace SymphonyFrameWork.Utility
             float timer = Time.time;
 
             //時間終了までループ
-            while (timer + d <= Time.time)
+            while (Time.time <= timer + d)
             {
                 float elapsed = Time.time - timer;
 
@@ -62,7 +62,7 @@ namespace SymphonyFrameWork.Utility
             float timer = Time.time;
 
             //時間終了までループ
-            while (timer + d <= Time.time)
+            while (Time.time <= timer + d)
             {
                 float elapsed = Time.time - timer;
 
@@ -95,6 +95,7 @@ namespace SymphonyFrameWork.Utility
         /// <returns></returns>
         private static T? LerpValue<T>((T s, T e) value, float t) where T : struct
         {
+            //それぞれの型でLerpを実行
             T? result = value switch
             {
                 (int s, int e) => (T)Convert.ChangeType(Mathf.Lerp(s, e, t), typeof(T)),
@@ -120,11 +121,12 @@ namespace SymphonyFrameWork.Utility
         public static async void TweeningCurve<T>(T s, Action<T> action, T e, float d, AnimationCurve curve,
             CancellationToken token = default) where T : struct
         {
+            //カーブを
             curve = NormalizeCurve(curve);
             float timer = Time.time;
 
             //時間終了までループ
-            while (timer + d <= Time.time)
+            while (Time.time <= timer + d)
             {
                 float elapsed = Time.time - timer;
 
@@ -158,6 +160,7 @@ namespace SymphonyFrameWork.Utility
         /// <returns></returns>
         private static T? CurveValue<T>((T s, T e) value, float t, AnimationCurve curve) where T : struct
         {
+            //対応する型でカーブの量を掛ける
             T? result = value switch
             {
                 (int s, int e) => (T)Convert.ChangeType((e - s) * curve.Evaluate(t), typeof(T)),
@@ -171,6 +174,11 @@ namespace SymphonyFrameWork.Utility
             return result;
         }
 
+        /// <summary>
+        /// カーブのキーをxが0~1になるように正規化する
+        /// </summary>
+        /// <param name="curve"></param>
+        /// <returns></returns>
         private static AnimationCurve NormalizeCurve(AnimationCurve curve)
         {
             if (curve == null || curve.length == 0)
