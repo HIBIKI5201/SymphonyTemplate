@@ -3,7 +3,10 @@
     <engine:ScrollView>
         <engine:VisualElement class="base text" style="height: 200px;">
             <engine:Label text="ポーズ状態" class="title" style="margin-top: 5px;" />
-            <engine:VisualElement name="pause" style="width: 60px; height: 60px; background-color: rgb(0, 255, 0); margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);" />
+            <engine:VisualElement style="height: 89px; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;">
+                <engine:Label text="Label" name="pause-text" style="height: 20px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                <engine:VisualElement name="pause" style="width: 60px; height: 60px; background-color: rgb(0, 255, 0); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);" />
+            </engine:VisualElement>
             <engine:VisualElement style="height: 35px; width: 70%; flex-direction: row; align-content: center; justify-content: space-around;">
                 <engine:Button text="Resume" name="button-resume" class="button" />
                 <engine:Button text="Pause" name="button-pause" class="button" />

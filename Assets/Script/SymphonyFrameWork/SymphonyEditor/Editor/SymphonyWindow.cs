@@ -73,6 +73,7 @@ namespace SymphonyFrameWork.Editor
 
         private FieldInfo _pauseInfo;
         private VisualElement _pauseVisual;
+        private Label _pauseText;
 
         private void PauseInit(VisualElement root)
         {
@@ -85,6 +86,7 @@ namespace SymphonyFrameWork.Editor
             }
 
             _pauseVisual = root.Q<VisualElement>("pause");
+            _pauseText = root.Q<Label>("pause-text");
 
             root.Q<Button>("button-pause").clicked += () => PauseManager.Pause = true;
             root.Q<Button>("button-resume").clicked += () => PauseManager.Pause = false;
@@ -105,6 +107,7 @@ namespace SymphonyFrameWork.Editor
             {
                 bool active = (bool)_pauseInfo.GetValue(null);
                 _pauseVisual.style.backgroundColor = new StyleColor(active ? Color.green : Color.red);
+                _pauseText.text = active ? "True" : "False";
             }
             else
             {

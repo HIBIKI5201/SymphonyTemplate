@@ -1,7 +1,11 @@
 #Version
-1.18.1
+1.18.2
 
 #Log
+1.18.2
+[Update]
+SymphonyStopWatch
+
 1.18.1
 [Update]
 SymphonyWindow
