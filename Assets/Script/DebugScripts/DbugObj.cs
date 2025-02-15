@@ -13,9 +13,16 @@ public class DbugObj : MonoBehaviour
     [ReadOnly, SerializeField]
     private Vector3 _velocity = default;
 
+    [SerializeField]
+    private AnimationCurve _curve = null;
+
     private void Start()
     {
         _velocity = Vector3.up * _speed;
+
+        
+
+        SymphonyTween.Tweening(0, x => Debug.Log(x), 10, 1, _curve);
     }
 
     void Update()
@@ -24,9 +31,6 @@ public class DbugObj : MonoBehaviour
         {
             return;
         }
-
-        SymphonyTween.TweeningLerp((float)0,
-            x => transform.position = new Vector3(x, transform.position.y, transform.position.z), 10, 10);
 
         //if (-5 > transform.position.y)
         //{
