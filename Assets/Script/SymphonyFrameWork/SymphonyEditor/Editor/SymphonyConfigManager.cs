@@ -3,6 +3,7 @@ using UnityEngine;
 using System.IO;
 using SymphonyFrameWork.Config;
 using UnityEditor;
+using static UnityEngine.GraphicsBuffer;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -50,6 +51,26 @@ namespace SymphonyFrameWork.Editor
             {
                 Directory.CreateDirectory(resourcesPath);
                 AssetDatabase.Refresh();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Enum生成用のボタンを実行
+    /// </summary>
+    [CustomEditor(typeof(SceneManagerConfig))]
+    public class MyScriptEditor : UnityEditor.Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            GUILayout.Space(10);
+            var storyData = target as SceneManagerConfig;
+
+            if (GUILayout.Button("Enumを生成する"))
+            {
+                EnumGenerator.Method(storyData.SceneList, nameof(storyData.SceneList));
             }
         }
     }
