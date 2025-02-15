@@ -9,6 +9,7 @@ namespace SymphonyFrameWork.Utility
     {
         /// <summary>
         /// 指定した時間の間、AnimationCurveかLerpな曲線で指定した範囲を毎フレーム実行する
+        /// curveを指定した場合はCurveで、指定しないかnullの場合はLerpで実行される
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="s">スタートの値</param>
@@ -56,6 +57,7 @@ namespace SymphonyFrameWork.Utility
         /// <param name="action">実行内容</param>
         /// <param name="e">エンドの値</param>
         /// <param name="d">長さ</param>
+        [Obsolete("旧型式です。" + nameof(Tweening) + "を使用する事を推奨します")]
         public static async void TweeningLerp<T>(T s, Action<T> action, T e, float d,
             CancellationToken token = default) where T : struct
         {
@@ -118,6 +120,7 @@ namespace SymphonyFrameWork.Utility
         /// <param name="action">実行内容</param>
         /// <param name="e">エンドの値</param>
         /// <param name="d">長さ</param>
+        [Obsolete("旧型式です。" + nameof(Tweening) + "を使用する事を推奨します")]
         public static async void TweeningCurve<T>(T s, Action<T> action, T e, float d, AnimationCurve curve,
             CancellationToken token = default) where T : struct
         {
