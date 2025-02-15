@@ -1,7 +1,23 @@
 #Version
-1.17.4
+1.18.1
 
 #Log
+1.18.1
+[Update]
+SymphonyWindow
+
+1.18.0
+[Add]
+SymphonyPackageLoader
+
+1.17.6
+[Update]
+SymphonyWindow
+
+1.17.5
+[Update]
+SymphonyVisualElement
+
 1.17.4
 [Update]
 PauseManager
@@ -24,7 +40,7 @@ SymphonyTask
 
 1.17.0
 [Add]
-SymphonyEditor
+SymphoWindow
 SymphonyAssetPostProcessor
 
 1.16.8

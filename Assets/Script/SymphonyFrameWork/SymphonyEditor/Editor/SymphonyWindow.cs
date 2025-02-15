@@ -8,6 +8,9 @@ using UnityEngine.UIElements;
 
 namespace SymphonyFrameWork.Editor
 {
+    /// <summary>
+    /// SymphonyFrameWorkの管理パネルを表示するクラス
+    /// </summary>
     public class SymphonyWindow : EditorWindow
     {
         private const string WindowName = "Symphony Admin";

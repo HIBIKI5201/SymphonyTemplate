@@ -9,6 +9,9 @@ using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
+    /// <summary>
+    /// 有用なパッケージを自動インストールするクラス
+    /// </summary>
     [InitializeOnLoad]
     public static class SymphonyPackageLoader
     {
