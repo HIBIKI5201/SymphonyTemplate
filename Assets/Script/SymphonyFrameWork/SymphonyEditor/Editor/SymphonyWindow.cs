@@ -13,7 +13,7 @@ namespace SymphonyFrameWork.Editor
     /// </summary>
     public class SymphonyWindow : EditorWindow
     {
-        private const string WindowName = "Symphony Admin";
+        private const string WindowName = "Symphony Administrator";
         private const string DIRECTORY_PATH = "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/UITK/";
 
         /// <summary>
