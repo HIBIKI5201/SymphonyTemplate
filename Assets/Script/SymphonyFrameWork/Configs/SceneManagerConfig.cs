@@ -17,5 +17,7 @@ namespace SymphonyFrameWork.Config
 
         [SerializeField, Tooltip("")]
         private string[] _sceneList;
+
+        public string[] SceneList { get => _sceneList; }
     }
 }
