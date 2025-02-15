@@ -1,8 +1,8 @@
-﻿using SymphonyFrameWork.Debugger;
-using UnityEngine;
+﻿using SymphonyFrameWork.Config;
+using SymphonyFrameWork.Debugger;
 using System.IO;
-using SymphonyFrameWork.Config;
 using UnityEditor;
+using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -27,7 +27,7 @@ namespace SymphonyFrameWork.Editor
             // ファイルが存在しない場合
             if (AssetDatabase.LoadAssetAtPath<T>(filePath) == null)
             {
-                CreateResourcesFolder(); 
+                CreateResourcesFolder();
 
                 //対象のアセットを生成してResources内に配置
                 T asset = ScriptableObject.CreateInstance<T>();
@@ -50,6 +50,26 @@ namespace SymphonyFrameWork.Editor
             {
                 Directory.CreateDirectory(resourcesPath);
                 AssetDatabase.Refresh();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Enum生成用のボタンを実行
+    /// </summary>
+    [CustomEditor(typeof(SceneManagerConfig))]
+    public class MyScriptEditor : UnityEditor.Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            GUILayout.Space(10);
+            var storyData = target as SceneManagerConfig;
+
+            if (GUILayout.Button("Enumを生成する"))
+            {
+                EnumGenerator.Method(storyData.SceneList, nameof(storyData.SceneList));
             }
         }
     }

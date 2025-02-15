@@ -14,5 +14,10 @@ namespace SymphonyFrameWork.Config
         [SerializeField, Tooltip("ロード中に表示されるシーン")]
         private string _loadScene;
         public string LoadScene { get => _loadScene; }
+
+        [SerializeField, Tooltip("")]
+        private string[] _sceneList;
+
+        public string[] SceneList { get => _sceneList; }
     }
 }
