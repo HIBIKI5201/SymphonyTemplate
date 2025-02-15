@@ -1,19 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security;
 using System.Text;
-using UnityEngine;
+using UnityEditor;
 
 namespace SymphonyFrameWork.Editor
 {
     public static class EnumGenerator
     {
-        private const string FrameWork_Path = "Assets/Script/SymphonyFrameWork/";
+        private const string FrameWork_Path = "Assets/Script/SymphonyFrameWork/Enum/";
 
         public static async void Method(string[] strings, string fileName)
         {
+            //重複を削除
             HashSet<string> hash = new HashSet<string>(strings);
+
+            if (hash.Count <= 0)
+            {
+                return;
+            }
+
+            //ディレクトリを生成
+            CreateResourcesFolder(FrameWork_Path);
 
             var enumFilePath = $"{FrameWork_Path}{fileName}Enum.cs";
             if (File.Exists(enumFilePath))
@@ -27,6 +35,19 @@ namespace SymphonyFrameWork.Editor
             content = content.Append("}");
 
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// リソースフォルダが無ければ生成
+        /// </summary>
+        private static void CreateResourcesFolder(string resourcesPath)
+        {
+            //リソースがなければ生成
+            if (!Directory.Exists(resourcesPath))
+            {
+                Directory.CreateDirectory(resourcesPath);
+                AssetDatabase.Refresh();
+            }
         }
     }
 }
