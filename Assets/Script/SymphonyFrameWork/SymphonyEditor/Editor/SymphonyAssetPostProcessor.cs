@@ -15,6 +15,11 @@ namespace SymphonyFrameWork.Editor
             string[] movedAssets,
             string[] movedFromAssetPaths)
         {
+            SymphonyFileDontMove(movedAssets, movedFromAssetPaths);
+        }
+
+        private static void SymphonyFileDontMove(string[] movedAssets, string[] movedFromAssetPaths)
+        {
             for (int i = 0; i < movedAssets.Length; i++)
             {
                 string oldPath = movedFromAssetPaths[i];
