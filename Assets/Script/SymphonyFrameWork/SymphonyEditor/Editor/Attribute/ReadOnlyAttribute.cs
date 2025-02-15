@@ -1,11 +1,18 @@
+using System;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace SymphonyFrameWork
 {
+    /// <summary>
+    /// インスペクター上で編集不可のプロパティを生成する
+    /// </summary>
     public class ReadOnlyAttribute : PropertyAttribute { }
 
+    /// <summary>
+    /// プロパティを変更不可にする
+    /// </summary>
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     public class ReadOnlyDrawer : PropertyDrawer
     {
@@ -16,6 +23,9 @@ namespace SymphonyFrameWork
         }
     }
 
+    /// <summary>
+    /// ReadOnryが表示されない場合に警告を出す
+    /// </summary>
     [CustomEditor(typeof(MonoBehaviour), true)]
     public class ReadOnlyInspector : UnityEditor.Editor
     {
