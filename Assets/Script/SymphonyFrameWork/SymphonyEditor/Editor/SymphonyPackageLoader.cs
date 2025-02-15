@@ -1,4 +1,4 @@
-using SymphonyFrameWork.Utility;
+ï»¿using SymphonyFrameWork.Utility;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ using UnityEngine;
 namespace SymphonyFrameWork.Editor
 {
     /// <summary>
-    /// —L—p‚ÈƒpƒbƒP[ƒW‚ğ©“®ƒCƒ“ƒXƒg[ƒ‹‚·‚éƒNƒ‰ƒX
+    /// æœ‰ç”¨ãªãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’è‡ªå‹•ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹ã‚¯ãƒ©ã‚¹
     /// </summary>
     [InitializeOnLoad]
     public static class SymphonyPackageLoader
@@ -29,31 +29,31 @@ namespace SymphonyFrameWork.Editor
         };
 
         //static SymphonyPackageLoader() => EditorApplication.delayCall += () => CheckAndInstallPackagesAsync(true);
-        //‚µ‚½–
-        //InitializeOnLoad => ƒRƒ“ƒpƒCƒ‹iPlay‚È‚Çj‚ÉÀs‚³‚ê‚éã‚É
-        //                    Àsƒ^ƒCƒ~ƒ“ƒO‚ª‘‚·‚¬‚ÄƒGƒfƒBƒ^‚Ì‰Šú‰»‘O‚ÉÀs‚³‚ê‚é
-        //EditorApplication.delayCall => Play‚ÉÀs‚³‚ê‚é
-        //SessionState => Àsƒ^ƒCƒ~ƒ“ƒO‚ª‘‚¢–â‘è‚Ì‚¹‚¢‚Åˆ—‚É¸”s‚µ‚ÄI‚í‚é
-        //EditorPrefs => ã‹L‚É‰Á‚¦Ä‹N“®‚µ‚Ä‚àÀs‚³‚ê‚È‚¢
-        //EditorApplication.update => ”ñ“¯ŠúÀs‚µ‚Ä‚¢‚éŠÔ‚Éƒ^ƒXƒN‚ªd•¡‚µ‚Ä‚¢‚­
+        //è©¦ã—ãŸäº‹
+        //InitializeOnLoad => ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ™‚ï¼ˆPlayæ™‚ãªã©ï¼‰ã«å®Ÿè¡Œã•ã‚Œã‚‹ä¸Šã«
+        //                    å®Ÿè¡Œã‚¿ã‚¤ãƒŸãƒ³ã‚°ãŒæ—©ã™ãã¦ã‚¨ãƒ‡ã‚£ã‚¿ã®åˆæœŸåŒ–å‰ã«å®Ÿè¡Œã•ã‚Œã‚‹
+        //EditorApplication.delayCall => Playæ™‚ã«å®Ÿè¡Œã•ã‚Œã‚‹
+        //SessionState => å®Ÿè¡Œã‚¿ã‚¤ãƒŸãƒ³ã‚°ãŒæ—©ã„å•é¡Œã®ã›ã„ã§å‡¦ç†ã«å¤±æ•—ã—ã¦çµ‚ã‚ã‚‹
+        //EditorPrefs => ä¸Šè¨˜ã«åŠ ãˆå†èµ·å‹•ã—ã¦ã‚‚å®Ÿè¡Œã•ã‚Œãªã„
+        //EditorApplication.update => éåŒæœŸå®Ÿè¡Œã—ã¦ã„ã‚‹é–“ã«ã‚¿ã‚¹ã‚¯ãŒé‡è¤‡ã—ã¦ã„ã
 
 
 
         /// <summary>
-        /// ƒpƒbƒP[ƒW‚ªƒ[ƒh‚³‚ê‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN‚·‚é
+        /// ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãŒãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹
         /// </summary>
         [MenuItem("Window/Symphony FrameWork/" + nameof(SymphonyPackageLoader))]
         private static void MenuExecution() => CheckAndInstallPackagesAsync(false);
 
         private static async void CheckAndInstallPackagesAsync(bool isEnterEditor)
         {
-            //ƒpƒbƒP[ƒWƒ}ƒl[ƒWƒƒ[‚Ì‰Šú‰»‚ªI‚í‚Á‚Ä‚¢‚é‚©
+            //ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®åˆæœŸåŒ–ãŒçµ‚ã‚ã£ã¦ã„ã‚‹ã‹
             if (Client.List() == null)
             {
                 return;
             }
 
-            // ƒpƒbƒP[ƒWƒŠƒXƒg‚ğ”ñ“¯Šú‚Åæ“¾
+            // ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãƒªã‚¹ãƒˆã‚’éåŒæœŸã§å–å¾—
             var installedPackages = await GetInstalledPackagesAsync();
 
             if (installedPackages == null)
@@ -63,11 +63,11 @@ namespace SymphonyFrameWork.Editor
 
             var missingPackages = GetMissingPackages(requirePackages, installedPackages);
 
-            //ƒpƒbƒP[ƒW‚ª‚È‚¢ê‡‚ÍI—¹
+            //ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãŒãªã„å ´åˆã¯çµ‚äº†
             if (missingPackages.Length < 1)
             {
                 if (!isEnterEditor && EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}",
-                "‘S‚Ä‚ÌƒpƒbƒP[ƒW‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚Ü‚·",
+                "å…¨ã¦ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã¾ã™",
                 "OK"))
                 {
                     return;
@@ -76,7 +76,7 @@ namespace SymphonyFrameWork.Editor
             else
             {
                 if (EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}",
-                    "ˆÈ‰º‚ÌƒpƒbƒP[ƒW‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·\n" + string.Join('\n', missingPackages),
+                    "ä»¥ä¸‹ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™\n" + string.Join('\n', missingPackages),
                     "OK", "Cancel"))
                 {
                     await InstallPackageAsync(missingPackages);
@@ -85,24 +85,24 @@ namespace SymphonyFrameWork.Editor
         }
 
         /// <summary>
-        /// ƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚éƒpƒbƒP[ƒW‚ğ•Ô‚·
+        /// ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’è¿”ã™
         /// </summary>
         /// <returns></returns>
         private static async Task<PackageCollection> GetInstalledPackagesAsync()
         {
-            EditorUtility.DisplayProgressBar(nameof(SymphonyPackageLoader), "ƒpƒbƒP[ƒW‚ğŠm”F’†", 0);
+            EditorUtility.DisplayProgressBar(nameof(SymphonyPackageLoader), "ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ç¢ºèªä¸­", 0);
 
             ListRequest listRequest = Client.List();
 
             float timer = Time.time;
-            // IAsyncOperation ‚ğ”ñ“¯Šúƒ^ƒXƒN‚Å‘Ò‹@
+            // IAsyncOperation ã‚’éåŒæœŸã‚¿ã‚¹ã‚¯ã§å¾…æ©Ÿ
             await SymphonyTask.WaitUntil(() => listRequest.IsCompleted || timer + 60 < Time.time);
 
             EditorUtility.ClearProgressBar();
 
             if (timer + 60 < Time.time)
             {
-                EditorUtility.DisplayDialog(nameof(SymphonyPackageLoader), "ƒ^ƒCƒ€ƒAƒEƒg‚µ‚Ü‚µ‚½", "OK");
+                EditorUtility.DisplayDialog(nameof(SymphonyPackageLoader), "ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã—ã¾ã—ãŸ", "OK");
             }
 
             if (listRequest.Status == StatusCode.Failure)
@@ -115,7 +115,7 @@ namespace SymphonyFrameWork.Editor
         }
 
         /// <summary>
-        /// ƒpƒbƒP[ƒW‚ªƒ[ƒh‚³‚ê‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN‚·‚é
+        /// ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãŒãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹
         /// </summary>
         private static string[] GetMissingPackages(string[] required, PackageCollection installedPackages)
         {
@@ -135,7 +135,7 @@ namespace SymphonyFrameWork.Editor
         }
 
         /// <summary>
-        /// ƒpƒbƒP[ƒW‚ğƒ[ƒh‚·‚é
+        /// ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
         /// </summary>
         /// <param name="packageNames"></param>
         /// <returns></returns>
@@ -145,7 +145,7 @@ namespace SymphonyFrameWork.Editor
             {
                 AddRequest addRequest = Client.Add(name);
 
-                // IAsyncOperation ‚ğ”ñ“¯Šúƒ^ƒXƒN‚Å‘Ò‹@
+                // IAsyncOperation ã‚’éåŒæœŸã‚¿ã‚¹ã‚¯ã§å¾…æ©Ÿ
                 await SymphonyTask.WaitUntil(() => addRequest.IsCompleted);
 
                 if (addRequest.Status == StatusCode.Failure)

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,13 +10,13 @@ using UnityEditor;
 namespace SymphonyFrameWork.Utility
 {
     /// <summary>
-    /// VisualElement‚ğCS‚Å§Œä‚·‚éƒx[ƒXƒNƒ‰ƒX
+    /// VisualElementã‚’CSã§åˆ¶å¾¡ã™ã‚‹ãƒ™ãƒ¼ã‚¹ã‚¯ãƒ©ã‚¹
     /// </summary>
     [UxmlElement]
     public abstract partial class SymphonyVisualElement : VisualElement
     {
         /// <summary>
-        /// ‰Šú‰»ˆ—‚Ìƒ^ƒXƒN
+        /// åˆæœŸåŒ–å‡¦ç†ã®ã‚¿ã‚¹ã‚¯
         /// </summary>
         public Task InitializeTask { get; private set; }
 
@@ -26,10 +26,10 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
-        /// <param name="path">UXML‚ÌƒpƒX</param>
-        /// <param name="type">‰Šú‰»‚Ìƒ^ƒCƒv</param>
+        /// <param name="path">UXMLã®ãƒ‘ã‚¹</param>
+        /// <param name="type">åˆæœŸåŒ–ã®ã‚¿ã‚¤ãƒ—</param>
         /// <returns></returns>
         private async Task Initialize(string path, InitializeType type, LoadType loadType)
         {
@@ -43,14 +43,14 @@ namespace SymphonyFrameWork.Utility
                         break;
 
                     case LoadType.Addressable:
-                        Debug.LogWarning("Addressable‚ÍŒ»İg—p‚Å‚«‚Ü‚¹‚ñ");
+                        Debug.LogWarning("Addressableã¯ç¾åœ¨ä½¿ç”¨ã§ãã¾ã›ã‚“");
                         break;
 
                     case LoadType.AssetDataBase:
 #if UNITY_EDITOR
                         treeAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(path);
 #else
-                        Debug.Log("AssetDataBase‚ğg—p‚µ‚½ƒ[ƒh‚ÍƒGƒfƒBƒ^ê—p‚Å‚·");
+                        Debug.Log("AssetDataBaseã‚’ä½¿ç”¨ã—ãŸãƒ­ãƒ¼ãƒ‰ã¯ã‚¨ãƒ‡ã‚£ã‚¿å°‚ç”¨ã§ã™");
 #endif
                         break;
                 }
@@ -64,7 +64,7 @@ namespace SymphonyFrameWork.Utility
 
             if (treeAsset != null)
             {
-                #region eƒGƒŒƒƒ“ƒg‚Ì‰Šú‰»
+                #region è¦ªã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆã®åˆæœŸåŒ–
 
                 var container = treeAsset.Instantiate();
                 container.style.width = Length.Percent(100);
@@ -95,7 +95,7 @@ namespace SymphonyFrameWork.Utility
 
                 #endregion
 
-                // UI—v‘f‚Ìæ“¾
+                // UIè¦ç´ ã®å–å¾—
                 await Initialize_S(container);
             }
             else
@@ -105,14 +105,14 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// ƒTƒuƒNƒ‰ƒXŒÅ—L‚Ì‰Šú‰»ˆ—
+        /// ã‚µãƒ–ã‚¯ãƒ©ã‚¹å›ºæœ‰ã®åˆæœŸåŒ–å‡¦ç†
         /// </summary>
-        /// <param name="container">ƒ[ƒh‚µ‚½UXML‚ÌƒRƒ“ƒeƒi</param>
+        /// <param name="container">ãƒ­ãƒ¼ãƒ‰ã—ãŸUXMLã®ã‚³ãƒ³ãƒ†ãƒŠ</param>
         /// <returns></returns>
         protected abstract Task Initialize_S(TemplateContainer container);
 
         /// <summary>
-        /// ‰Šú‰»‚Ìƒ^ƒCƒv
+        /// åˆæœŸåŒ–ã®ã‚¿ã‚¤ãƒ—
         /// </summary>
         [Flags]
         public enum InitializeType

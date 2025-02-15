@@ -1,9 +1,9 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 
 namespace SymphonyFrameWork.Editor
 {
     /// <summary>
-    /// SymphonyFrameWork‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğ•ÛŒì‚·‚éƒNƒ‰ƒX
+    /// SymphonyFrameWorkã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’ä¿è­·ã™ã‚‹ã‚¯ãƒ©ã‚¹
     /// </summary>
     public class SymphonyAssetPostProcessor : AssetPostprocessor
     {
@@ -20,15 +20,15 @@ namespace SymphonyFrameWork.Editor
                 string oldPath = movedFromAssetPaths[i];
                 string newPath = movedAssets[i];
 
-                // ˆÚ“®‚ªSymphonyFrameWork‚ÌƒAƒZƒbƒg‚©‚Ç‚¤‚©‚ğ”»’è
+                // ç§»å‹•ãŒSymphonyFrameWorkã®ã‚¢ã‚»ãƒƒãƒˆã‹ã©ã†ã‹ã‚’åˆ¤å®š
                 if (oldPath.StartsWith(protectedPath))
                 {
                     EditorUtility.DisplayDialog(
-                    "ˆÚ“®‹Ö~",
-                    $"SymphonyFrameWork‚ÍˆÚ“®‚Å‚«‚Ü‚¹‚ñB\npath : '{oldPath}'",
+                    "ç§»å‹•ç¦æ­¢",
+                    $"SymphonyFrameWorkã¯ç§»å‹•ã§ãã¾ã›ã‚“ã€‚\npath : '{oldPath}'",
                     "OK");
 
-                    // ˆÚ“®‚ğŒ³‚É–ß‚·
+                    // ç§»å‹•ã‚’å…ƒã«æˆ»ã™
                     AssetDatabase.MoveAsset(newPath, oldPath);
                     AssetDatabase.Refresh();
                 }

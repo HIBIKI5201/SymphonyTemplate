@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 
 namespace SymphonyFrameWork.Debugger
 {
     /// <summary>
-    /// ƒXƒgƒbƒvƒEƒHƒbƒ`‚ğ’ñ‹Ÿ‚·‚éƒNƒ‰ƒX
+    /// ã‚¹ãƒˆãƒƒãƒ—ã‚¦ã‚©ãƒƒãƒã‚’æä¾›ã™ã‚‹ã‚¯ãƒ©ã‚¹
     /// </summary>
     public static class SymphonyStopWatch
     {
@@ -14,7 +14,7 @@ namespace SymphonyFrameWork.Debugger
 #endif
 
         /// <summary>
-        /// w’è‚³‚ê‚½•¶š—ñ‚ÌƒXƒgƒbƒvƒEƒHƒbƒ`‚ğŒv‘ªŠJn‚·‚é
+        /// æŒ‡å®šã•ã‚ŒãŸæ–‡å­—åˆ—ã®ã‚¹ãƒˆãƒƒãƒ—ã‚¦ã‚©ãƒƒãƒã‚’è¨ˆæ¸¬é–‹å§‹ã™ã‚‹
         /// </summary>
         /// <param name="id"></param>
         /// <param name="text"></param>
@@ -24,13 +24,13 @@ namespace SymphonyFrameWork.Debugger
 #if UNITY_EDITOR
             if (!dict.TryAdd(id, (Stopwatch.StartNew(), text)))
             {
-                Debug.LogWarning($"ƒXƒgƒbƒvƒEƒHƒbƒ`‚ÌID‚ª”í‚Á‚Ä‚¢‚Ü‚·\n{id} ‚Å‚Í‚È‚¢•Ê‚ÌID‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢");
+                Debug.LogWarning($"ã‚¹ãƒˆãƒƒãƒ—ã‚¦ã‚©ãƒƒãƒã®IDãŒè¢«ã£ã¦ã„ã¾ã™\n{id} ã§ã¯ãªã„åˆ¥ã®IDã‚’æŒ‡å®šã—ã¦ãã ã•ã„");
             }
 #endif
         }
 
         /// <summary>
-        /// ID‚Ìƒ^ƒCƒ}[‚ğ’â~‚µƒƒO‚Éo—Í
+        /// IDã®ã‚¿ã‚¤ãƒãƒ¼ã‚’åœæ­¢ã—ãƒ­ã‚°ã«å‡ºåŠ›
         /// </summary>
         /// <param name="id"></param>
         [Conditional("UNITY_EDITOR")]
@@ -43,7 +43,7 @@ namespace SymphonyFrameWork.Debugger
                 Debug.Log($"{value.text} <color=green><b>{value.watch.ElapsedMilliseconds}</b></color> ms");
                 dict.Remove(id);
             }
-            else Debug.LogWarning($"{id}‚ÌƒXƒgƒbƒvƒEƒHƒbƒ`‚ÍŠJn‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+            else Debug.LogWarning($"{id}ã®ã‚¹ãƒˆãƒƒãƒ—ã‚¦ã‚©ãƒƒãƒã¯é–‹å§‹ã•ã‚Œã¦ã„ã¾ã›ã‚“");
 #endif
         }
     }

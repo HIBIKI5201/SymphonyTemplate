@@ -1,4 +1,4 @@
-using SymphonyFrameWork.Utility;
+ï»¿using SymphonyFrameWork.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using UnityEngine;
 namespace SymphonyFrameWork.CoreSystem
 {
     /// <summary>
-    /// ƒ|[ƒYó‘Ô‚ğŠÇ—‚·‚éŒ^
+    /// ãƒãƒ¼ã‚ºçŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹å‹
     /// </summary>
     public static class PauseManager
     {
@@ -31,11 +31,11 @@ namespace SymphonyFrameWork.CoreSystem
             }
         }
 
-        [Tooltip("ƒ|[ƒY‚ÉtrueAƒŠƒY[ƒ€‚Éfalse‚ÅÀs‚·‚éƒCƒxƒ“ƒg")]
+        [Tooltip("ãƒãƒ¼ã‚ºæ™‚ã«trueã€ãƒªã‚ºãƒ¼ãƒ æ™‚ã«falseã§å®Ÿè¡Œã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ")]
         public static event Action<bool> OnPauseChanged;
 
         /// <summary>
-        /// ƒ|[ƒY‚É’â~‚·‚éWaitForSecond
+        /// ãƒãƒ¼ã‚ºæ™‚ã«åœæ­¢ã™ã‚‹WaitForSecond
         /// </summary>
         /// <param name="time"></param>
         /// <returns></returns>
@@ -52,7 +52,7 @@ namespace SymphonyFrameWork.CoreSystem
         }
 
         /// <summary>
-        /// ƒ|[ƒY‚É’â~‚·‚éWaitForSecond
+        /// ãƒãƒ¼ã‚ºæ™‚ã«åœæ­¢ã™ã‚‹WaitForSecond
         /// </summary>
         /// <param name="time"></param>
         /// <param name="token"></param>
@@ -70,7 +70,7 @@ namespace SymphonyFrameWork.CoreSystem
         }
 
         /// <summary>
-        /// ƒ|[ƒY’†‚Í‘Ò‹@‚·‚éWaitUntil
+        /// ãƒãƒ¼ã‚ºä¸­ã¯å¾…æ©Ÿã™ã‚‹WaitUntil
         /// </summary>
         /// <param name="action"></param>
         /// <param name="token"></param>
@@ -86,7 +86,7 @@ namespace SymphonyFrameWork.CoreSystem
         }
 
         /// <summary>
-        /// ƒ|[ƒY’†‚É’â~‚·‚éGameObject‚ÌDestroy
+        /// ãƒãƒ¼ã‚ºä¸­ã«åœæ­¢ã™ã‚‹GameObjectã®Destroy
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="t"></param>
@@ -112,7 +112,7 @@ namespace SymphonyFrameWork.CoreSystem
             void Resume();
 
             /// <summary>
-            /// PauseManager‚Éƒ|[ƒY‚ÌƒCƒxƒ“ƒg‚ğw”ƒ“o˜^‚·‚é
+            /// PauseManagerã«ãƒãƒ¼ã‚ºæ™‚ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’è³¼è²·ç™»éŒ²ã™ã‚‹
             /// </summary>
             /// <param name="pausable"></param>
             static void RegisterPauseManager(IPausable pausable)
@@ -142,7 +142,7 @@ namespace SymphonyFrameWork.CoreSystem
             }
 
             /// <summary>
-            /// ƒ|[ƒY‚ÌƒCƒxƒ“ƒg‚ğw”ƒ‰ğœ‚·‚é
+            /// ãƒãƒ¼ã‚ºæ™‚ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’è³¼è²·è§£é™¤ã™ã‚‹
             /// </summary>
             /// <param name="pausable"></param>
             static void UnregisterPauseManager(IPausable pausable)

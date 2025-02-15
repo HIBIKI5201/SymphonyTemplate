@@ -1,4 +1,4 @@
-using SymphonyFrameWork.CoreSystem;
+ï»¿using SymphonyFrameWork.CoreSystem;
 using System;
 using System.Reflection;
 using UnityEngine;
@@ -6,18 +6,18 @@ using UnityEngine;
 namespace SymphonyFrameWork.Utility
 {
     /// <summary>
-    /// ServiceLocator‚ÉƒƒP[ƒg“o˜^‚·‚éƒNƒ‰ƒX
+    /// ServiceLocatorã«ãƒ­ã‚±ãƒ¼ãƒˆç™»éŒ²ã™ã‚‹ã‚¯ãƒ©ã‚¹
     /// </summary>
     public class SymphonyLocate : MonoBehaviour
     {
-        [SerializeField, Tooltip("ƒƒP[ƒg‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒg")]
+        [SerializeField, Tooltip("ãƒ­ã‚±ãƒ¼ãƒˆã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ")]
         Component _target;
 
         private void OnEnable()
         {
             if (_target)
             {
-                //Target‚ÌƒNƒ‰ƒX‚ğƒLƒƒƒXƒg‚µ‚ÄÀs‚·‚é
+                //Targetã®ã‚¯ãƒ©ã‚¹ã‚’ã‚­ãƒ£ã‚¹ãƒˆã—ã¦å®Ÿè¡Œã™ã‚‹
                 Type targetType = _target.GetType();
                 MethodInfo method = typeof(ServiceLocator)
                     .GetMethod(nameof(ServiceLocator.SetInstance))
@@ -34,7 +34,7 @@ namespace SymphonyFrameWork.Utility
             {
                 Type targetType = _target.GetType();
 
-                //ServiceLocator.DestroyInstance‚ğæ“¾‚·‚é
+                //ServiceLocator.DestroyInstanceã‚’å–å¾—ã™ã‚‹
                 MethodInfo destroyMethod = typeof(ServiceLocator)
                             .GetMethod(nameof(ServiceLocator.DestroyInstance),
                             BindingFlags.Public | BindingFlags.Static,

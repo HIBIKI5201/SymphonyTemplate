@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -6,12 +6,12 @@ using UnityEngine;
 namespace SymphonyFrameWork.Utility
 {
     /// <summary>
-    /// Task‚Ì‹@”\‚ğŠg’£‚·‚éƒNƒ‰ƒX
+    /// Taskã®æ©Ÿèƒ½ã‚’æ‹¡å¼µã™ã‚‹ã‚¯ãƒ©ã‚¹
     /// </summary>
     public static class SymphonyTask
     {
         /// <summary>
-        /// ƒoƒbƒOƒOƒ‰ƒEƒ“ƒh‚Åˆ—‚·‚é
+        /// ãƒãƒƒã‚°ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰ã§å‡¦ç†ã™ã‚‹
         /// </summary>
         /// <param name="action"></param>
         public static async void BackGroundThreadAction(Action action)
@@ -22,7 +22,7 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// ƒoƒbƒOƒOƒ‰ƒEƒ“ƒh‚Åˆ—‚·‚é
+        /// ãƒãƒƒã‚°ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰ã§å‡¦ç†ã™ã‚‹
         /// </summary>
         /// <param name="action"></param>
         public static async Task BackGroundThreadActionAsync(Action action)
@@ -35,9 +35,9 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// ğŒ‚ªtrue‚É‚È‚é‚Ü‚Å‘Ò‹@‚·‚é
+        /// æ¡ä»¶ãŒtrueã«ãªã‚‹ã¾ã§å¾…æ©Ÿã™ã‚‹
         /// </summary>
-        /// <param name="action">ğŒ‚ÌŒ‹‰Ê‚ğ•Ô‚·ƒƒ\ƒbƒh</param>
+        /// <param name="action">æ¡ä»¶ã®çµæœã‚’è¿”ã™ãƒ¡ã‚½ãƒƒãƒ‰</param>
         /// <param name="token"></param>
         /// <returns></returns>
         public static async Task WaitUntil(Func<bool> action, CancellationToken token = default)
