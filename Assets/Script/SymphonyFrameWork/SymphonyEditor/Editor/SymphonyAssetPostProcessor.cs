@@ -2,6 +2,9 @@ using UnityEditor;
 
 namespace SymphonyFrameWork.Editor
 {
+    /// <summary>
+    /// SymphonyFrameWorkのディレクトリを保護するクラス
+    /// </summary>
     public class SymphonyAssetPostProcessor : AssetPostprocessor
     {
         static string protectedPath = "Assets/Script/SymphonyFrameWork";
