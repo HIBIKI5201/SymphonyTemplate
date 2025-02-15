@@ -3,7 +3,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace SymphonyFrameWork
+namespace SymphonyFrameWork.Attribute
 {
     /// <summary>
     /// インスペクター上で編集不可のプロパティを生成する

@@ -1,4 +1,4 @@
-using SymphonyFrameWork;
+using SymphonyFrameWork.Attribute;
 using SymphonyFrameWork.CoreSystem;
 using UnityEngine;
 
@@ -6,6 +6,8 @@ public class DbugObj : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 5;
+
+    [DisplayText("‚µ‘‚«")]
 
     [ReadOnly, SerializeField]
     private Vector3 _velocity = default;
