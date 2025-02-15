@@ -1,7 +1,15 @@
 #Version
-1.18.4
+1.18.6
 
 #Log
+1.18.6
+[Add]
+SceneManagerConfig
+
+1.18.5
+[Add]
+SymphonyConfigManager
+
 1.18.4
 [Update]
 SymphonyTween
