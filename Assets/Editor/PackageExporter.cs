@@ -1,4 +1,4 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 using UnityEngine;
 
 public class PackageExporter : EditorWindow
@@ -6,16 +6,16 @@ public class PackageExporter : EditorWindow
     [MenuItem("Tools/Export SymhpnyFrameWork Package")]
     public static void ExportPackage()
     {
-        // ƒGƒNƒXƒ|[ƒg‚µ‚½‚¢ƒtƒHƒ‹ƒ_‚ÌƒpƒX
+        // ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã—ãŸã„ãƒ•ã‚©ãƒ«ãƒ€ã®ãƒ‘ã‚¹
         string folderPath = "Assets/Script/SymphonyFrameWork";
 
-        // •Û‘¶æ‚ÌƒpƒXiƒGƒNƒXƒ|[ƒgæj
-        string exportPath = @"C:\Users\takut\OneDrive\ƒfƒXƒNƒgƒbƒv\Sinfonia Studio\SymphonyFrameWork.unitypackage";
+        // ä¿å­˜å…ˆã®ãƒ‘ã‚¹ï¼ˆã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆå…ˆï¼‰
+        string exportPath = @"C:\Users\takut\OneDrive\ãƒ‡ã‚¹ã‚¯ãƒˆãƒƒãƒ—\Sinfonia Studio\SymphonyFrameWork.unitypackage";
 
-        // UnityPackage‚ğì¬
+        // UnityPackageã‚’ä½œæˆ
         string[] files = new string[] { folderPath };
         AssetDatabase.ExportPackage(files, exportPath, 
-            ExportPackageOptions.IncludeLibraryAssets | ExportPackageOptions.IncludeDependencies);
+            ExportPackageOptions.Recurse);
 
         Debug.Log("Package exported to: " + exportPath);
     }
