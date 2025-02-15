@@ -10,15 +10,16 @@ namespace SymphonyFrameWork.Debugger
     public static class SymphonyStopWatch
     {
 #if UNITY_EDITOR
-        private static Dictionary<int, (Stopwatch watch, string text)> dict = new();
+        private static Dictionary<string, (Stopwatch watch, string text)> dict = new();
 #endif
+
         /// <summary>
-        /// 指定されたIDのストップウォッチを計測開始する
+        /// 指定された文字列のストップウォッチを計測開始する
         /// </summary>
         /// <param name="id"></param>
         /// <param name="text"></param>
         [Conditional("UNITY_EDITOR")]
-        public static void Start(int id, string text = "time is")
+        public static void Start(string id, string text = "time is")
         {
 #if UNITY_EDITOR
             if (!dict.TryAdd(id, (Stopwatch.StartNew(), text)))
@@ -33,7 +34,7 @@ namespace SymphonyFrameWork.Debugger
         /// </summary>
         /// <param name="id"></param>
         [Conditional("UNITY_EDITOR")]
-        public static void Stop(int id)
+        public static void Stop(string id)
         {
 #if UNITY_EDITOR
             if (dict.TryGetValue(id, out var value))
