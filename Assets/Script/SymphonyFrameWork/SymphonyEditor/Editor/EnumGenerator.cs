@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 using UnityEngine;
 
@@ -8,20 +9,21 @@ namespace SymphonyFrameWork.Editor
 {
     public static class EnumGenerator
     {
-        private const string FrameWork_Path = "\"Assets/Script/SymphonyFrameWork/";
-        private static async void Method(string[] strings, string fileName)
+        private const string FrameWork_Path = "Assets/Script/SymphonyFrameWork/";
+
+        public static async void Method(string[] strings, string fileName)
         {
-            var enumFilePath = $"{FrameWork_Path}{fileName}.cs";
-            if (!File.Exists(enumFilePath))
+            HashSet<string> hash = new HashSet<string>(strings);
+
+            var enumFilePath = $"{FrameWork_Path}{fileName}Enum.cs";
+            if (File.Exists(enumFilePath))
             {
-                File.Create(enumFilePath);
+                File.Delete(enumFilePath);
             }
 
-            File.WriteAllText(enumFilePath, "", Encoding.UTF8);
+            IEnumerable<string> content = new[] { "public enum " + fileName + " : int {" };
 
-            IEnumerable<string> content = new[] { "public enum scenarioVoiceEnum : int {" };
-
-            content = content.Concat(strings);
+            content = content.Concat(hash.Select(s => $"{s},"));
             content = content.Append("}");
 
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
