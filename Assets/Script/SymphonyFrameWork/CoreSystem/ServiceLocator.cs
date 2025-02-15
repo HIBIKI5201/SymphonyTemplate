@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -6,9 +6,9 @@ using Object = UnityEngine.Object;
 namespace SymphonyFrameWork.CoreSystem
 {
     /// <summary>
-    /// ƒVƒ“ƒOƒ‹ƒgƒ“‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ“Š‡‚µ‚ÄŠÇ—‚·‚éƒNƒ‰ƒX
+    /// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’çµ±æ‹¬ã—ã¦ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
     /// </summary>
-    //ƒCƒ“ƒXƒ^ƒ“ƒX‚ğˆê“I‚ÉƒV[ƒ“ƒ[ƒh‚©‚çØ‚è—£‚µ‚½‚¢‚É‚àg—p‚Å‚«‚é
+    //ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä¸€æ™‚çš„ã«ã‚·ãƒ¼ãƒ³ãƒ­ãƒ¼ãƒ‰ã‹ã‚‰åˆ‡ã‚Šé›¢ã—ãŸã„æ™‚ã«ã‚‚ä½¿ç”¨ã§ãã‚‹
     public static class ServiceLocator
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -18,13 +18,13 @@ namespace SymphonyFrameWork.CoreSystem
             _singletonObjects.Clear();
         }
 
-        [Tooltip("ƒVƒ“ƒOƒ‹ƒgƒ“‰»‚·‚éƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒRƒ“ƒeƒi")]
+        [Tooltip("ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³åŒ–ã™ã‚‹ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚³ãƒ³ãƒ†ãƒŠ")]
         private static GameObject _instance;
-        [Tooltip("ƒVƒ“ƒOƒ‹ƒgƒ““o˜^‚³‚ê‚Ä‚¢‚éŒ^‚ÌƒCƒ“ƒXƒ^ƒ“ƒX«‘")]
+        [Tooltip("ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹å‹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹è¾æ›¸")]
         private static Dictionary<Type, Component> _singletonObjects = new();
 
         /// <summary>
-        /// ƒCƒ“ƒXƒ^ƒ“ƒXƒRƒ“ƒeƒi‚ª–³‚¢ê‡‚É¶¬‚·‚é
+        /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚³ãƒ³ãƒ†ãƒŠãŒç„¡ã„å ´åˆã«ç”Ÿæˆã™ã‚‹
         /// </summary>
         private static void CreateInstance()
         {
@@ -40,22 +40,22 @@ namespace SymphonyFrameWork.CoreSystem
         }
 
         /// <summary>
-        /// “ü‚ê‚ç‚ê‚½ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğƒƒP[ƒ^[‚É“o˜^‚·‚é
+        /// å…¥ã‚Œã‚‰ã‚ŒãŸã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ãƒ­ã‚±ãƒ¼ã‚¿ãƒ¼ã«ç™»éŒ²ã™ã‚‹
         /// </summary>
-        /// <typeparam name="T">“o˜^‚·‚éŒ^</typeparam>
-        /// <param name="instance">ƒCƒ“ƒXƒ^ƒ“ƒX</param>
-        /// <returns>“o˜^‚ª¬Œ÷‚µ‚½‚çtrueA¸”s‚µ‚½‚çfalse</returns>
+        /// <typeparam name="T">ç™»éŒ²ã™ã‚‹å‹</typeparam>
+        /// <param name="instance">ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</param>
+        /// <returns>ç™»éŒ²ãŒæˆåŠŸã—ãŸã‚‰trueã€å¤±æ•—ã—ãŸã‚‰false</returns>
         public static void SetInstance<T>(T instance, LocateType type = LocateType.Locator) where T : Component
         {
-            // Šù‚É“o˜^‚³‚ê‚Ä‚¢‚éê‡‚Í’Ç‰Á‚Å‚«‚È‚¢
+            // æ—¢ã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹å ´åˆã¯è¿½åŠ ã§ããªã„
             if (!_singletonObjects.TryAdd(typeof(T), instance))
             {
                 Object.Destroy(instance.gameObject);
                 return;
             }
 
-            Debug.Log($"{typeof(T).Name}ƒNƒ‰ƒX‚Ì{instance.name}‚ª" +
-                $"{type switch { LocateType.Locator => "ƒƒP[ƒg", LocateType.Singleton => "ƒVƒ“ƒOƒ‹ƒgƒ“", _ => string.Empty }}“o˜^‚³‚ê‚Ü‚µ‚½");
+            Debug.Log($"{typeof(T).Name}ã‚¯ãƒ©ã‚¹ã®{instance.name}ãŒ" +
+                $"{type switch { LocateType.Locator => "ãƒ­ã‚±ãƒ¼ãƒˆ", LocateType.Singleton => "ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³", _ => string.Empty }}ç™»éŒ²ã•ã‚Œã¾ã—ãŸ");
 
             if (type == LocateType.Singleton)
             {
@@ -65,12 +65,12 @@ namespace SymphonyFrameWork.CoreSystem
         }
 
         /// <summary>
-        /// w’è‚µ‚½ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ”jŠü‚·‚é
+        /// æŒ‡å®šã—ãŸã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç ´æ£„ã™ã‚‹
         /// </summary>
-        /// <typeparam name="T">”jŠü‚µ‚½‚¢ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌŒ^</typeparam>
+        /// <typeparam name="T">ç ´æ£„ã—ãŸã„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‹</typeparam>
         public static void DestroyInstance<T>(T instance) where T : Component
         {
-            //ƒCƒ“ƒXƒ^ƒ“ƒX‚ª“o˜^‚³‚ê‚½ƒRƒ“ƒ|[ƒlƒ“ƒg‚©
+            //ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒç™»éŒ²ã•ã‚ŒãŸã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‹
             if (_singletonObjects.TryGetValue(typeof(T), out Component md) && md == instance)
             {
                 DestroyInstance<T>();
@@ -78,28 +78,28 @@ namespace SymphonyFrameWork.CoreSystem
         }
 
         /// <summary>
-        /// w’è‚µ‚½Œ^‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ”jŠü‚·‚é
+        /// æŒ‡å®šã—ãŸå‹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç ´æ£„ã™ã‚‹
         /// </summary>
-        /// <typeparam name="T">”jŠü‚µ‚½‚¢ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌŒ^</typeparam>
+        /// <typeparam name="T">ç ´æ£„ã—ãŸã„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‹</typeparam>
         public static void DestroyInstance<T>() where T : Component
         {
             if (_singletonObjects.TryGetValue(typeof(T), out Component md))
             {
                 Object.Destroy(md.gameObject);
                 _singletonObjects.Remove(typeof(T));
-                Debug.Log($"{typeof(T).Name}‚ª”jŠü‚³‚ê‚Ü‚µ‚½");
+                Debug.Log($"{typeof(T).Name}ãŒç ´æ£„ã•ã‚Œã¾ã—ãŸ");
             }
             else
             {
-                Debug.Log($"{typeof(T).Name}‚Í“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+                Debug.Log($"{typeof(T).Name}ã¯ç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“");
             }
         }
 
         /// <summary>
-        /// “o˜^‚³‚ê‚½ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚·
+        /// ç™»éŒ²ã•ã‚ŒãŸã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™
         /// </summary>
-        /// <typeparam name="T">æ“¾‚µ‚½‚¢ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌŒ^</typeparam>
-        /// <returns>w’è‚µ‚½Œ^‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+        /// <typeparam name="T">å–å¾—ã—ãŸã„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‹</typeparam>
+        /// <returns>æŒ‡å®šã—ãŸå‹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
         public static T GetInstance<T>() where T : Component
         {
             if (_singletonObjects.TryGetValue(typeof(T), out Component md))
@@ -110,12 +110,12 @@ namespace SymphonyFrameWork.CoreSystem
                 }
                 else
                 {
-                    Debug.LogError($"{typeof(T).Name} ‚Í”jŠü‚³‚ê‚Ä‚¢‚Ü‚·B");
+                    Debug.LogError($"{typeof(T).Name} ã¯ç ´æ£„ã•ã‚Œã¦ã„ã¾ã™ã€‚");
                     return null;
                 }
             }
 
-            Debug.LogWarning($"{typeof(T).Name} ‚Í“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogWarning($"{typeof(T).Name} ã¯ç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
             return null;
         }
 

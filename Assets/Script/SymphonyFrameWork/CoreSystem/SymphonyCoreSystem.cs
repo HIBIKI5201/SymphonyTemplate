@@ -1,4 +1,4 @@
-using SymphonyFrameWork.Utility;
+ï»¿using SymphonyFrameWork.Utility;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 namespace SymphonyFrameWork.CoreSystem
 {
     /// <summary>
-    /// SymphonyFrameWork‚ÌŠÇ—ƒV[ƒ“‚ğ‚Â
+    /// SymphonyFrameWorkã®ç®¡ç†ã‚·ãƒ¼ãƒ³ã‚’æŒã¤
     /// </summary>
     public static class SymphonyCoreSystem
     {
         private static Scene? _systemScene;
 
         /// <summary>
-        /// ‰Šú‰»‚ÅƒVƒXƒeƒ€—p‚ÌƒV[ƒ“‚ğì¬
+        /// åˆæœŸåŒ–ã§ã‚·ã‚¹ãƒ†ãƒ ç”¨ã®ã‚·ãƒ¼ãƒ³ã‚’ä½œæˆ
         /// </summary>
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void GameBeforeSceneLoaded()
@@ -23,7 +23,7 @@ namespace SymphonyFrameWork.CoreSystem
 
         public static async void MoveObjectToSymphonySystem(GameObject go)
         {
-            //ƒV[ƒ“‚ª§ì‚³‚ê‚Ä‚¢‚é‚©A‘ÎÛ‚ªnull‚É‚È‚Á‚½‚çi‚Ş
+            //ã‚·ãƒ¼ãƒ³ãŒåˆ¶ä½œã•ã‚Œã¦ã„ã‚‹ã‹ã€å¯¾è±¡ãŒnullã«ãªã£ãŸã‚‰é€²ã‚€
             await SymphonyTask.WaitUntil(() => _systemScene != null || go == null);
 
             if (go)

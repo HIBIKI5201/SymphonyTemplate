@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -6,7 +6,7 @@ using Debug = UnityEngine.Debug;
 namespace SymphonyFrameWork.Debugger
 {
     /// <summary>
-    /// ƒGƒfƒBƒ^—p‚ÌƒƒO‚ğ”­s‚·‚éƒNƒ‰ƒX
+    /// ã‚¨ãƒ‡ã‚£ã‚¿ç”¨ã®ãƒ­ã‚°ã‚’ç™ºè¡Œã™ã‚‹ã‚¯ãƒ©ã‚¹
     /// </summary>
     public static class SymphonyDebugLog
     {
@@ -15,7 +15,7 @@ namespace SymphonyFrameWork.Debugger
 #endif
 
         /// <summary>
-        /// ƒGƒfƒBƒ^ã‚Å‚Ì‚İo—Í‚³‚ê‚éƒfƒoƒbƒOƒƒO
+        /// ã‚¨ãƒ‡ã‚£ã‚¿ä¸Šã§ã®ã¿å‡ºåŠ›ã•ã‚Œã‚‹ãƒ‡ãƒãƒƒã‚°ãƒ­ã‚°
         /// </summary>
         /// <param name="text"></param>
         [Conditional("UNITY_EDITOR")]
@@ -27,7 +27,7 @@ namespace SymphonyFrameWork.Debugger
         }
 
         /// <summary>
-        /// ƒƒO‚ÌƒeƒLƒXƒg‚ÉƒƒbƒZ[ƒW‚ğ’Ç‰Á‚·‚é
+        /// ãƒ­ã‚°ã®ãƒ†ã‚­ã‚¹ãƒˆã«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¿½åŠ ã™ã‚‹
         /// </summary>
         /// <param name="text"></param>
         [Conditional("UNITY_EDITOR")]
@@ -39,7 +39,7 @@ namespace SymphonyFrameWork.Debugger
         }
 
         /// <summary>
-        /// ’Ç‰Á‚³‚ê‚½ƒƒbƒZ[ƒW‚ğíœ‚·‚é
+        /// è¿½åŠ ã•ã‚ŒãŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‰Šé™¤ã™ã‚‹
         /// </summary>
         [Conditional("UNITY_EDITOR")]
         public static void ClearText()
@@ -50,7 +50,7 @@ namespace SymphonyFrameWork.Debugger
         }
 
         /// <summary>
-        /// ’Ç‰Á‚³‚ê‚½ƒƒbƒZ[ƒW‚ğƒƒO‚Éo—Í‚·‚é
+        /// è¿½åŠ ã•ã‚ŒãŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒ­ã‚°ã«å‡ºåŠ›ã™ã‚‹
         /// </summary>
         [Conditional("UNITY_EDITOR")]
         public static void TextLog()
@@ -61,7 +61,7 @@ namespace SymphonyFrameWork.Debugger
         }
 
         /// <summary>
-        /// ƒRƒ“ƒ|[ƒlƒ“ƒg‚¾‚Á‚½ê‡‚ÉŒx‚ğ•\¦‚·‚é
+        /// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã ã£ãŸå ´åˆã«è­¦å‘Šã‚’è¡¨ç¤ºã™ã‚‹
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="component"></param>
@@ -76,7 +76,7 @@ namespace SymphonyFrameWork.Debugger
 #endif
         }
 
-        [Obsolete("‚±‚Ì‹@”\‚ÍˆÀ‘S«‚ª•Ûá‚³‚ê‚Ä‚¢‚Ü‚¹‚ñBCheckComponentNull‚ğg—p‚µ‚Ä‚­‚¾‚³‚¢")]
+        [Obsolete("ã“ã®æ©Ÿèƒ½ã¯å®‰å…¨æ€§ãŒä¿éšœã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚CheckComponentNullã‚’ä½¿ç”¨ã—ã¦ãã ã•ã„")]
         public static bool IsComponentNotNull<T>(this T component) where T : Component
         {
             if (component == null) {
