@@ -7,8 +7,8 @@ public class DbugObj : MonoBehaviour
     [SerializeField]
     private float _speed = 5;
 
-    [SerializeField, ReadOnly]
-    Vector3 _velocity = default;
+    [ReadOnly]
+    private Vector3 _velocity = default;
 
     private void Start()
     {
