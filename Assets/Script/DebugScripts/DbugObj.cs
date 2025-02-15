@@ -1,5 +1,6 @@
-using SymphonyFrameWork.Attribute;
+ï»¿using SymphonyFrameWork.Attribute;
 using SymphonyFrameWork.CoreSystem;
+using SymphonyFrameWork.Utility;
 using UnityEngine;
 
 public class DbugObj : MonoBehaviour
@@ -7,7 +8,7 @@ public class DbugObj : MonoBehaviour
     [SerializeField]
     private float _speed = 5;
 
-    [DisplayText("ŽŽ‚µ‘‚«ŽŽ‚µ‘‚«ŽŽ‚µ‘‚«")]
+    [DisplayText("è©¦ã—æ›¸ãè©¦ã—æ›¸ãè©¦ã—æ›¸ã")]
 
     [ReadOnly, SerializeField]
     private Vector3 _velocity = default;
@@ -24,16 +25,19 @@ public class DbugObj : MonoBehaviour
             return;
         }
 
-        if (-5 > transform.position.y)
-        {
-            _velocity = Vector3.up * _speed;
-        }
+        SymphonyTween.TweeningLerp((float)0,
+            x => transform.position = new Vector3(x, transform.position.y, transform.position.z), 10, 10);
 
-        if (5 < transform.position.y)
-        {
-            _velocity = Vector3.down * _speed;
-        }
+        //if (-5 > transform.position.y)
+        //{
+        //    _velocity = Vector3.up * _speed;
+        //}
 
-        transform.position += _velocity * Time.deltaTime;
+        //if (5 < transform.position.y)
+        //{
+        //    _velocity = Vector3.down * _speed;
+        //}
+
+        //transform.position += _velocity * Time.deltaTime;
     }
 }
