@@ -74,6 +74,7 @@ namespace SymphonyFrameWork.Utility
                 //ポーズが有効な時は更新しない
                 if (PauseManager.Pause)
                 {
+                    timer += Time.deltaTime;
                     await Awaitable.NextFrameAsync(token);
                     continue;
                 }
