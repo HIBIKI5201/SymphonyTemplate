@@ -1,5 +1,4 @@
 ﻿using SymphonyFrameWork.Utility;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
