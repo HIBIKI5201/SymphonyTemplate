@@ -1,9 +1,8 @@
-﻿using SymphonyFrameWork.Debugger;
-using UnityEngine;
+﻿using SymphonyFrameWork.Config;
+using SymphonyFrameWork.Debugger;
 using System.IO;
-using SymphonyFrameWork.Config;
 using UnityEditor;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -28,7 +27,7 @@ namespace SymphonyFrameWork.Editor
             // ファイルが存在しない場合
             if (AssetDatabase.LoadAssetAtPath<T>(filePath) == null)
             {
-                CreateResourcesFolder(); 
+                CreateResourcesFolder();
 
                 //対象のアセットを生成してResources内に配置
                 T asset = ScriptableObject.CreateInstance<T>();
