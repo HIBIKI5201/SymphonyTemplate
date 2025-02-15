@@ -7,7 +7,7 @@ public class DbugObj : MonoBehaviour
     [SerializeField]
     private float _speed = 5;
 
-    [DisplayText("‚µ‘‚«")]
+    [DisplayText("‚µ‘‚«‚µ‘‚«‚µ‘‚«")]
 
     [ReadOnly, SerializeField]
     private Vector3 _velocity = default;
