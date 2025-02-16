@@ -29,7 +29,7 @@ namespace SymphonyFrameWork.Editor
                 string newPath = movedAssets[i];
 
                 // 移動がSymphonyFrameWorkのアセットかどうかを判定
-                if (oldPath.StartsWith(SymphonyConstant.FrameWork_Path))
+                if (oldPath.StartsWith(SymphonyConstant.FRAMEWORK_PATH))
                 {
                     EditorUtility.DisplayDialog(
                     "移動禁止",

@@ -8,7 +8,7 @@ namespace SymphonyFrameWork.Editor
 {
     public static class EnumGenerator
     {
-        private const string ENUM_PATH = SymphonyConstant.FrameWork_Path + "/Enum/";
+        private const string ENUM_PATH = SymphonyConstant.FRAMEWORK_PATH + "/Enum/";
 
         public static async void EnumGenerate(string[] strings, string fileName)
         {

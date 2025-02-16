@@ -12,7 +12,7 @@ namespace SymphonyFrameWork.Editor
     [InitializeOnLoad]
     public static class SymphonyConfigManager
     {
-        private const string RESOURCES_PATH = SymphonyConstant.FrameWork_Path + "/Resources";
+        private const string RESOURCES_PATH = SymphonyConstant.FRAMEWORK_PATH + "/Resources";
 
         static SymphonyConfigManager()
         {

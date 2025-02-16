@@ -14,7 +14,7 @@ namespace SymphonyFrameWork.Editor
     public class SymphonyWindow : EditorWindow
     {
         private const string WINDOW_NAME = "Symphony Administrator";
-        private const string DIRECTORY_PATH = SymphonyConstant.FrameWork_Path + "/SymphonyEditor/Editor/UITK/";
+        private const string DIRECTORY_PATH = SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor/UITK/";
 
         /// <summary>
         /// ウィンドウ表示
