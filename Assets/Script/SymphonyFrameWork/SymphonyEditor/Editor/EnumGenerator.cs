@@ -10,7 +10,7 @@ namespace SymphonyFrameWork.Editor
     {
         private const string FrameWork_Path = "Assets/Script/SymphonyFrameWork/Enum/";
 
-        public static async void Method(string[] strings, string fileName)
+        public static async void EnumGenerate(string[] strings, string fileName)
         {
             //重複を削除
             HashSet<string> hash = new HashSet<string>(strings);
@@ -29,7 +29,7 @@ namespace SymphonyFrameWork.Editor
                 File.Delete(enumFilePath);
             }
 
-            IEnumerable<string> content = new[] { "public enum " + fileName + " : int {" };
+            IEnumerable<string> content = new[] { $"public enum " + fileName + "Enum : int {" };
 
             content = content.Concat(hash.Select(s => $"{s},"));
             content = content.Append("}");

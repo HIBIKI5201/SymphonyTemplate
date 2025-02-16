@@ -69,7 +69,7 @@ namespace SymphonyFrameWork.Editor
 
             if (GUILayout.Button("Enumを生成する"))
             {
-                EnumGenerator.Method(storyData.SceneList, nameof(storyData.SceneList));
+                EnumGenerator.EnumGenerate(storyData.SceneList, nameof(storyData.SceneList));
             }
         }
     }
