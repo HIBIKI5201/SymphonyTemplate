@@ -1,4 +1,5 @@
-﻿using SymphonyFrameWork.Debugger;
+﻿using SymphonyFrameWork.CoreSystem;
+using SymphonyFrameWork.Debugger;
 using System;
 using System.Threading;
 using UnityEngine;
@@ -42,7 +43,57 @@ namespace SymphonyFrameWork.Utility
 
                 action?.Invoke(result.Value);
 
-                await Awaitable.NextFrameAsync();
+                await Awaitable.NextFrameAsync(token);
+            }
+
+            //最後に最終値でやる
+            action?.Invoke(e);
+        }
+
+        /// <summary>
+        /// 指定した時間の間、AnimationCurveかLerpな曲線で指定した範囲を毎フレーム実行する
+        /// curveを指定した場合はCurveで、指定しないかnullの場合はLerpで実行される
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="s">スタートの値</param>
+        /// <param name="action">実行内容</param>
+        /// <param name="e">エンドの値</param>
+        /// <param name="d">長さ</param>
+        /// <param name="curve">曲線を決める（xの大きさで正規化される）</param>
+        /// <param name="token"></param>
+        public static async void PausableTweening<T>(T s, Action<T> action, T e, float d,
+            AnimationCurve curve = null,
+            CancellationToken token = default) where T : struct
+        {
+            curve = NormalizeCurve(curve);
+            float timer = Time.time;
+
+            //時間終了までループ
+            while (Time.time <= timer + d)
+            {
+                //ポーズが有効な時は更新しない
+                if (PauseManager.Pause)
+                {
+                    timer += Time.deltaTime;
+                    await Awaitable.NextFrameAsync(token);
+                    continue;
+                }
+
+                    float elapsed = Time.time - timer;
+
+                float t = Mathf.Clamp01(elapsed / d); //正規化された値
+
+                T? result = curve != null ? CurveValue((s, e), t, curve) : LerpValue((s, e), t);
+
+                if (result == null)
+                {
+                    SymphonyDebugLog.DirectLog($"{typeof(T).Name}型は{nameof(Tweening)}に対応していません");
+                    return;
+                }
+
+                action?.Invoke(result.Value);
+
+                await Awaitable.NextFrameAsync(token);
             }
 
             //最後に最終値でやる

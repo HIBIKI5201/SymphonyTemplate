@@ -1,17 +1,11 @@
-using System;
-using System.Reflection;
+ï»¿using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace SymphonyFrameWork.Attribute
 {
     /// <summary>
-    /// ƒCƒ“ƒXƒyƒNƒ^[ã‚Å•ÒW•s‰Â‚ÌƒvƒƒpƒeƒB‚ğ¶¬‚·‚é
-    /// </summary>
-    public class ReadOnlyAttribute : PropertyAttribute { }
-
-    /// <summary>
-    /// ƒvƒƒpƒeƒB‚ğ•ÏX•s‰Â‚É‚·‚é
+    /// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å¤‰æ›´ä¸å¯ã«ã™ã‚‹
     /// </summary>
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     public class ReadOnlyDrawer : PropertyDrawer
@@ -24,7 +18,7 @@ namespace SymphonyFrameWork.Attribute
     }
 
     /// <summary>
-    /// ReadOnry‚ª•\¦‚³‚ê‚È‚¢ê‡‚ÉŒx‚ğo‚·
+    /// ReadOnryãŒè¡¨ç¤ºã•ã‚Œãªã„å ´åˆã«è­¦å‘Šã‚’å‡ºã™
     /// </summary>
     [CustomEditor(typeof(MonoBehaviour), true)]
     public class ReadOnlyInspector : UnityEditor.Editor
@@ -43,7 +37,7 @@ namespace SymphonyFrameWork.Attribute
                     var property = serializedObject.FindProperty(field.Name);
                     if (property == null)
                     {
-                        Debug.LogWarning($"ƒtƒB[ƒ‹ƒh '{field.Name}' ‚Í [ReadOnly] ‘®«‚ª•t—^‚³‚ê‚Ä‚¢‚Ü‚·‚ªA[SerializeField] ‘®«‚ª•t—^‚³‚ê‚Ä‚¢‚È‚¢‚½‚ßAƒCƒ“ƒXƒyƒNƒ^[‚É•\¦‚³‚ê‚Ü‚¹‚ñB");
+                        Debug.LogWarning($"ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ '{field.Name}' ã¯ [ReadOnly] å±æ€§ãŒä»˜ä¸ã•ã‚Œã¦ã„ã¾ã™ãŒã€[SerializeField] å±æ€§ãŒä»˜ä¸ã•ã‚Œã¦ã„ãªã„ãŸã‚ã€ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã«è¡¨ç¤ºã•ã‚Œã¾ã›ã‚“ã€‚");
                     }
                 }
             }

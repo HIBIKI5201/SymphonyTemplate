@@ -19,7 +19,9 @@ public class DbugObj : MonoBehaviour
     private void Start()
     {
         _velocity = Vector3.up * _speed;
-        SymphonyTween.Tweening(0, x => Debug.Log(x), 10, 1, _curve);
+
+        MeshRenderer renderer = GetComponent<MeshRenderer>();
+        SymphonyTween.PausableTweening(new Color(0, 0, 0), x => renderer.material.color = x, new Color(255, 255, 255), 10, _curve);
     }
 
     void Update()
@@ -29,16 +31,16 @@ public class DbugObj : MonoBehaviour
             return;
         }
 
-        //if (-5 > transform.position.y)
-        //{
-        //    _velocity = Vector3.up * _speed;
-        //}
+        if (-5 > transform.position.y)
+        {
+            _velocity = Vector3.up * _speed;
+        }
 
-        //if (5 < transform.position.y)
-        //{
-        //    _velocity = Vector3.down * _speed;
-        //}
+        if (5 < transform.position.y)
+        {
+            _velocity = Vector3.down * _speed;
+        }
 
-        //transform.position += _velocity * Time.deltaTime;
+        transform.position += _velocity * Time.deltaTime;
     }
 }

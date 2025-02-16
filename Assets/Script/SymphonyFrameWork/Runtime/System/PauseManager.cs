@@ -97,6 +97,12 @@ namespace SymphonyFrameWork.CoreSystem
             UnityEngine.Object.Destroy(obj);
         }
 
+        /// <summary>
+        /// パーズ中に停止するInvoke
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="t"></param>
+        /// <param name="token"></param>
         public static async void PausableInvoke(Action action, float t, CancellationToken token = default)
         {
             await PausableWaitForSecondAsync(t, token);
@@ -104,11 +110,24 @@ namespace SymphonyFrameWork.CoreSystem
             action?.Invoke();
         }
 
+        /// <summary>
+        /// ポーズできるクラスに実装するインターフェース
+        /// </summary>
         public interface IPausable
         {
+            /// <summary>
+            /// ポーズのイベントを購買しているオブジェクトの一覧
+            /// </summary>
             private static Dictionary<IPausable, Action<bool>> PauseEventDictionary = new();
 
+            /// <summary>
+            /// ポーズ時に呼び出されるイベント
+            /// </summary>
             void Pause();
+
+            /// <summary>
+            /// リズーム時に呼び出されるイベント
+            /// </summary>
             void Resume();
 
             /// <summary>
