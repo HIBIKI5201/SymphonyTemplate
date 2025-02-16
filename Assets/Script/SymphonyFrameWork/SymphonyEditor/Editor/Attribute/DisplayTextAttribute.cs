@@ -27,24 +27,24 @@ namespace SymphonyFrameWork.Attribute
             get { return (DisplayTextAttribute)attribute; }
         }
 
+        private GUIStyle Style = new GUIStyle(EditorStyles.label)
+        {
+            alignment = TextAnchor.MiddleCenter,
+            normal = { textColor = Color.white },
+            fontStyle = FontStyle.Normal,
+            fontSize = 12
+        };
+
         public override float GetHeight()
         {
             //改行の数だけ高くする
-            return EditorGUIUtility.singleLineHeight * DisplayTextAttribute.Text.Split('\n').Length;
+            return Style.lineHeight * DisplayTextAttribute.Text.Split('\n').Length;
         }
 
         public override void OnGUI(Rect position)
         {
-            GUIStyle style = new GUIStyle(EditorStyles.label)
-            {
-                alignment = TextAnchor.MiddleCenter,
-                normal = { textColor = Color.white },
-                fontStyle = FontStyle.Normal,
-                fontSize = 12
-            };
-
             // 指定した領域にテキストを表示する
-            EditorGUI.LabelField(position, DisplayTextAttribute.Text, style);
+            EditorGUI.LabelField(position, DisplayTextAttribute.Text, Style);
         }
     }
 }
