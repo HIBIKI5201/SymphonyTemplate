@@ -42,7 +42,7 @@ namespace SymphonyFrameWork.Editor
         /// <summary>
         /// パッケージがロードされているかチェックする
         /// </summary>
-        [MenuItem("Window/Symphony FrameWork/" + nameof(SymphonyPackageLoader))]
+        [MenuItem(SymphonyConstant.MENU_PATH + nameof(SymphonyPackageLoader), priority = 100)]
         private static void MenuExecution() => CheckAndInstallPackagesAsync(false);
 
         private static async void CheckAndInstallPackagesAsync(bool isEnterEditor)

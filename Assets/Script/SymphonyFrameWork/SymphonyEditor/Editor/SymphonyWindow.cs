@@ -14,12 +14,12 @@ namespace SymphonyFrameWork.Editor
     public class SymphonyWindow : EditorWindow
     {
         private const string WINDOW_NAME = "Symphony Administrator";
-        private const string DIRECTORY_PATH = SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor/UITK/";
+        private const string UITK_PATH = SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor/UITK/";
 
         /// <summary>
         /// ウィンドウ表示
         /// </summary>
-        [MenuItem("Window/Symphony FrameWork/" + WINDOW_NAME)]
+        [MenuItem(SymphonyConstant.MENU_PATH + WINDOW_NAME, priority = 0)]
         public static void ShowWindow()
         {
             SymphonyWindow wnd = GetWindow<SymphonyWindow>();
@@ -55,7 +55,7 @@ namespace SymphonyFrameWork.Editor
         {
             rootVisualElement.Clear();
 
-            var windowTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(DIRECTORY_PATH + "SymphonyWindow.uxml"); ;
+            var windowTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UITK_PATH + "SymphonyWindow.uxml"); ;
             if (windowTree != null)
             {
                 var windowElement = windowTree.Instantiate();
