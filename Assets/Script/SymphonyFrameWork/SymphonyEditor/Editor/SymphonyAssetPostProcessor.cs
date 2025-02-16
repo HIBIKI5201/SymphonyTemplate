@@ -31,16 +31,18 @@ namespace SymphonyFrameWork.Editor
                 // 移動がSymphonyFrameWorkのアセットかどうかを判定
                 if (oldPath.StartsWith(SymphonyConstant.FRAMEWORK_PATH))
                 {
-                    EditorUtility.DisplayDialog(
+                    if (!EditorUtility.DisplayDialog(
                     "移動禁止",
-                    $"SymphonyFrameWorkは移動できません。\npath : '{oldPath}'",
-                    "OK");
-
-                    // 移動を元に戻す
-                    AssetDatabase.MoveAsset(newPath, oldPath);
-                    AssetDatabase.Refresh();
+                    $"SymphonyFrameWorkを移動しようとしています。\n本当に移動しますか？\npath : '{oldPath}'",
+                    "OK", "Cancel"))
+                    {
+                        // 移動を元に戻す
+                        AssetDatabase.MoveAsset(newPath, oldPath);
+                        AssetDatabase.Refresh();
+                    }
                 }
             }
         }
     }
 }
+

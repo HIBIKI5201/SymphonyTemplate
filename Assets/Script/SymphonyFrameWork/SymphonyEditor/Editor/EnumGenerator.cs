@@ -2,18 +2,23 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEditor;
 
 namespace SymphonyFrameWork.Editor
 {
     public static class EnumGenerator
     {
-        private const string ENUM_PATH = SymphonyConstant.FRAMEWORK_PATH + "/Enum/";
+        private static readonly Regex IdentifierRegex = new Regex(@"^@?[a-zA-Z_][a-zA-Z0-9_]*$");
+        private static readonly  string[] ReservedWords = { "abstract", "as", "base", "bool", "break", "while" };
 
         public static async void EnumGenerate(string[] strings, string fileName)
         {
             //重複を削除
-            HashSet<string> hash = new HashSet<string>(strings);
+            HashSet<string> hash = new HashSet<string>(strings)
+                .Where(s => IdentifierRegex.IsMatch(s)) //文字列の頭文字がアルファベットではないものは除外
+                .Where(s => !ReservedWords.Contains(s)) //プログラム文字を除外
+                .ToHashSet();
 
             if (hash.Count <= 0)
             {
@@ -21,10 +26,10 @@ namespace SymphonyFrameWork.Editor
             }
 
             //ディレクトリを生成
-            CreateResourcesFolder(ENUM_PATH);
+            CreateResourcesFolder(SymphonyConstant.ENUM_PATH);
 
             //ファイル名を生成
-            var enumFilePath = $"{ENUM_PATH}{fileName}Enum.cs";
+            var enumFilePath = $"{SymphonyConstant.ENUM_PATH}{fileName}Enum.cs";
 
             if (File.Exists(enumFilePath))
             {
