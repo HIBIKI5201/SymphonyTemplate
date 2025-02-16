@@ -1,8 +1,14 @@
 #Version
-1.18.11
+1.19.0
 
 
 #Log
+1.19.0
+[Add]
+ContextMenuButtonAttribute
+DisplayTextAttribute
+ReadOnryAttribute
+
 1.18.11
 [Upadate]
 EnumGenerator
@@ -50,6 +56,10 @@ SymphonyWindow
 1.18.0
 [Add]
 SymphonyPackageLoader
+
+1.17.7
+[Add]
+SymphonyLocate
 
 1.17.6
 [Update]
