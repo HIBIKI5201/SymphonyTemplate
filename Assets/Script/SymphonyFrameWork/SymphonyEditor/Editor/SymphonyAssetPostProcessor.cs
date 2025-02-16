@@ -7,8 +7,6 @@ namespace SymphonyFrameWork.Editor
     /// </summary>
     public class SymphonyAssetPostProcessor : AssetPostprocessor
     {
-        static string protectedPath = "Assets/Script/SymphonyFrameWork";
-
         private static void OnPostprocessAllAssets(
             string[] importedAssets,
             string[] deletedAssets,
@@ -18,6 +16,11 @@ namespace SymphonyFrameWork.Editor
             SymphonyFileDontMove(movedAssets, movedFromAssetPaths);
         }
 
+        /// <summary>
+        /// SymphonyFrameWorkフォルダ内の物が移動されたら戻す
+        /// </summary>
+        /// <param name="movedAssets"></param>
+        /// <param name="movedFromAssetPaths"></param>
         private static void SymphonyFileDontMove(string[] movedAssets, string[] movedFromAssetPaths)
         {
             for (int i = 0; i < movedAssets.Length; i++)
@@ -26,7 +29,7 @@ namespace SymphonyFrameWork.Editor
                 string newPath = movedAssets[i];
 
                 // 移動がSymphonyFrameWorkのアセットかどうかを判定
-                if (oldPath.StartsWith(protectedPath))
+                if (oldPath.StartsWith(SymphonyConstant.FrameWork_Path))
                 {
                     EditorUtility.DisplayDialog(
                     "移動禁止",
