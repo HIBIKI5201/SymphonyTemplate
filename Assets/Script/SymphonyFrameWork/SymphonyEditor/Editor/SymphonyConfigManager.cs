@@ -32,7 +32,7 @@ namespace SymphonyFrameWork.Editor
                 AssetDatabase.CreateAsset(asset, filePath);
                 AssetDatabase.SaveAssets();
 
-                SymphonyDebugLog.DirectLog($"'{filePath}' に新しい {nameof(T)} を作成しました。");
+                SymphonyDebugLog.DirectLog($"'{SymphonyConstant.RESOURCES_PATH}' に新しい {typeof(T).Name} を作成しました。");
             }
         }
 
