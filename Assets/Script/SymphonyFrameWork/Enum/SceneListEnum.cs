@@ -1,5 +1,6 @@
 ﻿public enum SceneListEnum : int
 {
+    None = 0,
     a = 0,
     b = 1,
     c = 2,

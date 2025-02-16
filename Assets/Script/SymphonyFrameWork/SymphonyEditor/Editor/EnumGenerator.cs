@@ -58,10 +58,22 @@ namespace SymphonyFrameWork.Editor
         private static IEnumerable<string> NormalEnumGenerate(string fileName, HashSet<string> hash)
         {
             //ファイルの中身を生成
-            IEnumerable<string> content = new[] { $"public enum " + fileName + "Enum : int\n{" };
+            IEnumerable<string> content = new[] { $"public enum " + fileName + "Enum : int\n{\n    None = 0," };
 
             //Enumファイルに要素を追加していく
             content = content.Concat(hash.Select((string s, int i) => $"    {s} = {i},"));
+            content = content.Append("}");
+
+            return content;
+        }
+
+        private static IEnumerable<string> FlagEnumGenerate(string fileName, HashSet<string> hash)
+        {
+            //ファイルの中身を生成
+            IEnumerable<string> content = new[] { $"using System;\n\n[Flags]\npublic enum " + fileName + "Enum : int\n{\n    None = 0," };
+
+            //Enumファイルに要素を追加していく
+            content = content.Concat(hash.Select((string s, int i) => $"    {s} = 1 << {i + 1},"));
             content = content.Append("}");
 
             return content;
