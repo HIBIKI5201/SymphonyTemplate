@@ -29,7 +29,8 @@ namespace SymphonyFrameWork.Attribute
 
         public override float GetHeight()
         {
-            return EditorGUIUtility.singleLineHeight;
+            //改行の数だけ高くする
+            return EditorGUIUtility.singleLineHeight * DisplayTextAttribute.Text.Split('\n').Length;
         }
 
         public override void OnGUI(Rect position)
