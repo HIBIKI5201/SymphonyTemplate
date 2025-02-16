@@ -31,11 +31,7 @@ namespace SymphonyFrameWork.Editor
                 File.Delete(enumFilePath);
             }
 
-            //ファイルの中身を生成
-            IEnumerable<string> content = new[] { $"public enum " + fileName + "Enum : int {" };
-
-            content = content.Concat(hash.Select(s => $"{s},"));
-            content = content.Append("}");
+            var content = NormalEnumGenerate(fileName, hash);
 
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
         }
