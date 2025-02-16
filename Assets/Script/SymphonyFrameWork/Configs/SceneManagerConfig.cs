@@ -23,11 +23,11 @@ namespace SymphonyFrameWork.Config
         private string _loadScene;
         public string LoadScene { get => _loadScene; }
 
-        [ReadOnly, SerializeField, Tooltip("ロードするシーンの一覧")]
+        [ReadOnly, SerializeField, Tooltip("Enumを生成するシーンの一覧")]
         private string[] _sceneList = new string[] { };
         public string[] SceneList { get => _sceneList; }
 
-        private void Awake()
+        private void OnEnable()
         {
             _sceneList = EditorBuildSettings.scenes
                 .Select(s => Path.GetFileNameWithoutExtension(s.path))
