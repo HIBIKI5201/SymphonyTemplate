@@ -7,14 +7,41 @@ namespace SymphonyFrameWork.Editor
     /// </summary>
     public class SymphonyAssetPostProcessor : AssetPostprocessor
     {
-        private const string LOCK_PATH = SymphonyConstant.MENU_PATH + nameof(SymphonyAssetPostProcessor);
+        private const string LOCK_PATH = SymphonyConstant.MENU_PATH + "Symphony Asset Lock";
 
+        static SymphonyAssetPostProcessor()
+        {
+            // Unityエディタが再起動された後でも状態が反映されるようにする
+            EditorApplication.delayCall += ToggleOption;
+        }
+
+        /// <summary>
+        /// 押されたらチェックを反転する
+        /// </summary>
         [MenuItem(LOCK_PATH, priority = 200)]
         static void ToggleOption()
         {
-            // メニューのチェック状態を更新
-            bool isChecked = Menu.GetChecked(LOCK_PATH);
-            Menu.SetChecked(LOCK_PATH, !isChecked);
+            // 現在のチェック状態を取得
+            bool isChecked = EditorPrefs.GetBool(LOCK_PATH, true);
+
+            isChecked = !isChecked;
+
+            // チェック状態を更新
+            EditorPrefs.SetBool(LOCK_PATH, isChecked);
+            Menu.SetChecked(LOCK_PATH, isChecked);
+        }
+
+        /// <summary>
+        /// メニューのチェック表示を最新に保つ
+        /// </summary>
+        /// <returns></returns>
+        [MenuItem(LOCK_PATH, true)]
+        static bool ValidateLock()
+        {
+            bool isChecked = EditorPrefs.GetBool(LOCK_PATH, true);
+            Menu.SetChecked(LOCK_PATH, isChecked);
+
+            return true;
         }
 
         private static void OnPostprocessAllAssets(
@@ -41,7 +68,7 @@ namespace SymphonyFrameWork.Editor
                 // 移動がSymphonyFrameWorkのアセットかどうかを判定
                 if (oldPath.StartsWith(SymphonyConstant.FRAMEWORK_PATH))
                 {
-                    bool isLock = Menu.GetChecked(LOCK_PATH);
+                    bool isLock = EditorPrefs.GetBool(LOCK_PATH, true);
 
                     //ロックされている時は移動できない
                     if (isLock)
