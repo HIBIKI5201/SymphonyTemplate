@@ -12,14 +12,14 @@ namespace SymphonyFrameWork.Editor
         static SymphonyAssetPostProcessor()
         {
             // Unityエディタが再起動された後でも状態が反映されるようにする
-            EditorApplication.delayCall += ToggleOption;
+            EditorApplication.delayCall += () => ValidateLock();
         }
 
         /// <summary>
         /// メニューがクリックされたときにチェック状態を反転する
         /// </summary>
         [MenuItem(LOCK_PATH, priority = 200)]
-        static void ToggleOption()
+        private static void ToggleOption()
         {
             // 現在のチェック状態を取得
             bool isChecked = EditorPrefs.GetBool(LOCK_PATH, true);
@@ -33,7 +33,7 @@ namespace SymphonyFrameWork.Editor
         /// </summary>
         /// <returns>常に true（メニュー項目を有効にする）</returns>
         [MenuItem(LOCK_PATH, true)]
-        static bool ValidateLock()
+        private static bool ValidateLock()
         {
             // 最新のチェック状態を取得して、メニューのチェック表示を更新する
             bool isChecked = EditorPrefs.GetBool(LOCK_PATH, true);
