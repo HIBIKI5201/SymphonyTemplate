@@ -16,7 +16,7 @@ namespace SymphonyFrameWork.Editor
         }
 
         /// <summary>
-        /// 押されたらチェックを反転する
+        /// メニューがクリックされたときにチェック状態を反転する
         /// </summary>
         [MenuItem(LOCK_PATH, priority = 200)]
         static void ToggleOption()
@@ -24,20 +24,18 @@ namespace SymphonyFrameWork.Editor
             // 現在のチェック状態を取得
             bool isChecked = EditorPrefs.GetBool(LOCK_PATH, true);
 
-            isChecked = !isChecked;
-
-            // チェック状態を更新
-            EditorPrefs.SetBool(LOCK_PATH, isChecked);
-            Menu.SetChecked(LOCK_PATH, isChecked);
+            // 状態を反転して保存
+            EditorPrefs.SetBool(LOCK_PATH, !isChecked);
         }
 
         /// <summary>
-        /// メニューのチェック表示を最新に保つ
+        /// メニューのチェック表示を最新状態に更新する
         /// </summary>
-        /// <returns></returns>
+        /// <returns>常に true（メニュー項目を有効にする）</returns>
         [MenuItem(LOCK_PATH, true)]
         static bool ValidateLock()
         {
+            // 最新のチェック状態を取得して、メニューのチェック表示を更新する
             bool isChecked = EditorPrefs.GetBool(LOCK_PATH, true);
             Menu.SetChecked(LOCK_PATH, isChecked);
 
