@@ -15,7 +15,4 @@ MonoBehaviour:
   _isActiveLoadScene: 0
   _loadScene: 
   _sceneList:
-  - System
-  - Load
-  - Ingame
-  - Outgame
+  - SampleScene

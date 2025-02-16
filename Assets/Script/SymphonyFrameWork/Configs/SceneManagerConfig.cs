@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using SymphonyFrameWork.Attribute;
+using UnityEditor;
+using System.Linq;
+using System.IO;
 
 namespace SymphonyFrameWork.Config
 {
@@ -20,16 +23,15 @@ namespace SymphonyFrameWork.Config
         private string _loadScene;
         public string LoadScene { get => _loadScene; }
 
-        [DisplayText("Build ProfileのScene Listに入れたシーン名を入れて下さい")]
-        [SerializeField, Tooltip("ロードするシーンの一覧")]
-        private string[] _sceneList = new string[]
-        {
-            "System",
-            "Load",
-            "Ingame",
-            "Outgame"
-        };
-
+        [ReadOnly, SerializeField, Tooltip("ロードするシーンの一覧")]
+        private string[] _sceneList = new string[] { };
         public string[] SceneList { get => _sceneList; }
+
+        private void Awake()
+        {
+            _sceneList = EditorBuildSettings.scenes
+                .Select(s => Path.GetFileNameWithoutExtension(s.path))
+                .ToArray();
+        }
     }
 }
