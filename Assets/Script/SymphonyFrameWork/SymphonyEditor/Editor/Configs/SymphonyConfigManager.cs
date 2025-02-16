@@ -51,24 +51,4 @@ namespace SymphonyFrameWork.Editor
             }
         }
     }
-
-    /// <summary>
-    /// Enum生成用のボタンを実行
-    /// </summary>
-    [CustomEditor(typeof(SceneManagerConfig))]
-    public class MyScriptEditor : UnityEditor.Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            DrawDefaultInspector();
-
-            GUILayout.Space(10);
-            var storyData = target as SceneManagerConfig;
-
-            if (GUILayout.Button("Enumを生成する"))
-            {
-                EnumGenerator.EnumGenerate(storyData.SceneList, nameof(storyData.SceneList));
-            }
-        }
-    }
 }

@@ -1,15 +1,12 @@
-﻿using UnityEngine;
-using SymphonyFrameWork.Attribute;
-using UnityEditor;
-using System.Linq;
-using System.IO;
+﻿using SymphonyFrameWork.Attribute;
+using UnityEngine;
 
 namespace SymphonyFrameWork.Config
 {
     /// <summary>
     /// シーンマネージャーのコンフィグを格納する
     /// </summary>
-    public class SceneManagerConfig : ScriptableObject
+    public partial class SceneManagerConfig : ScriptableObject
     {
         [DisplayText("開発中の機能です")]
 
@@ -26,12 +23,5 @@ namespace SymphonyFrameWork.Config
         [ReadOnly, SerializeField, Tooltip("Enumを生成するシーンの一覧")]
         private string[] _sceneList = new string[] { };
         public string[] SceneList { get => _sceneList; }
-
-        private void OnEnable()
-        {
-            _sceneList = EditorBuildSettings.scenes
-                .Select(s => Path.GetFileNameWithoutExtension(s.path))
-                .ToArray();
-        }
     }
 }
