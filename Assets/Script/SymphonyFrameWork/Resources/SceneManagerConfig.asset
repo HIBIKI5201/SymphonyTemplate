@@ -15,11 +15,7 @@ MonoBehaviour:
   _isActiveLoadScene: 0
   _loadScene: 
   _sceneList:
-  - a
-  - b
-  - c
-  - g
-  - g
-  - 4
-  - hty
-  - adf
+  - System
+  - Load
+  - Ingame
+  - Outgame
