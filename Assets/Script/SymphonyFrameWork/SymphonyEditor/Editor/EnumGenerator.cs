@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,7 @@ namespace SymphonyFrameWork.Editor
             var content = NormalEnumGenerate(fileName, hash);
 
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
+            File.SetLastAccessTime(enumFilePath, DateTime.Now);
         }
 
         /// <summary>
