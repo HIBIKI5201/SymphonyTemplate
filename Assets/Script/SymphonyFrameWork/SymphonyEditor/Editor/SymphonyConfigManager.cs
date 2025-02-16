@@ -12,7 +12,7 @@ namespace SymphonyFrameWork.Editor
     [InitializeOnLoad]
     public static class SymphonyConfigManager
     {
-        private const string Resources_Path = SymphonyConstant.FrameWork_Path + "/Resources";
+        private const string RESOURCES_PATH = SymphonyConstant.FrameWork_Path + "/Resources";
 
         static SymphonyConfigManager()
         {
@@ -22,7 +22,7 @@ namespace SymphonyFrameWork.Editor
         private static void FileCheck<T>() where T : ScriptableObject
         {
             //型の名前でパスを指定
-            string filePath = $"{Resources_Path}/{typeof(T).Name}.asset";
+            string filePath = $"{RESOURCES_PATH}/{typeof(T).Name}.asset";
 
             // ファイルが存在しない場合
             if (AssetDatabase.LoadAssetAtPath<T>(filePath) == null)
@@ -43,7 +43,7 @@ namespace SymphonyFrameWork.Editor
         /// </summary>
         private static void CreateResourcesFolder()
         {
-            string resourcesPath = Resources_Path;
+            string resourcesPath = RESOURCES_PATH;
 
             //リソースがなければ生成
             if (!Directory.Exists(resourcesPath))

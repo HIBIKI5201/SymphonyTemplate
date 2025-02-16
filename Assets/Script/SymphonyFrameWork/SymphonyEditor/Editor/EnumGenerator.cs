@@ -8,7 +8,7 @@ namespace SymphonyFrameWork.Editor
 {
     public static class EnumGenerator
     {
-        private const string Enum_Path = SymphonyConstant.FrameWork_Path + "/Enum/";
+        private const string ENUM_PATH = SymphonyConstant.FrameWork_Path + "/Enum/";
 
         public static async void EnumGenerate(string[] strings, string fileName)
         {
@@ -21,10 +21,10 @@ namespace SymphonyFrameWork.Editor
             }
 
             //ディレクトリを生成
-            CreateResourcesFolder(Enum_Path);
+            CreateResourcesFolder(ENUM_PATH);
 
             //ファイル名を生成
-            var enumFilePath = $"{Enum_Path}{fileName}Enum.cs";
+            var enumFilePath = $"{ENUM_PATH}{fileName}Enum.cs";
 
             if (File.Exists(enumFilePath))
             {
