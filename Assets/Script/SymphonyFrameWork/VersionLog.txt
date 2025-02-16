@@ -1,8 +1,28 @@
 #Version
-1.19.0
+1.19.5
 
 
 #Log
+1.19.5
+[Update]
+SceneManagerConfig
+
+1.19.4
+[Update]
+DisplayTextAttribute
+
+1.19.3
+[Update]
+SymphonyConstant
+
+1.19.2
+[Update]
+EnumGenerator
+
+1.19.1
+[Update]
+SymphonyAssetPostProcessor
+
 1.19.0
 [Add]
 ContextMenuButtonAttribute
