@@ -26,10 +26,10 @@ namespace SymphonyFrameWork.Editor
             }
 
             //ディレクトリを生成
-            CreateResourcesFolder(ENUM_PATH);
+            CreateResourcesFolder(SymphonyConstant.ENUM_PATH);
 
             //ファイル名を生成
-            var enumFilePath = $"{ENUM_PATH}{fileName}Enum.cs";
+            var enumFilePath = $"{SymphonyConstant.ENUM_PATH}{fileName}Enum.cs";
 
             if (File.Exists(enumFilePath))
             {
