@@ -15,8 +15,14 @@ namespace SymphonyFrameWork.Config
         private string _loadScene;
         public string LoadScene { get => _loadScene; }
 
-        [SerializeField, Tooltip("")]
-        private string[] _sceneList;
+        [SerializeField, Tooltip("ロードするシーンの一覧")]
+        private string[] _sceneList = new string[]
+        {
+            "System",
+            "Load",
+            "Ingame",
+            "Outgame"
+        };
 
         public string[] SceneList { get => _sceneList; }
     }
