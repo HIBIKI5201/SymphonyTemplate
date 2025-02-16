@@ -11,7 +11,7 @@ namespace SymphonyFrameWork.Attribute
     {
         DisplayTextAttribute DisplayTextAttribute
         {
-            get { return (DisplayTextAttribute)attribute; }
+            get => (DisplayTextAttribute)attribute;
         }
 
         private GUIStyle Style = new GUIStyle(EditorStyles.label)
