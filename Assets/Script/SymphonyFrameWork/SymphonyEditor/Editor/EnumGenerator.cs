@@ -9,7 +9,6 @@ namespace SymphonyFrameWork.Editor
 {
     public static class EnumGenerator
     {
-        private const string ENUM_PATH = SymphonyConstant.FRAMEWORK_PATH + "/Enum/";
         private static readonly Regex IdentifierRegex = new Regex(@"^@?[a-zA-Z_][a-zA-Z0-9_]*$");
         private static readonly  string[] ReservedWords = { "abstract", "as", "base", "bool", "break", "while" };
 
