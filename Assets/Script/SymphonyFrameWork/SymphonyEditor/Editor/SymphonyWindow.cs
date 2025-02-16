@@ -19,7 +19,7 @@ namespace SymphonyFrameWork.Editor
         /// <summary>
         /// ウィンドウ表示
         /// </summary>
-        [MenuItem("Window/Symphony FrameWork/" + WINDOW_NAME)]
+        [MenuItem(SymphonyConstant.MENU_PATH + WINDOW_NAME, priority = 0)]
         public static void ShowWindow()
         {
             SymphonyWindow wnd = GetWindow<SymphonyWindow>();
