@@ -8,7 +8,7 @@ namespace SymphonyFrameWork.Config
 {
     public partial class SceneManagerConfig
     {
-        private void OnEnable()
+        public void OnEnable()
         {
             _sceneList = EditorBuildSettings.scenes
                 .Select(s => Path.GetFileNameWithoutExtension(s.path))
@@ -27,11 +27,18 @@ namespace SymphonyFrameWork.Config
             DrawDefaultInspector();
 
             GUILayout.Space(10);
-            var storyData = target as SceneManagerConfig;
+            var manager = target as SceneManagerConfig;
+
+            if (GUILayout.Button("SceneListを読み込む"))
+            {
+                manager.OnEnable();
+            }
+
+            GUILayout.Space(10);
 
             if (GUILayout.Button("Enumを生成する"))
             {
-                EnumGenerator.EnumGenerate(storyData.SceneList, nameof(storyData.SceneList));
+                EnumGenerator.EnumGenerate(manager.SceneList, nameof(manager.SceneList));
             }
         }
     }
