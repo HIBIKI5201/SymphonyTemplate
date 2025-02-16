@@ -21,7 +21,7 @@ public class DbugObj : MonoBehaviour
         _velocity = Vector3.up * _speed;
 
         MeshRenderer renderer = GetComponent<MeshRenderer>();
-        SymphonyTween.PausableTweening(new Color(0, 0, 0), x => renderer.material.color = x, new Color(1, 1, 1), 10, _curve);
+        SymphonyTween.PausableTweening(new Color(0, 0, 0), x => renderer.material.color = x, new Color(255, 255, 255), 10, _curve);
     }
 
     void Update()

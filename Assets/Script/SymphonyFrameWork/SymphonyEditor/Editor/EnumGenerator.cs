@@ -8,9 +8,9 @@ namespace SymphonyFrameWork.Editor
 {
     public static class EnumGenerator
     {
-        private const string FrameWork_Path = "Assets/Script/SymphonyFrameWork/Enum/";
+        private const string ENUM_PATH = SymphonyConstant.FRAMEWORK_PATH + "/Enum/";
 
-        public static async void Method(string[] strings, string fileName)
+        public static async void EnumGenerate(string[] strings, string fileName)
         {
             //重複を削除
             HashSet<string> hash = new HashSet<string>(strings);
@@ -21,18 +21,17 @@ namespace SymphonyFrameWork.Editor
             }
 
             //ディレクトリを生成
-            CreateResourcesFolder(FrameWork_Path);
+            CreateResourcesFolder(ENUM_PATH);
 
-            var enumFilePath = $"{FrameWork_Path}{fileName}Enum.cs";
+            //ファイル名を生成
+            var enumFilePath = $"{ENUM_PATH}{fileName}Enum.cs";
+
             if (File.Exists(enumFilePath))
             {
                 File.Delete(enumFilePath);
             }
 
-            IEnumerable<string> content = new[] { "public enum " + fileName + " : int {" };
-
-            content = content.Concat(hash.Select(s => $"{s},"));
-            content = content.Append("}");
+            var content = NormalEnumGenerate(fileName, hash);
 
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
         }
@@ -48,6 +47,36 @@ namespace SymphonyFrameWork.Editor
                 Directory.CreateDirectory(resourcesPath);
                 AssetDatabase.Refresh();
             }
+        }
+
+        /// <summary>
+        /// 通常のEnumを生成する
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="hash"></param>
+        /// <returns></returns>
+        private static IEnumerable<string> NormalEnumGenerate(string fileName, HashSet<string> hash)
+        {
+            //ファイルの中身を生成
+            IEnumerable<string> content = new[] { $"public enum " + fileName + "Enum : int\n{\n    None = 0," };
+
+            //Enumファイルに要素を追加していく
+            content = content.Concat(hash.Select((string s, int i) => $"    {s} = {i},"));
+            content = content.Append("}");
+
+            return content;
+        }
+
+        private static IEnumerable<string> FlagEnumGenerate(string fileName, HashSet<string> hash)
+        {
+            //ファイルの中身を生成
+            IEnumerable<string> content = new[] { $"using System;\n\n[Flags]\npublic enum " + fileName + "Enum : int\n{\n    None = 0," };
+
+            //Enumファイルに要素を追加していく
+            content = content.Concat(hash.Select((string s, int i) => $"    {s} = 1 << {i + 1},"));
+            content = content.Append("}");
+
+            return content;
         }
     }
 }

@@ -1,10 +1,10 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 using UnityEngine;
 
 namespace SymphonyFrameWork.Attribute
 {
     /// <summary>
-    /// ƒCƒ“ƒXƒyƒNƒ^[‚É•¶š‚ğ•\¦‚·‚é
+    /// ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã«æ–‡å­—ã‚’è¡¨ç¤ºã™ã‚‹
     /// </summary>
     public class DisplayTextAttribute : PropertyAttribute
     {
@@ -17,7 +17,7 @@ namespace SymphonyFrameWork.Attribute
     }
 
     /// <summary>
-    /// •¶š‚Ì•`‰æ‚ğs‚¤
+    /// æ–‡å­—ã®æç”»ã‚’è¡Œã†
     /// </summary>
     [CustomPropertyDrawer(typeof(DisplayTextAttribute))]
     public class DisplayTextDecoratorDrawer : DecoratorDrawer
@@ -42,7 +42,7 @@ namespace SymphonyFrameWork.Attribute
                 fontSize = 12
             };
 
-            // w’è‚µ‚½—Ìˆæ‚ÉƒeƒLƒXƒg‚ğ•\¦‚·‚é
+            // æŒ‡å®šã—ãŸé ˜åŸŸã«ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤ºã™ã‚‹
             EditorGUI.LabelField(position, DisplayTextAttribute.Text, style);
         }
     }

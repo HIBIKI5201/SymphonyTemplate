@@ -13,17 +13,17 @@ namespace SymphonyFrameWork.Editor
     /// </summary>
     public class SymphonyWindow : EditorWindow
     {
-        private const string WindowName = "Symphony Administrator";
-        private const string DIRECTORY_PATH = "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/UITK/";
+        private const string WINDOW_NAME = "Symphony Administrator";
+        private const string DIRECTORY_PATH = SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor/UITK/";
 
         /// <summary>
         /// ウィンドウ表示
         /// </summary>
-        [MenuItem("Window/Symphony FrameWork/" + WindowName)]
+        [MenuItem("Window/Symphony FrameWork/" + WINDOW_NAME)]
         public static void ShowWindow()
         {
             SymphonyWindow wnd = GetWindow<SymphonyWindow>();
-            wnd.titleContent = new GUIContent(WindowName);
+            wnd.titleContent = new GUIContent(WINDOW_NAME);
         }
 
         private void OnEnable()
