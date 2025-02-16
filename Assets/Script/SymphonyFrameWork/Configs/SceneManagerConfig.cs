@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using SymphonyFrameWork.Attribute;
 
 namespace SymphonyFrameWork.Config
 {
@@ -15,6 +16,7 @@ namespace SymphonyFrameWork.Config
         private string _loadScene;
         public string LoadScene { get => _loadScene; }
 
+        [DisplayText("Build ProfileのScene Listに入れたシーン名を入れて下さい")]
         [SerializeField, Tooltip("ロードするシーンの一覧")]
         private string[] _sceneList = new string[]
         {
