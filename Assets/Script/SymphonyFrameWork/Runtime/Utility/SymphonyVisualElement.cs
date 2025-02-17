@@ -124,6 +124,9 @@ namespace SymphonyFrameWork.Utility
             All = Absolute | FullRangth | PickModeIgnore
         }
 
+        /// <summary>
+        /// ロードの方法
+        /// </summary>
         public enum LoadType
         {
             Resources = 0,

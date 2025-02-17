@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace SymphonyFrameWork.Utility
 {
+    /// <summary>
+    /// Tweenを提供する
+    /// </summary>
     public static class SymphonyTween
     {
         /// <summary>
