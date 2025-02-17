@@ -141,12 +141,15 @@ namespace SymphonyFrameWork.Editor
         /// <returns></returns>
         private static async Task InstallPackageAsync(string[] packageNames)
         {
-            foreach (var name in packageNames)
+            //ロードのタスクを一括で生成
+            var tasks = packageNames.Select(async name =>
             {
                 AddRequest addRequest = Client.Add(name);
 
-                // IAsyncOperation を非同期タスクで待機
-                await SymphonyTask.WaitUntil(() => addRequest.IsCompleted);
+                while (!addRequest.IsCompleted)
+                {
+                    await Task.Yield();
+                }
 
                 if (addRequest.Status == StatusCode.Failure)
                 {
@@ -156,9 +159,9 @@ namespace SymphonyFrameWork.Editor
                 {
                     Debug.Log("Package installed: " + name);
                 }
-            }
+            });
+
+            await Task.WhenAll(tasks);
         }
-
-
     }
 }
