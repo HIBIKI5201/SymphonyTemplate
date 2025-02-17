@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SymphonyFrameWork.CoreSystem
+namespace SymphonyFrameWork.System
 {
     /// <summary>
     /// ポーズ状態を管理する型

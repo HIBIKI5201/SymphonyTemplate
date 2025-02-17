@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SymphonyFrameWork.CoreSystem
+namespace SymphonyFrameWork.System
 {
     /// <summary>
     /// セーブデータを管理するクラス

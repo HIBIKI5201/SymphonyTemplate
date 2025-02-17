@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace SymphonyFrameWork.CoreSystem
+namespace SymphonyFrameWork.System
 {
     /// <summary>
     /// シングルトンのインスタンスを統括して管理するクラス
