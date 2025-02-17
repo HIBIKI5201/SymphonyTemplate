@@ -1,4 +1,5 @@
-﻿using SymphonyFrameWork.Utility;
+﻿using SymphonyFrameWork.Core;
+using SymphonyFrameWork.Utility;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;

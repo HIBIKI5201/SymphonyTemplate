@@ -1,4 +1,5 @@
 ﻿using SymphonyFrameWork.CoreSystem;
+using SymphonyFrameWork.Core;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

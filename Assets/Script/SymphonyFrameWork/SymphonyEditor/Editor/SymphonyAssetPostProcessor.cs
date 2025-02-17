@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using SymphonyFrameWork.Core;
+using UnityEditor;
 
 namespace SymphonyFrameWork.Editor
 {
