@@ -38,6 +38,11 @@ namespace SymphonyFrameWork.System
         public static bool GetExistScene(string sceneName, out Scene scene) =>
             _sceneDict.TryGetValue(sceneName, out scene);
 
+        /// <summary>
+        /// シーンをアクティブにする
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
         public static bool SetActiveScene(string sceneName)
         {
             if (_sceneDict.TryGetValue(sceneName, out Scene scene))
