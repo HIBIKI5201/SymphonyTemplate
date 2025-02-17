@@ -98,7 +98,7 @@ namespace SymphonyFrameWork.System
         }
 
         /// <summary>
-        /// パーズ中に停止するInvoke
+        /// ポーズ中に停止するInvoke
         /// </summary>
         /// <param name="action"></param>
         /// <param name="t"></param>
