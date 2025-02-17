@@ -15,4 +15,5 @@ MonoBehaviour:
   _isActiveLoadScene: 0
   _loadScene: 
   _sceneList:
-  - SampleScene
+  - NewScene
+  _autoListUpdate: 1

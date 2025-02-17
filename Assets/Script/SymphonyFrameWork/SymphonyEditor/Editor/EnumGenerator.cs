@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
+using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -17,8 +18,23 @@ namespace SymphonyFrameWork.Editor
         {
             //重複を削除
             HashSet<string> hash = new HashSet<string>(strings)
-                .Where(s => IdentifierRegex.IsMatch(s)) //文字列の頭文字がアルファベットではないものは除外
-                .Where(s => !ReservedWords.Contains(s)) //プログラム文字を除外
+                .Where(s =>
+                {
+                    //文字列の頭文字がアルファベットではないものは除外
+                    if (!IdentifierRegex.IsMatch(s))
+                    {
+                        Debug.LogWarning($"無効な文字で始まっているか無効な文字が含まれているため'{s}'を除外しました");
+                        return false;
+                    }
+
+                    //プログラム文字を除外
+                    if (ReservedWords.Contains(s))
+                    {
+                        Debug.LogWarning($"無効な文字列'{s}'を除外しました");
+                    }
+
+                    return true;
+                })
                 .ToHashSet();
 
             if (hash.Count <= 0)
@@ -32,15 +48,11 @@ namespace SymphonyFrameWork.Editor
             //ファイル名を生成
             var enumFilePath = $"{SymphonyConstant.ENUM_PATH}/{fileName}Enum.cs";
 
-            if (File.Exists(enumFilePath))
-            {
-                File.Delete(enumFilePath);
-            }
-
             var content = NormalEnumGenerate(fileName, hash);
 
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
             File.SetLastAccessTime(enumFilePath, DateTime.Now);
+            AssetDatabase.ImportAsset(enumFilePath, ImportAssetOptions.ForceUpdate);
         }
 
         /// <summary>
@@ -52,7 +64,7 @@ namespace SymphonyFrameWork.Editor
             if (!Directory.Exists(resourcesPath))
             {
                 Directory.CreateDirectory(resourcesPath);
-                AssetDatabase.Refresh();
+                AssetDatabase.ImportAsset(resourcesPath, ImportAssetOptions.ForceUpdate);
             }
         }
 
@@ -68,7 +80,7 @@ namespace SymphonyFrameWork.Editor
             IEnumerable<string> content = new[] { $"public enum " + fileName + "Enum : int\n{\n    None = 0," };
 
             //Enumファイルに要素を追加していく
-            content = content.Concat(hash.Select((string s, int i) => $"    {s} = {i},"));
+            content = content.Concat(hash.Select((string s, int i) => $"    {s} = {i + 1},"));
             content = content.Append("}");
 
             return content;

@@ -1,8 +1,16 @@
 #Version
-1.19.5
+1.19.7
 
 
 #Log
+1.19.7
+[Update]
+SceneManagerConfig
+
+1.19.6
+[Fix]
+EnumGenerator
+
 1.19.5
 [Update]
 SceneManagerConfig
