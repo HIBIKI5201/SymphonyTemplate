@@ -1,4 +1,5 @@
-﻿using SymphonyFrameWork.Editor;
+﻿using SymphonyFrameWork.Attribute;
+using SymphonyFrameWork.Editor;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -10,6 +11,7 @@ namespace SymphonyFrameWork.Config
     {
         [Space]
 
+        [DisplayText("SceneListを更新した時に自動でEnumを再生成します")]
         [SerializeField]
         private bool _autoListUpdate = true;
 

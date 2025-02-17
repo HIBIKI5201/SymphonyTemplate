@@ -17,8 +17,8 @@ namespace SymphonyFrameWork.Config
         public bool IsActiveLoadScene { get => _isActiveLoadScene; }
 
         [SerializeField, Tooltip("ロード中に表示されるシーン")]
-        private string _loadScene;
-        public string LoadScene { get => _loadScene; }
+        private SceneListEnum _loadScene;
+        public SceneListEnum LoadScene { get => _loadScene; }
 
         [ReadOnly, SerializeField, Tooltip("Enumを生成するシーンの一覧")]
         private string[] _sceneList = new string[] { };
