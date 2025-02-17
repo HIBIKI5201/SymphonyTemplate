@@ -8,12 +8,12 @@ namespace SymphonyFrameWork.Config
 {
     public partial class SceneManagerConfig
     {
-        public void OnEnable()
+        private void OnEnable()
         {
             EditorBuildSettings.sceneListChanged += UpdateSceneList;
         }
 
-        public void OnDisable()
+        private void OnDisable()
         {
             EditorBuildSettings.sceneListChanged -= UpdateSceneList;
         }
@@ -44,7 +44,7 @@ namespace SymphonyFrameWork.Config
 
             if (GUILayout.Button("SceneListを読み込む"))
             {
-                manager.OnEnable();
+                manager.UpdateSceneList();
             }
 
             GUILayout.Space(10);
