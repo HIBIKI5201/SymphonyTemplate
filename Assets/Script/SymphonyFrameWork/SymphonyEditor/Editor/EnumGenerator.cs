@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
+using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -17,8 +18,23 @@ namespace SymphonyFrameWork.Editor
         {
             //重複を削除
             HashSet<string> hash = new HashSet<string>(strings)
-                .Where(s => IdentifierRegex.IsMatch(s)) //文字列の頭文字がアルファベットではないものは除外
-                .Where(s => !ReservedWords.Contains(s)) //プログラム文字を除外
+                .Where(s =>
+                {
+                    //文字列の頭文字がアルファベットではないものは除外
+                    if (!IdentifierRegex.IsMatch(s))
+                    {
+                        Debug.LogWarning($"無効な文字で始まっているか無効な文字が含まれているため'{s}'を除外しました");
+                        return false;
+                    }
+
+                    //プログラム文字を除外
+                    if (ReservedWords.Contains(s))
+                    {
+                        Debug.LogWarning($"無効な文字列'{s}'を除外しました");
+                    }
+
+                    return true;
+                })
                 .ToHashSet();
 
             if (hash.Count <= 0)
