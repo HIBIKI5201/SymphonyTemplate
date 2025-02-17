@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace SymphonyFrameWork.CoreSystem
+namespace SymphonyFrameWork.System
 {
     /// <summary>
     /// シーンのロードを管理するクラス

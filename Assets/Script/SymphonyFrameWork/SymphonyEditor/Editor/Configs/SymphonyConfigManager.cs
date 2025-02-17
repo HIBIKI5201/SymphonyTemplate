@@ -1,4 +1,5 @@
 ﻿using SymphonyFrameWork.Config;
+using SymphonyFrameWork.Core;
 using SymphonyFrameWork.Debugger;
 using System.IO;
 using UnityEditor;

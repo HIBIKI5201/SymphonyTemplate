@@ -106,7 +106,7 @@ SymphonyUtility
 
 1.17.2
 [Fix]
-SymphonyCoreSystem
+SymphonySystem
 ServiceLocator
 SceneLoader
 SaveDataSystem
@@ -178,12 +178,12 @@ SceneLoader
 
 1.14
 [fix]
-SymphonyCoreSystem
+SymphonySystem
 SceneLoader
 
 1.13
 [Add]
-SymphonyCoreSystem
+SymphonySystem
 
 1.12
 [Add]

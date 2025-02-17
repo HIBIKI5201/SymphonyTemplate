@@ -1,5 +1,5 @@
 ﻿using SymphonyFrameWork.Attribute;
-using SymphonyFrameWork.CoreSystem;
+using SymphonyFrameWork.System;
 using SymphonyFrameWork.Utility;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿using SymphonyFrameWork.CoreSystem;
+﻿using SymphonyFrameWork.System;
 using SymphonyFrameWork.Debugger;
 using System;
 using System.Threading;

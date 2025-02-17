@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SymphonyFrameWork.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace SymphonyFrameWork.Editor
     public static class EnumGenerator
     {
         private static readonly Regex IdentifierRegex = new Regex(@"^@?[a-zA-Z_][a-zA-Z0-9_]*$");
-        private static readonly  string[] ReservedWords = { "abstract", "as", "base", "bool", "break", "while" };
+        private static readonly string[] ReservedWords = { "abstract", "as", "base", "bool", "break", "while" };
 
         public static async void EnumGenerate(string[] strings, string fileName)
         {
