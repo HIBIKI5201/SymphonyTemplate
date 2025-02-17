@@ -10,6 +10,19 @@ namespace SymphonyFrameWork.Config
     {
         public void OnEnable()
         {
+            EditorBuildSettings.sceneListChanged += UpdateSceneList;
+        }
+
+        public void OnDisable()
+        {
+            EditorBuildSettings.sceneListChanged -= UpdateSceneList;
+        }
+
+        /// <summary>
+        /// ビルドセッティングでシーンリストが変更されたら更新する
+        /// </summary>
+        public void UpdateSceneList()
+        {
             _sceneList = EditorBuildSettings.scenes
                 .Select(s => Path.GetFileNameWithoutExtension(s.path))
                 .ToArray();
