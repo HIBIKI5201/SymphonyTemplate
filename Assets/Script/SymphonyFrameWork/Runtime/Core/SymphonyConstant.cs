@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace SymphonyFrameWork
+﻿namespace SymphonyFrameWork.Core
 {
     public static class SymphonyConstant
     {
