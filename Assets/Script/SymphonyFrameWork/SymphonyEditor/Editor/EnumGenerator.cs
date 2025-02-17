@@ -48,11 +48,6 @@ namespace SymphonyFrameWork.Editor
             //ファイル名を生成
             var enumFilePath = $"{SymphonyConstant.ENUM_PATH}/{fileName}Enum.cs";
 
-            if (File.Exists(enumFilePath))
-            {
-                File.Delete(enumFilePath);
-            }
-
             var content = NormalEnumGenerate(fileName, hash);
 
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
