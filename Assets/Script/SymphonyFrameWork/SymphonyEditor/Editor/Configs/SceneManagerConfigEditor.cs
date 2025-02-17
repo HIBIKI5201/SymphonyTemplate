@@ -8,6 +8,11 @@ namespace SymphonyFrameWork.Config
 {
     public partial class SceneManagerConfig
     {
+        [Space]
+
+        [SerializeField]
+        private bool _autoListUpdate = true;
+
         private void OnEnable()
         {
             EditorBuildSettings.sceneListChanged += UpdateSceneList;
@@ -26,6 +31,16 @@ namespace SymphonyFrameWork.Config
             _sceneList = EditorBuildSettings.scenes
                 .Select(s => Path.GetFileNameWithoutExtension(s.path))
                 .ToArray();
+
+            if (_autoListUpdate)
+            {
+                GenerateSceneEnum();
+            }
+        }
+
+        public void GenerateSceneEnum()
+        {
+            EnumGenerator.EnumGenerate(SceneList, nameof(SceneList));
         }
     }
 
@@ -51,7 +66,7 @@ namespace SymphonyFrameWork.Config
 
             if (GUILayout.Button("Enumを生成する"))
             {
-                EnumGenerator.EnumGenerate(manager.SceneList, nameof(manager.SceneList));
+                manager.GenerateSceneEnum();
             }
         }
     }
