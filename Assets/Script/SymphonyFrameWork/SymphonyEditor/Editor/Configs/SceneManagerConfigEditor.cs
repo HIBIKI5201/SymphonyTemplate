@@ -15,12 +15,22 @@ namespace SymphonyFrameWork.Config
 
         private void OnEnable()
         {
-            EditorBuildSettings.sceneListChanged += UpdateSceneList;
+            EditorBuildSettings.sceneListChanged += SceneListChanged;
         }
 
         private void OnDisable()
         {
-            EditorBuildSettings.sceneListChanged -= UpdateSceneList;
+            EditorBuildSettings.sceneListChanged -= SceneListChanged;
+        }
+
+        private void SceneListChanged()
+        {
+            UpdateSceneList();
+
+            if (_autoListUpdate)
+            {
+                GenerateSceneEnum();
+            }
         }
 
         /// <summary>
@@ -31,13 +41,11 @@ namespace SymphonyFrameWork.Config
             _sceneList = EditorBuildSettings.scenes
                 .Select(s => Path.GetFileNameWithoutExtension(s.path))
                 .ToArray();
-
-            if (_autoListUpdate)
-            {
-                GenerateSceneEnum();
-            }
         }
 
+        /// <summary>
+        /// シーン名のEnumを生成する
+        /// </summary>
         public void GenerateSceneEnum()
         {
             EnumGenerator.EnumGenerate(SceneList, nameof(SceneList));
