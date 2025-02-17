@@ -57,6 +57,7 @@ namespace SymphonyFrameWork.Editor
 
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
             File.SetLastAccessTime(enumFilePath, DateTime.Now);
+            AssetDatabase.ImportAsset(enumFilePath, ImportAssetOptions.ForceUpdate);
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace SymphonyFrameWork.Editor
             if (!Directory.Exists(resourcesPath))
             {
                 Directory.CreateDirectory(resourcesPath);
-                AssetDatabase.Refresh();
+                AssetDatabase.ImportAsset(resourcesPath, ImportAssetOptions.ForceUpdate);
             }
         }
 
@@ -84,7 +85,7 @@ namespace SymphonyFrameWork.Editor
             IEnumerable<string> content = new[] { $"public enum " + fileName + "Enum : int\n{\n    None = 0," };
 
             //Enumファイルに要素を追加していく
-            content = content.Concat(hash.Select((string s, int i) => $"    {s} = {i},"));
+            content = content.Concat(hash.Select((string s, int i) => $"    {s} = {i + 1},"));
             content = content.Append("}");
 
             return content;
