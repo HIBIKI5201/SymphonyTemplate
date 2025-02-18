@@ -4,7 +4,7 @@
         <SymphonyFrameWork.Editor.PauseWindow />
         <SymphonyFrameWork.Editor.ServiceLocatorWindow />
         <engine:VisualElement class="base text">
-            <engine:Label text="AutoEnumGenerateコンフィグ" class="title" />
+            <engine:Label text="AutoEnumGenerate&#10;コンフィグ" class="title" />
             <engine:Toggle label="シーンリスト" value="false" name="enum-scene" />
         </engine:VisualElement>
     </engine:ScrollView>
