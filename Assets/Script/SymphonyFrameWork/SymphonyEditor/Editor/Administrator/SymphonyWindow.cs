@@ -18,6 +18,7 @@ namespace SymphonyFrameWork.Editor
         private const string UITK_PATH = SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor/Administrator/UITK/";
 
         private PauseWindow _pauseWindow;
+        private ServiceLocatorWindow _serviceLocatorWindow;
         
         private void OnEnable()
         {
@@ -26,7 +27,7 @@ namespace SymphonyFrameWork.Editor
             if (container != null)
             {
                 _pauseWindow = container.Q<PauseWindow>();
-                LocateDictInit(container);
+                _serviceLocatorWindow = container.Q<ServiceLocatorWindow>();
                 SceneLoaderInit(container);
             }
             else
@@ -45,6 +46,7 @@ namespace SymphonyFrameWork.Editor
         private void Update()
         {
             _pauseWindow?.Update();
+            _serviceLocatorWindow?.Update();
         }
 
 
@@ -79,64 +81,6 @@ namespace SymphonyFrameWork.Editor
             Debug.LogError("ウィンドウが見つかりません");
             return null;
         }
-        
-
-        #region ServiceLocator
-
-        private FieldInfo locateInfo;
-        private Dictionary<Type, Component> locateDict;
-        private ListView locateList;
-
-        private void LocateDictInit(VisualElement root)
-        {
-            locateInfo =
-                typeof(ServiceLocator).GetField("_singletonObjects", BindingFlags.Static | BindingFlags.NonPublic);
-
-            if (locateInfo != null) locateDict = (Dictionary<Type, Component>)locateInfo.GetValue(null);
-
-            locateList = root.Q<ListView>("locate-list");
-
-            locateList.makeItem = () => new Label();
-
-            // 項目のバインド（データを UI に反映）
-            locateList.bindItem = (element, index) =>
-            {
-                var kvp = GetLocateList()[index];
-                (element as Label).text = $"type : {kvp.Key.Name}\nobj : {kvp.Value.name}";
-            };
-
-            // データのセット
-            locateList.itemsSource = GetLocateList();
-
-            // 選択タイプの設定
-            locateList.selectionType = SelectionType.None;
-
-            EditorApplication.update += LocateListUpdate;
-        }
-
-        private void LocateStop()
-        {
-            EditorApplication.update -= LocateListUpdate;
-        }
-
-        private List<KeyValuePair<Type, Component>> GetLocateList()
-        {
-            if (locateDict != null) locateDict = (Dictionary<Type, Component>)locateInfo.GetValue(null);
-            return locateDict != null
-                ? new List<KeyValuePair<Type, Component>>(locateDict)
-                : new List<KeyValuePair<Type, Component>>();
-        }
-
-        private void LocateListUpdate()
-        {
-            if (locateList != null)
-            {
-                locateList.itemsSource = GetLocateList();
-                locateList.Rebuild();
-            }
-        }
-
-        #endregion
 
         #region SceneLoader
 
