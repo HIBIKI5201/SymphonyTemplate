@@ -17,13 +17,15 @@ namespace SymphonyFrameWork.Editor
         private const string WINDOW_NAME = "Symphony Administrator";
         private const string UITK_PATH = SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor/Administrator/UITK/";
 
+        private PauseWindow _pauseWindow;
+        
         private void OnEnable()
         {
             var container = LoadWindow();
 
             if (container != null)
             {
-                PauseInit(container);
+                _pauseWindow = container.Q<PauseWindow>();
                 LocateDictInit(container);
                 SceneLoaderInit(container);
             }
@@ -31,13 +33,21 @@ namespace SymphonyFrameWork.Editor
             {
                 Debug.LogWarning("ウィンドウがロードできませんでした");
             }
+            
+            EditorApplication.update += Update;
         }
 
         private void OnDisable()
         {
-            PauseStop();
-            LocateStop();
+            EditorApplication.update -= Update;
         }
+        
+        private void Update()
+        {
+            _pauseWindow?.Update();
+        }
+
+
 
         /// <summary>
         ///     ウィンドウ表示
@@ -69,50 +79,7 @@ namespace SymphonyFrameWork.Editor
             Debug.LogError("ウィンドウが見つかりません");
             return null;
         }
-
-        #region PauseManager
-
-        private FieldInfo _pauseInfo;
-        private VisualElement _pauseVisual;
-        private Label _pauseText;
-
-        private void PauseInit(VisualElement root)
-        {
-            // _pause フィールドを取得
-            _pauseInfo = typeof(PauseManager).GetField("_pause", BindingFlags.Static | BindingFlags.NonPublic);
-
-            if (root == null) root = LoadWindow();
-
-            _pauseVisual = root.Q<VisualElement>("pause");
-            _pauseText = root.Q<Label>("pause-text");
-
-            root.Q<Button>("button-pause").clicked += () => PauseManager.Pause = true;
-            root.Q<Button>("button-resume").clicked += () => PauseManager.Pause = false;
-
-            EditorApplication.update += PauseVisualUpdate;
-        }
-
-        private void PauseStop()
-        {
-            EditorApplication.update -= PauseVisualUpdate;
-        }
-
-
-        private void PauseVisualUpdate()
-        {
-            if (_pauseVisual != null && _pauseInfo != null)
-            {
-                var active = (bool)_pauseInfo.GetValue(null);
-                _pauseVisual.style.backgroundColor = new StyleColor(active ? Color.green : Color.red);
-                _pauseText.text = active ? "True" : "False";
-            }
-            else
-            {
-                _pauseVisual.style.backgroundColor = new StyleColor(Color.red);
-            }
-        }
-
-        #endregion
+        
 
         #region ServiceLocator
 
