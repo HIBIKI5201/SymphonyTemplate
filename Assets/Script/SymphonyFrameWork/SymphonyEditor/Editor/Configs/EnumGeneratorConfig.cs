@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
-    public class SymphonyWindowConfig : ScriptableObject
+    public class EnumGeneratorConfig : ScriptableObject
     {
         [ReadOnly, SerializeField]
         private bool _autoSceneListUpdate = true;

@@ -21,13 +21,13 @@ namespace SymphonyFrameWork.Editor
         private static  Dictionary<Type, string> _typeDict = new()
         {
             {typeof(SceneManagerConfig), SymphonyConstant.RESOURCES_RUNTIME_PATH},
-            {typeof(SymphonyWindowConfig), SymphonyConstant.RESOURCES_EDITOR_PATH}
+            {typeof(EnumGeneratorConfig), SymphonyConstant.RESOURCES_EDITOR_PATH}
         };
         
         static SymphonyConfigManager()
         {
             FileCheck<SceneManagerConfig>();
-            FileCheck<SymphonyWindowConfig>();
+            FileCheck<EnumGeneratorConfig>();
         }
 
         /// <summary>

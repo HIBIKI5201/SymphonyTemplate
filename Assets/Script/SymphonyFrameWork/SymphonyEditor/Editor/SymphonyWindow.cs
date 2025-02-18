@@ -188,7 +188,7 @@ namespace SymphonyFrameWork.Editor
         private static void SceneLoaderInit(VisualElement root)
         {
             //コンフィグデータを取得
-            var config = SymphonyConfigManager.GetConfig<SymphonyWindowConfig>();
+            var config = SymphonyConfigManager.GetConfig<EnumGeneratorConfig>();
             _autoSceneListUpdateToggle = root.Q<Toggle>("enum-scene");
             _autoSceneListUpdateToggle.value = config.AutoSceneListUpdate;
 
