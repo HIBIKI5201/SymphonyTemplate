@@ -21,7 +21,7 @@ namespace SymphonyFrameWork.System
         [Tooltip("シングルトン化するインスタンスのコンテナ")]
         private static GameObject _instance;
         [Tooltip("シングルトン登録されている型のインスタンス辞書")]
-        private static Dictionary<Type, Component> _singletonObjects = new();
+        private static readonly Dictionary<Type, Component> _singletonObjects = new();
 
         /// <summary>
         /// インスタンスコンテナが無い場合に生成する
