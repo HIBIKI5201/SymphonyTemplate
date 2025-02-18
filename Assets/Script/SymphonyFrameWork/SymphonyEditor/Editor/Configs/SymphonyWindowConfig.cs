@@ -25,27 +25,14 @@ namespace SymphonyFrameWork.Editor
         {
             if (_autoSceneListUpdate)
             {
-                var sceneList = UpdateSceneList();
-                GenerateSceneEnum(sceneList);
+                //シーンリストのシーン名を取得
+                var sceneList = EditorBuildSettings.scenes
+                    .Select(s => Path.GetFileNameWithoutExtension(s.path))
+                    .ToArray();
+                
+                //シーン名のEnumを生成する
+                EnumGenerator.EnumGenerate(sceneList, "SceneList");
             }
-        }
-
-        /// <summary>
-        /// ビルドセッティングでシーンリストが変更されたら更新する
-        /// </summary>
-        public string[] UpdateSceneList()
-        {
-            return EditorBuildSettings.scenes
-                .Select(s => Path.GetFileNameWithoutExtension(s.path))
-                .ToArray();
-        }
-
-        /// <summary>
-        /// シーン名のEnumを生成する
-        /// </summary>
-        public void GenerateSceneEnum(string[] sceneList)
-        {
-            EnumGenerator.EnumGenerate(sceneList, "SceneList");
         }
     }
 }
