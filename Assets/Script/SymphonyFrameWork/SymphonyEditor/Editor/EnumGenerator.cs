@@ -48,6 +48,8 @@ namespace SymphonyFrameWork.Editor
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
             File.SetLastAccessTime(enumFilePath, DateTime.Now);
             AssetDatabase.ImportAsset(enumFilePath, ImportAssetOptions.ForceUpdate);
+            
+            Debug.Log($"{fileName}Enumを生成しました");
         }
 
         /// <summary>

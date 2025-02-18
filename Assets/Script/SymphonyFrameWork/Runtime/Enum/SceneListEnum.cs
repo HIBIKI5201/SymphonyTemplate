@@ -1,6 +1,6 @@
-﻿public enum SceneListEnum
+﻿public enum SceneListEnum : int
 {
     None = 0,
     NewScene = 1,
-    NewScene1 = 2
+    NewScene1 = 2,
 }
