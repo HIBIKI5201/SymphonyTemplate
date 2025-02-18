@@ -10,6 +10,7 @@ namespace SymphonyFrameWork.Editor
     {
         [ReadOnly, SerializeField]
         private bool _autoSceneListUpdate = true;
+        public bool AutoSceneListUpdate { get => _autoSceneListUpdate; set=> _autoSceneListUpdate = value; }
         
         private void OnEnable()
         {

@@ -1,7 +1,11 @@
-﻿using SymphonyFrameWork.Config;
+﻿using System;
+using System.Collections.Generic;
+using SymphonyFrameWork.Config;
 using SymphonyFrameWork.Core;
 using SymphonyFrameWork.Debugger;
 using System.IO;
+using System.Linq;
+using PlasticGui;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,39 +17,35 @@ namespace SymphonyFrameWork.Editor
     [InitializeOnLoad]
     public static class SymphonyConfigManager
     {
-        /// <summary>
-        /// ファイルがあるか確認する
-        /// </summary>
+        //各クラスのファイルタイプ
+        private static  Dictionary<Type, string> _typeDict = new()
+        {
+            {typeof(SceneManagerConfig), SymphonyConstant.RESOURCES_RUNTIME_PATH},
+            {typeof(SymphonyWindowConfig), SymphonyConstant.RESOURCES_EDITOR_PATH}
+        };
+        
         static SymphonyConfigManager()
         {
-            FileCheck<SceneManagerConfig>(FileType.Runtime);
-            FileCheck<SymphonyWindowConfig>(FileType.Editor);
+            FileCheck<SceneManagerConfig>();
+            FileCheck<SymphonyWindowConfig>();
         }
 
         /// <summary>
-        /// ファイルがない場合は再生成する
+        /// ファイルが存在するか確認する
         /// </summary>
-        /// <param name="type"></param>
         /// <typeparam name="T"></typeparam>
-        private static void FileCheck<T>(FileType type) where T : ScriptableObject
+        private static void FileCheck<T>() where T : ScriptableObject
         {
-            //パスを取得
-            string path = type switch
+            var paths = GetFullPath<T>();
+            if (paths == null)
             {
-                FileType.Runtime => SymphonyConstant.RESOURCES_RUNTIME_PATH,
-                FileType.Editor => SymphonyConstant.RESOURCES_EDITOR_PATH,
-                _ => string.Empty
-            };
-
-            if (string.IsNullOrEmpty(path))
-            {
-                Debug.LogWarning("SymphonyConfigManager: File not found: " + type.ToString());
+                Debug.LogWarning(typeof(T).Name + " doesn't exist!");
                 return;
             }
+
+            (string path, string filePath) = paths.Value;
             
-            //型の名前でパスを指定
-            string filePath = $"{path}/{typeof(T).Name}.asset";
-            
+            //ファイルが存在するなら終了
             if (AssetDatabase.LoadAssetAtPath<T>(filePath) != null) return;
             
             //フォルダがなければ生成
@@ -60,6 +60,44 @@ namespace SymphonyFrameWork.Editor
         }
 
         /// <summary>
+        /// それぞれのパスを取得する
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        private static (string path, string filePath)? GetFullPath<T>() where T : ScriptableObject
+        {
+            //パスを取得
+            if (!_typeDict.TryGetValue(typeof(T), out var path))
+            {
+                return null;
+            }
+            
+            //ファイルパスに変換
+            var filePath = $"{path}/{typeof(T).Name}.asset";;
+
+            if (string.IsNullOrEmpty(filePath))
+            {
+                Debug.LogWarning("file path is null or empty.");
+                return null;
+            }
+            
+            return (path, filePath);
+        }
+
+        /// <summary>
+        /// 指定した型のアセットを取得する
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T GetConfig<T>() where T : ScriptableObject
+        {
+            var paths = GetFullPath<T>();
+            if (paths == null) return null;
+            
+            return AssetDatabase.LoadAssetAtPath<T>(paths.Value.filePath);
+        }
+
+        /// <summary>
         /// リソースフォルダが無ければ生成
         /// </summary>
         private static void CreateResourcesFolder(string resourcesPath)
@@ -70,12 +108,6 @@ namespace SymphonyFrameWork.Editor
                 Directory.CreateDirectory(resourcesPath);
                 AssetDatabase.Refresh();
             }
-        }
-
-        private enum FileType
-        {
-            Runtime,
-            Editor,
         }
     }
 }
