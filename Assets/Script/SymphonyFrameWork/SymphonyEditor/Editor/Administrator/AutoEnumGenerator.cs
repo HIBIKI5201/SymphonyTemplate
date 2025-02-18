@@ -1,0 +1,37 @@
+using System.IO;
+using System.Linq;
+using UnityEditor;
+
+namespace SymphonyFrameWork.Editor
+{
+    [InitializeOnLoad]
+    public static class AutoEnumGenerator
+    {
+        private static readonly AutoEnumGeneratorConfig _config;
+
+        static AutoEnumGenerator()
+        {
+            _config = SymphonyConfigManager.GetConfig<AutoEnumGeneratorConfig>();
+
+            EditorBuildSettings.sceneListChanged -= SceneListChanged;
+            EditorBuildSettings.sceneListChanged += SceneListChanged;
+        }
+
+        /// <summary>
+        ///     シーンリスト変更時の更新
+        /// </summary>
+        private static void SceneListChanged()
+        {
+            if (_config.AutoSceneListUpdate)
+            {
+                //シーンリストのシーン名を取得
+                var sceneList = EditorBuildSettings.scenes
+                    .Select(s => Path.GetFileNameWithoutExtension(s.path))
+                    .ToArray();
+
+                //シーン名のEnumを生成する
+                EnumGenerator.EnumGenerate(sceneList, "SceneList");
+            }
+        }
+    }
+}

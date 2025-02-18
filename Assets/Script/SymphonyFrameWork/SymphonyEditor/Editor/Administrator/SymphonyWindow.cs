@@ -1,8 +1,8 @@
-﻿using SymphonyFrameWork.System;
-using SymphonyFrameWork.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using SymphonyFrameWork.Core;
+using SymphonyFrameWork.System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,22 +10,12 @@ using UnityEngine.UIElements;
 namespace SymphonyFrameWork.Editor
 {
     /// <summary>
-    /// SymphonyFrameWorkの管理パネルを表示するクラス
+    ///     SymphonyFrameWorkの管理パネルを表示するクラス
     /// </summary>
     public class SymphonyWindow : EditorWindow
     {
         private const string WINDOW_NAME = "Symphony Administrator";
-        private const string UITK_PATH = SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor/UITK/";
-
-        /// <summary>
-        /// ウィンドウ表示
-        /// </summary>
-        [MenuItem(SymphonyConstant.MENU_PATH + WINDOW_NAME, priority = 0)]
-        public static void ShowWindow()
-        {
-            SymphonyWindow wnd = GetWindow<SymphonyWindow>();
-            wnd.titleContent = new GUIContent(WINDOW_NAME);
-        }
+        private const string UITK_PATH = SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor/Administrator/UITK/";
 
         private void OnEnable()
         {
@@ -50,25 +40,34 @@ namespace SymphonyFrameWork.Editor
         }
 
         /// <summary>
-        /// UXMLを追加
+        ///     ウィンドウ表示
+        /// </summary>
+        [MenuItem(SymphonyConstant.MENU_PATH + WINDOW_NAME, priority = 0)]
+        public static void ShowWindow()
+        {
+            var wnd = GetWindow<SymphonyWindow>();
+            wnd.titleContent = new GUIContent(WINDOW_NAME);
+        }
+
+        /// <summary>
+        ///     UXMLを追加
         /// </summary>
         /// <returns></returns>
         private TemplateContainer LoadWindow()
         {
             rootVisualElement.Clear();
 
-            var windowTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UITK_PATH + "SymphonyWindow.uxml"); ;
+            var windowTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UITK_PATH + "SymphonyWindow.uxml");
+            ;
             if (windowTree != null)
             {
                 var windowElement = windowTree.Instantiate();
                 rootVisualElement.Add(windowElement);
                 return windowElement;
             }
-            else
-            {
-                Debug.LogError("ウィンドウが見つかりません");
-                return null;
-            }
+
+            Debug.LogError("ウィンドウが見つかりません");
+            return null;
         }
 
         #region PauseManager
@@ -82,10 +81,7 @@ namespace SymphonyFrameWork.Editor
             // _pause フィールドを取得
             _pauseInfo = typeof(PauseManager).GetField("_pause", BindingFlags.Static | BindingFlags.NonPublic);
 
-            if (root == null)
-            {
-                root = LoadWindow();
-            }
+            if (root == null) root = LoadWindow();
 
             _pauseVisual = root.Q<VisualElement>("pause");
             _pauseText = root.Q<Label>("pause-text");
@@ -98,7 +94,6 @@ namespace SymphonyFrameWork.Editor
 
         private void PauseStop()
         {
-
             EditorApplication.update -= PauseVisualUpdate;
         }
 
@@ -107,7 +102,7 @@ namespace SymphonyFrameWork.Editor
         {
             if (_pauseVisual != null && _pauseInfo != null)
             {
-                bool active = (bool)_pauseInfo.GetValue(null);
+                var active = (bool)_pauseInfo.GetValue(null);
                 _pauseVisual.style.backgroundColor = new StyleColor(active ? Color.green : Color.red);
                 _pauseText.text = active ? "True" : "False";
             }
@@ -127,12 +122,10 @@ namespace SymphonyFrameWork.Editor
 
         private void LocateDictInit(VisualElement root)
         {
-            locateInfo = typeof(ServiceLocator).GetField("_singletonObjects", BindingFlags.Static | BindingFlags.NonPublic);
+            locateInfo =
+                typeof(ServiceLocator).GetField("_singletonObjects", BindingFlags.Static | BindingFlags.NonPublic);
 
-            if (locateInfo != null)
-            {
-                locateDict = (Dictionary<Type, Component>)locateInfo.GetValue(null);
-            }
+            if (locateInfo != null) locateDict = (Dictionary<Type, Component>)locateInfo.GetValue(null);
 
             locateList = root.Q<ListView>("locate-list");
 
@@ -161,13 +154,10 @@ namespace SymphonyFrameWork.Editor
 
         private List<KeyValuePair<Type, Component>> GetLocateList()
         {
-            if (locateDict != null)
-            {
-                locateDict = (Dictionary<Type, Component>)locateInfo.GetValue(null);
-            }
-            return locateDict != null ?
-                new List<KeyValuePair<Type, Component>>(locateDict) :
-                new List<KeyValuePair<Type, Component>>();
+            if (locateDict != null) locateDict = (Dictionary<Type, Component>)locateInfo.GetValue(null);
+            return locateDict != null
+                ? new List<KeyValuePair<Type, Component>>(locateDict)
+                : new List<KeyValuePair<Type, Component>>();
         }
 
         private void LocateListUpdate()
@@ -181,14 +171,14 @@ namespace SymphonyFrameWork.Editor
 
         #endregion
 
-        #region  SceneLoader
-        
+        #region SceneLoader
+
         private static Toggle _autoSceneListUpdateToggle;
-        
+
         private static void SceneLoaderInit(VisualElement root)
         {
             //コンフィグデータを取得
-            var config = SymphonyConfigManager.GetConfig<EnumGeneratorConfig>();
+            var config = SymphonyConfigManager.GetConfig<AutoEnumGeneratorConfig>();
             _autoSceneListUpdateToggle = root.Q<Toggle>("enum-scene");
             _autoSceneListUpdateToggle.value = config.AutoSceneListUpdate;
 
