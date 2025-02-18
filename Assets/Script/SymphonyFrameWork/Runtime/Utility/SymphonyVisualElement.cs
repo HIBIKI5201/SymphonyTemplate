@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -10,23 +9,47 @@ using UnityEditor;
 namespace SymphonyFrameWork.Utility
 {
     /// <summary>
-    /// VisualElementをCSで制御するベースクラス
+    ///     VisualElementをCSで制御するベースクラス
     /// </summary>
     [UxmlElement]
     public abstract partial class SymphonyVisualElement : VisualElement
     {
         /// <summary>
-        /// 初期化処理のタスク
+        ///     初期化のタイプ
         /// </summary>
-        public Task InitializeTask { get; private set; }
+        [Flags]
+        public enum InitializeType
+        {
+            None = 0,
+            Absolute = 1 << 0,
+            FullRangth = 1 << 1,
+            PickModeIgnore = 1 << 2,
+            All = Absolute | FullRangth | PickModeIgnore
+        }
 
-        public SymphonyVisualElement(string path, InitializeType initializeType = InitializeType.All, LoadType loadType = LoadType.Resources)
+        /// <summary>
+        ///     ロードの方法
+        /// </summary>
+        public enum LoadType
+        {
+            Resources = 0,
+            Addressable = 1,
+            AssetDataBase = 2
+        }
+
+        public SymphonyVisualElement(string path, InitializeType initializeType = InitializeType.All,
+            LoadType loadType = LoadType.Resources)
         {
             InitializeTask = Initialize(path, initializeType, loadType);
         }
 
         /// <summary>
-        /// 初期化処理
+        ///     初期化処理のタスク
+        /// </summary>
+        public Task InitializeTask { get; private set; }
+
+        /// <summary>
+        ///     初期化処理
         /// </summary>
         /// <param name="path">UXMLのパス</param>
         /// <param name="type">初期化のタイプ</param>
@@ -72,22 +95,19 @@ namespace SymphonyFrameWork.Utility
 
                 if ((type & InitializeType.PickModeIgnore) != 0)
                 {
-                    this.RegisterCallback<KeyDownEvent>(e => e.StopPropagation());
+                    RegisterCallback<KeyDownEvent>(e => e.StopPropagation());
                     pickingMode = PickingMode.Ignore;
 
                     container.RegisterCallback<KeyDownEvent>(e => e.StopPropagation());
                     container.pickingMode = PickingMode.Ignore;
                 }
 
-                if ((type & InitializeType.Absolute) != 0)
-                {
-                    this.style.position = Position.Absolute;
-                }
+                if ((type & InitializeType.Absolute) != 0) style.position = Position.Absolute;
 
                 if ((type & InitializeType.FullRangth) != 0)
                 {
-                    this.style.height = Length.Percent(100);
-                    this.style.width = Length.Percent(100);
+                    style.height = Length.Percent(100);
+                    style.width = Length.Percent(100);
                 }
 
 
@@ -105,33 +125,10 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// サブクラス固有の初期化処理
+        ///     サブクラス固有の初期化処理
         /// </summary>
         /// <param name="container">ロードしたUXMLのコンテナ</param>
         /// <returns></returns>
         protected abstract Task Initialize_S(TemplateContainer container);
-
-        /// <summary>
-        /// 初期化のタイプ
-        /// </summary>
-        [Flags]
-        public enum InitializeType
-        {
-            None = 0,
-            Absolute = 1 << 0,
-            FullRangth = 1 << 1,
-            PickModeIgnore = 1 << 2,
-            All = Absolute | FullRangth | PickModeIgnore
-        }
-
-        /// <summary>
-        /// ロードの方法
-        /// </summary>
-        public enum LoadType
-        {
-            Resources = 0,
-            Addressable = 1,
-            AssetDataBase = 2,
-        }
     }
 }

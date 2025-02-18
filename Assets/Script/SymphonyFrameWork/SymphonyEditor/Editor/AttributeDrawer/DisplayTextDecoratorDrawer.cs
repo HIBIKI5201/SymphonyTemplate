@@ -4,23 +4,20 @@ using UnityEngine;
 namespace SymphonyFrameWork.Attribute
 {
     /// <summary>
-    /// 文字の描画を行う
+    ///     文字の描画を行う
     /// </summary>
     [CustomPropertyDrawer(typeof(DisplayTextAttribute))]
     public class DisplayTextDecoratorDrawer : DecoratorDrawer
     {
-        DisplayTextAttribute DisplayTextAttribute
-        {
-            get => (DisplayTextAttribute)attribute;
-        }
-
-        private GUIStyle Style = new GUIStyle(EditorStyles.label)
+        private readonly GUIStyle Style = new(EditorStyles.label)
         {
             alignment = TextAnchor.MiddleCenter,
             normal = { textColor = Color.white },
             fontStyle = FontStyle.Normal,
             fontSize = 12
         };
+
+        private DisplayTextAttribute DisplayTextAttribute => (DisplayTextAttribute)attribute;
 
         public override float GetHeight()
         {

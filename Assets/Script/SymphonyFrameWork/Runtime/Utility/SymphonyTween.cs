@@ -1,19 +1,19 @@
-﻿using SymphonyFrameWork.System;
-using SymphonyFrameWork.Debugger;
-using System;
+﻿using System;
 using System.Threading;
+using SymphonyFrameWork.Debugger;
+using SymphonyFrameWork.System;
 using UnityEngine;
 
 namespace SymphonyFrameWork.Utility
 {
     /// <summary>
-    /// Tweenを提供する
+    ///     Tweenを提供する
     /// </summary>
     public static class SymphonyTween
     {
         /// <summary>
-        /// 指定した時間の間、AnimationCurveかLerpな曲線で指定した範囲を毎フレーム実行する
-        /// curveを指定した場合はCurveで、指定しないかnullの場合はLerpで実行される
+        ///     指定した時間の間、AnimationCurveかLerpな曲線で指定した範囲を毎フレーム実行する
+        ///     curveを指定した場合はCurveで、指定しないかnullの場合はLerpで実行される
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="s">スタートの値</param>
@@ -27,16 +27,16 @@ namespace SymphonyFrameWork.Utility
             CancellationToken token = default) where T : struct
         {
             curve = NormalizeCurve(curve);
-            float timer = Time.time;
+            var timer = Time.time;
 
             //時間終了までループ
             while (Time.time <= timer + d)
             {
-                float elapsed = Time.time - timer;
+                var elapsed = Time.time - timer;
 
-                float t = Mathf.Clamp01(elapsed / d); //正規化された値
+                var t = Mathf.Clamp01(elapsed / d); //正規化された値
 
-                T? result = curve != null ? CurveValue((s, e), t, curve) : LerpValue((s, e), t);
+                var result = curve != null ? CurveValue((s, e), t, curve) : LerpValue((s, e), t);
 
                 if (result == null)
                 {
@@ -54,8 +54,8 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// 指定した時間の間、AnimationCurveかLerpな曲線で指定した範囲を毎フレーム実行する
-        /// curveを指定した場合はCurveで、指定しないかnullの場合はLerpで実行される
+        ///     指定した時間の間、AnimationCurveかLerpな曲線で指定した範囲を毎フレーム実行する
+        ///     curveを指定した場合はCurveで、指定しないかnullの場合はLerpで実行される
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="s">スタートの値</param>
@@ -69,7 +69,7 @@ namespace SymphonyFrameWork.Utility
             CancellationToken token = default) where T : struct
         {
             curve = NormalizeCurve(curve);
-            float timer = Time.time;
+            var timer = Time.time;
 
             //時間終了までループ
             while (Time.time <= timer + d)
@@ -82,11 +82,11 @@ namespace SymphonyFrameWork.Utility
                     continue;
                 }
 
-                    float elapsed = Time.time - timer;
+                var elapsed = Time.time - timer;
 
-                float t = Mathf.Clamp01(elapsed / d); //正規化された値
+                var t = Mathf.Clamp01(elapsed / d); //正規化された値
 
-                T? result = curve != null ? CurveValue((s, e), t, curve) : LerpValue((s, e), t);
+                var result = curve != null ? CurveValue((s, e), t, curve) : LerpValue((s, e), t);
 
                 if (result == null)
                 {
@@ -104,7 +104,7 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// 指定した時間の間、Linearな曲線で指定した範囲を毎フレーム実行する
+        ///     指定した時間の間、Linearな曲線で指定した範囲を毎フレーム実行する
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="s">スタートの値</param>
@@ -115,16 +115,16 @@ namespace SymphonyFrameWork.Utility
         public static async void TweeningLerp<T>(T s, Action<T> action, T e, float d,
             CancellationToken token = default) where T : struct
         {
-            float timer = Time.time;
+            var timer = Time.time;
 
             //時間終了までループ
             while (Time.time <= timer + d)
             {
-                float elapsed = Time.time - timer;
+                var elapsed = Time.time - timer;
 
-                float t = Mathf.Clamp01(elapsed / d); //正規化された値
+                var t = Mathf.Clamp01(elapsed / d); //正規化された値
 
-                T? result = LerpValue((s, e), t);
+                var result = LerpValue((s, e), t);
 
                 if (result == null)
                 {
@@ -143,7 +143,7 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// 対応した型のLerpした値を返す
+        ///     対応した型のLerpした値を返す
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -167,7 +167,7 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// 指定した時間の間、Curveに対応した曲線で指定した範囲を毎フレーム実行する
+        ///     指定した時間の間、Curveに対応した曲線で指定した範囲を毎フレーム実行する
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="s">スタートの値</param>
@@ -180,16 +180,16 @@ namespace SymphonyFrameWork.Utility
         {
             //カーブを
             curve = NormalizeCurve(curve);
-            float timer = Time.time;
+            var timer = Time.time;
 
             //時間終了までループ
             while (Time.time <= timer + d)
             {
-                float elapsed = Time.time - timer;
+                var elapsed = Time.time - timer;
 
-                float t = Mathf.Clamp01(elapsed / d); //正規化された値
+                var t = Mathf.Clamp01(elapsed / d); //正規化された値
 
-                T? result = CurveValue((s, e), t, curve);
+                var result = CurveValue((s, e), t, curve);
 
                 if (result == null)
                 {
@@ -208,7 +208,7 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// 対応した型のCurveのEvaluateした値を返す
+        ///     対応した型のCurveのEvaluateした値を返す
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -232,7 +232,7 @@ namespace SymphonyFrameWork.Utility
         }
 
         /// <summary>
-        /// カーブのキーをxが0~1になるように正規化する
+        ///     カーブのキーをxが0~1になるように正規化する
         /// </summary>
         /// <param name="curve"></param>
         /// <returns></returns>
@@ -242,16 +242,16 @@ namespace SymphonyFrameWork.Utility
                 return null;
 
             // 最後のキーの時間（x軸の最大値）を取得
-            float maxTime = curve.keys[curve.length - 1].time;
+            var maxTime = curve.keys[curve.length - 1].time;
 
             // 新しいカーブを作成
-            AnimationCurve normalizedCurve = new AnimationCurve();
+            var normalizedCurve = new AnimationCurve();
 
             // 各キーを正規化して新しいカーブに追加
-            foreach (Keyframe key in curve.keys)
+            foreach (var key in curve.keys)
             {
-                float normalizedTime = key.time / maxTime;
-                Keyframe normalizedKey = new Keyframe(normalizedTime, key.value, key.inTangent, key.outTangent);
+                var normalizedTime = key.time / maxTime;
+                var normalizedKey = new Keyframe(normalizedTime, key.value, key.inTangent, key.outTangent);
                 normalizedCurve.AddKey(normalizedKey);
             }
 
