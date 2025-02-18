@@ -13,11 +13,13 @@ namespace SymphonyFrameWork.Editor
         private FieldInfo _pauseInfo;
         private VisualElement _pauseVisual;
         private Label _pauseText;
-        
+
         public PauseWindow() : base(
             "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/Administrator/UITK/UXML/PauseWindow.uxml",
             initializeType: InitializeType.None,
-            loadType: LoadType.AssetDataBase) { }
+            loadType: LoadType.AssetDataBase)
+        {
+        }
 
         protected override Task Initialize_S(TemplateContainer container)
         {
