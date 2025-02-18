@@ -35,6 +35,7 @@ namespace SymphonyFrameWork.Editor
             {
                 PauseInit(container);
                 LocateDictInit(container);
+                SceneLoaderInit(container);
             }
             else
             {
@@ -176,6 +177,24 @@ namespace SymphonyFrameWork.Editor
                 locateList.itemsSource = GetLocateList();
                 locateList.Rebuild();
             }
+        }
+
+        #endregion
+
+        #region  SceneLoader
+        
+        private static Toggle _autoSceneListUpdateToggle;
+        
+        private static void SceneLoaderInit(VisualElement root)
+        {
+            //コンフィグデータを取得
+            var config = SymphonyConfigManager.GetConfig<EnumGeneratorConfig>();
+            _autoSceneListUpdateToggle = root.Q<Toggle>("enum-scene");
+            _autoSceneListUpdateToggle.value = config.AutoSceneListUpdate;
+
+            //トグルが変更された時にコンフィグを更新
+            _autoSceneListUpdateToggle.RegisterValueChangedCallback(
+                evt => config.AutoSceneListUpdate = evt.newValue);
         }
 
         #endregion
