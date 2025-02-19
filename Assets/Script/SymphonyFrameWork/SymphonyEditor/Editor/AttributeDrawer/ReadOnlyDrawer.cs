@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SymphonyFrameWork.Attribute
 {
     /// <summary>
-    /// プロパティを変更不可にする
+    ///     プロパティを変更不可にする
     /// </summary>
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     public class ReadOnlyDrawer : PropertyDrawer
@@ -18,7 +18,7 @@ namespace SymphonyFrameWork.Attribute
     }
 
     /// <summary>
-    /// ReadOnryが表示されない場合に警告を出す
+    ///     ReadOnryが表示されない場合に警告を出す
     /// </summary>
     [CustomEditor(typeof(MonoBehaviour), true)]
     public class ReadOnlyInspector : UnityEditor.Editor
@@ -31,16 +31,13 @@ namespace SymphonyFrameWork.Attribute
             var fields = targetType.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 
             foreach (var field in fields)
-            {
                 if (field.IsDefined(typeof(ReadOnlyAttribute), true))
                 {
                     var property = serializedObject.FindProperty(field.Name);
                     if (property == null)
-                    {
-                        Debug.LogWarning($"フィールド '{field.Name}' は [ReadOnly] 属性が付与されていますが、[SerializeField] 属性が付与されていないため、インスペクターに表示されません。");
-                    }
+                        Debug.LogWarning(
+                            $"フィールド '{field.Name}' は [ReadOnly] 属性が付与されていますが、[SerializeField] 属性が付与されていないため、インスペクターに表示されません。");
                 }
-            }
 
             DrawDefaultInspector();
             serializedObject.ApplyModifiedProperties();

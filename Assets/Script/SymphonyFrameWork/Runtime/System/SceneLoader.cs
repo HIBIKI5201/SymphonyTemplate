@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 namespace SymphonyFrameWork.System
 {
     /// <summary>
-    /// シーンのロードを管理するクラス
+    ///     シーンのロードを管理するクラス
     /// </summary>
     public static class SceneLoader
     {
-        private static Dictionary<string, Scene> _sceneDict = new();
+        private static readonly Dictionary<string, Scene> _sceneDict = new();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void BeforeSceneLoad()
@@ -20,44 +20,44 @@ namespace SymphonyFrameWork.System
         }
 
         /// <summary>
-        ///ゲーム開始時の初期化処理
+        ///     ゲーム開始時の初期化処理
         /// </summary>
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void AfterSceneLoad()
         {
-            Scene scene = SceneManager.GetActiveScene();
+            var scene = SceneManager.GetActiveScene();
             _sceneDict.Add(scene.name, scene);
         }
 
         /// <summary>
-        /// ロードされているシーンを返す
-        /// ない場合はnullを返す
+        ///     ロードされているシーンを返す
+        ///     ない場合はnullを返す
         /// </summary>
         /// <param name="sceneName"></param>
         /// <returns></returns>
-        public static bool GetExistScene(string sceneName, out Scene scene) =>
-            _sceneDict.TryGetValue(sceneName, out scene);
+        public static bool GetExistScene(string sceneName, out Scene scene)
+        {
+            return _sceneDict.TryGetValue(sceneName, out scene);
+        }
 
         /// <summary>
-        /// シーンをアクティブにする
+        ///     シーンをアクティブにする
         /// </summary>
         /// <param name="sceneName"></param>
         /// <returns></returns>
         public static bool SetActiveScene(string sceneName)
         {
-            if (_sceneDict.TryGetValue(sceneName, out Scene scene))
+            if (_sceneDict.TryGetValue(sceneName, out var scene))
             {
                 SceneManager.SetActiveScene(scene);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         /// <summary>
-        /// シーンをロードする
+        ///     シーンをロードする
         /// </summary>
         /// <param name="sceneName">シーン名</param>
         /// <param name="loadingAction">ロードの進捗率を引数にしたメソッド</param>
@@ -83,17 +83,18 @@ namespace SymphonyFrameWork.System
                 await Awaitable.NextFrameAsync();
             }
 
-            Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+            var loadedScene = SceneManager.GetSceneByName(sceneName);
             if (loadedScene.IsValid() && loadedScene.isLoaded)
             {
                 _sceneDict.TryAdd(sceneName, loadedScene);
                 return true;
             }
-            else return false;
+
+            return false;
         }
 
         /// <summary>
-        /// シーンをアンロードする
+        ///     シーンをアンロードする
         /// </summary>
         /// <param name="sceneName">シーン名</param>
         /// <param name="loadingAction">ロードの進捗率を引数にしたメソッド</param>

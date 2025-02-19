@@ -7,14 +7,14 @@ public class PackageExporter : EditorWindow
     public static void ExportPackage()
     {
         // エクスポートしたいフォルダのパス
-        string folderPath = "Assets/Script/SymphonyFrameWork";
+        var folderPath = "Assets/Script/SymphonyFrameWork";
 
         // 保存先のパス（エクスポート先）
-        string exportPath = @"C:\Users\takut\OneDrive\デスクトップ\Sinfonia Studio\SymphonyFrameWork.unitypackage";
+        var exportPath = @"C:\Users\takut\OneDrive\デスクトップ\Sinfonia Studio\SymphonyFrameWork.unitypackage";
 
         // UnityPackageを作成
-        string[] files = new string[] { folderPath };
-        AssetDatabase.ExportPackage(files, exportPath, 
+        var files = new[] { folderPath };
+        AssetDatabase.ExportPackage(files, exportPath,
             ExportPackageOptions.Recurse);
 
         Debug.Log("Package exported to: " + exportPath);

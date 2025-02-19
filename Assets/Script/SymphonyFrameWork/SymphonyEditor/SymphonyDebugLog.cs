@@ -6,7 +6,7 @@ using Debug = UnityEngine.Debug;
 namespace SymphonyFrameWork.Debugger
 {
     /// <summary>
-    /// エディタ用のログを発行するクラス
+    ///     エディタ用のログを発行するクラス
     /// </summary>
     public static class SymphonyDebugLog
     {
@@ -15,7 +15,7 @@ namespace SymphonyFrameWork.Debugger
 #endif
 
         /// <summary>
-        /// エディタ上でのみ出力されるデバッグログ
+        ///     エディタ上でのみ出力されるデバッグログ
         /// </summary>
         /// <param name="text"></param>
         [Conditional("UNITY_EDITOR")]
@@ -27,7 +27,7 @@ namespace SymphonyFrameWork.Debugger
         }
 
         /// <summary>
-        /// ログのテキストにメッセージを追加する
+        ///     ログのテキストにメッセージを追加する
         /// </summary>
         /// <param name="text"></param>
         [Conditional("UNITY_EDITOR")]
@@ -39,7 +39,7 @@ namespace SymphonyFrameWork.Debugger
         }
 
         /// <summary>
-        /// 追加されたメッセージを削除する
+        ///     追加されたメッセージを削除する
         /// </summary>
         [Conditional("UNITY_EDITOR")]
         public static void ClearText()
@@ -50,7 +50,7 @@ namespace SymphonyFrameWork.Debugger
         }
 
         /// <summary>
-        /// 追加されたメッセージをログに出力する
+        ///     追加されたメッセージをログに出力する
         /// </summary>
         [Conditional("UNITY_EDITOR")]
         public static void TextLog()
@@ -61,7 +61,7 @@ namespace SymphonyFrameWork.Debugger
         }
 
         /// <summary>
-        /// コンポーネントだった場合に警告を表示する
+        ///     コンポーネントだった場合に警告を表示する
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="component"></param>
@@ -69,23 +69,20 @@ namespace SymphonyFrameWork.Debugger
         public static void CheckComponentNull<T>(this T component) where T : Component
         {
 #if UNITY_EDITOR
-            if (component == null)
-            {
-                Debug.LogWarning($"The component {typeof(T).Name} of {component.name} is null.");
-            }
+            if (component == null) Debug.LogWarning($"The component {typeof(T).Name} of {component.name} is null.");
 #endif
         }
 
         [Obsolete("この機能は安全性が保障されていません。CheckComponentNullを使用してください")]
         public static bool IsComponentNotNull<T>(this T component) where T : Component
         {
-            if (component == null) {
+            if (component == null)
+            {
                 Debug.LogWarning($"The component of type {typeof(T).Name} is null.");
                 return false;
             }
-            else {
-                return true;
-            }
+
+            return true;
         }
     }
 }

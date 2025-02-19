@@ -1,22 +1,20 @@
-﻿using SymphonyFrameWork.Core;
-using SymphonyFrameWork.Utility;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
+using SymphonyFrameWork.Core;
+using SymphonyFrameWork.Utility;
 using UnityEditor;
 using UnityEditor.PackageManager;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
     /// <summary>
-    /// 有用なパッケージを自動インストールするクラス
+    ///     有用なパッケージを自動インストールするクラス
     /// </summary>
-    [InitializeOnLoad]
     public static class SymphonyPackageLoader
     {
-        private static readonly string[] requirePackages = new string[]
+        private static readonly string[] requirePackages =
         {
             "ai.navigation",
             "addressables",
@@ -26,7 +24,7 @@ namespace SymphonyFrameWork.Editor
             "probuilder",
             "postprocessing",
             "memoryprofiler",
-            "visualeffectgraph",
+            "visualeffectgraph"
         };
 
         //static SymphonyPackageLoader() => EditorApplication.delayCall += () => CheckAndInstallPackagesAsync(true);
@@ -39,28 +37,24 @@ namespace SymphonyFrameWork.Editor
         //EditorApplication.update => 非同期実行している間にタスクが重複していく
 
 
-
         /// <summary>
-        /// パッケージがロードされているかチェックする
+        ///     パッケージがロードされているかチェックする
         /// </summary>
         [MenuItem(SymphonyConstant.MENU_PATH + nameof(SymphonyPackageLoader), priority = 100)]
-        private static void MenuExecution() => CheckAndInstallPackagesAsync(false);
+        private static void MenuExecution()
+        {
+            CheckAndInstallPackagesAsync(false);
+        }
 
         private static async void CheckAndInstallPackagesAsync(bool isEnterEditor)
         {
             //パッケージマネージャーの初期化が終わっているか
-            if (Client.List() == null)
-            {
-                return;
-            }
+            if (Client.List() == null) return;
 
             // パッケージリストを非同期で取得
             var installedPackages = await GetInstalledPackagesAsync();
 
-            if (installedPackages == null)
-            {
-                return;
-            }
+            if (installedPackages == null) return;
 
             var missingPackages = GetMissingPackages(requirePackages, installedPackages);
 
@@ -68,43 +62,37 @@ namespace SymphonyFrameWork.Editor
             if (missingPackages.Length < 1)
             {
                 if (!isEnterEditor && EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}",
-                "全てのパッケージがインストールされています",
-                "OK"))
+                        "全てのパッケージがインストールされています",
+                        "OK"))
                 {
-                    return;
                 }
             }
             else
             {
                 if (EditorUtility.DisplayDialog($"{nameof(SymphonyPackageLoader)}",
-                    "以下のパッケージをインストールします\n" + string.Join('\n', missingPackages),
-                    "OK", "Cancel"))
-                {
+                        "以下のパッケージをインストールします\n" + string.Join('\n', missingPackages),
+                        "OK", "Cancel"))
                     await InstallPackageAsync(missingPackages);
-                }
             }
         }
 
         /// <summary>
-        /// インストールされているパッケージを返す
+        ///     インストールされているパッケージを返す
         /// </summary>
         /// <returns></returns>
         private static async Task<PackageCollection> GetInstalledPackagesAsync()
         {
             EditorUtility.DisplayProgressBar(nameof(SymphonyPackageLoader), "パッケージを確認中", 0);
 
-            ListRequest listRequest = Client.List();
+            var listRequest = Client.List();
 
-            float timer = Time.time;
+            var timer = Time.time;
             // IAsyncOperation を非同期タスクで待機
             await SymphonyTask.WaitUntil(() => listRequest.IsCompleted || timer + 60 < Time.time);
 
             EditorUtility.ClearProgressBar();
 
-            if (timer + 60 < Time.time)
-            {
-                EditorUtility.DisplayDialog(nameof(SymphonyPackageLoader), "タイムアウトしました", "OK");
-            }
+            if (timer + 60 < Time.time) EditorUtility.DisplayDialog(nameof(SymphonyPackageLoader), "タイムアウトしました", "OK");
 
             if (listRequest.Status == StatusCode.Failure)
             {
@@ -116,7 +104,7 @@ namespace SymphonyFrameWork.Editor
         }
 
         /// <summary>
-        /// パッケージがロードされているかチェックする
+        ///     パッケージがロードされているかチェックする
         /// </summary>
         private static string[] GetMissingPackages(string[] required, PackageCollection installedPackages)
         {
@@ -124,19 +112,17 @@ namespace SymphonyFrameWork.Editor
 
             Parallel.ForEach(required, pkg =>
             {
-                string fullPackageName = "com.unity." + pkg;
+                var fullPackageName = "com.unity." + pkg;
 
                 if (!installedPackages.Any(installedPkg => installedPkg.name == fullPackageName))
-                {
                     missingPackages.Add(fullPackageName);
-                }
             });
 
             return missingPackages.ToArray();
         }
 
         /// <summary>
-        /// パッケージをロードする
+        ///     パッケージをロードする
         /// </summary>
         /// <param name="packageNames"></param>
         /// <returns></returns>
@@ -145,21 +131,14 @@ namespace SymphonyFrameWork.Editor
             //ロードのタスクを一括で生成
             var tasks = packageNames.Select(async name =>
             {
-                AddRequest addRequest = Client.Add(name);
+                var addRequest = Client.Add(name);
 
-                while (!addRequest.IsCompleted)
-                {
-                    await Task.Yield();
-                }
+                while (!addRequest.IsCompleted) await Task.Yield();
 
                 if (addRequest.Status == StatusCode.Failure)
-                {
                     Debug.LogError("Failed to install package: " + addRequest.Error.message);
-                }
                 else
-                {
                     Debug.Log("Package installed: " + name);
-                }
             });
 
             await Task.WhenAll(tasks);

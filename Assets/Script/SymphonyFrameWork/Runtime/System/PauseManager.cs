@@ -1,26 +1,21 @@
-﻿using SymphonyFrameWork.Utility;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using SymphonyFrameWork.Utility;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace SymphonyFrameWork.System
 {
     /// <summary>
-    /// ポーズ状態を管理する型
+    ///     ポーズ状態を管理する型
     /// </summary>
     public static class PauseManager
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Initiazlze()
-        {
-            _pause = false;
-            OnPauseChanged = null;
-        }
-
         private static bool _pause;
+
         public static bool Pause
         {
             get => _pause;
@@ -31,11 +26,18 @@ namespace SymphonyFrameWork.System
             }
         }
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void Initiazlze()
+        {
+            _pause = false;
+            OnPauseChanged = null;
+        }
+
         [Tooltip("ポーズ時にtrue、リズーム時にfalseで実行するイベント")]
         public static event Action<bool> OnPauseChanged;
 
         /// <summary>
-        /// ポーズ時に停止するWaitForSecond
+        ///     ポーズ時に停止するWaitForSecond
         /// </summary>
         /// <param name="time"></param>
         /// <returns></returns>
@@ -43,16 +45,13 @@ namespace SymphonyFrameWork.System
         {
             while (time > 0)
             {
-                if (!_pause)
-                {
-                    time -= Time.deltaTime;
-                }
+                if (!_pause) time -= Time.deltaTime;
                 yield return null;
             }
         }
 
         /// <summary>
-        /// ポーズ時に停止するWaitForSecond
+        ///     ポーズ時に停止するWaitForSecond
         /// </summary>
         /// <param name="time"></param>
         /// <param name="token"></param>
@@ -61,16 +60,13 @@ namespace SymphonyFrameWork.System
         {
             while (time > 0)
             {
-                if (!_pause)
-                {
-                    time -= Time.deltaTime;
-                }
+                if (!_pause) time -= Time.deltaTime;
                 await Awaitable.NextFrameAsync(token);
             }
         }
 
         /// <summary>
-        /// ポーズ中は待機するWaitUntil
+        ///     ポーズ中は待機するWaitUntil
         /// </summary>
         /// <param name="action"></param>
         /// <param name="token"></param>
@@ -79,14 +75,11 @@ namespace SymphonyFrameWork.System
         {
             await SymphonyTask.WaitUntil(action, token);
 
-            if (_pause)
-            {
-                await Awaitable.NextFrameAsync(token);
-            }
+            if (_pause) await Awaitable.NextFrameAsync(token);
         }
 
         /// <summary>
-        /// ポーズ中に停止するGameObjectのDestroy
+        ///     ポーズ中に停止するGameObjectのDestroy
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="t"></param>
@@ -94,11 +87,11 @@ namespace SymphonyFrameWork.System
         {
             await PausableWaitForSecondAsync(t, token);
 
-            UnityEngine.Object.Destroy(obj);
+            Object.Destroy(obj);
         }
 
         /// <summary>
-        /// ポーズ中に停止するInvoke
+        ///     ポーズ中に停止するInvoke
         /// </summary>
         /// <param name="action"></param>
         /// <param name="t"></param>
@@ -111,35 +104,32 @@ namespace SymphonyFrameWork.System
         }
 
         /// <summary>
-        /// ポーズできるクラスに実装するインターフェース
+        ///     ポーズできるクラスに実装するインターフェース
         /// </summary>
         public interface IPausable
         {
             /// <summary>
-            /// ポーズのイベントを購買しているオブジェクトの一覧
+            ///     ポーズのイベントを購買しているオブジェクトの一覧
             /// </summary>
-            private static Dictionary<IPausable, Action<bool>> PauseEventDictionary = new();
+            private static readonly Dictionary<IPausable, Action<bool>> PauseEventDictionary = new();
 
             /// <summary>
-            /// ポーズ時に呼び出されるイベント
+            ///     ポーズ時に呼び出されるイベント
             /// </summary>
             void Pause();
 
             /// <summary>
-            /// リズーム時に呼び出されるイベント
+            ///     リズーム時に呼び出されるイベント
             /// </summary>
             void Resume();
 
             /// <summary>
-            /// PauseManagerにポーズ時のイベントを購買登録する
+            ///     PauseManagerにポーズ時のイベントを購買登録する
             /// </summary>
             /// <param name="pausable"></param>
             static void RegisterPauseManager(IPausable pausable)
             {
-                if (PauseEventDictionary.ContainsKey(pausable))
-                {
-                    return;
-                }
+                if (PauseEventDictionary.ContainsKey(pausable)) return;
 
                 Action<bool> pauseEvent = OnPauseEvent;
 
@@ -150,18 +140,14 @@ namespace SymphonyFrameWork.System
                 void OnPauseEvent(bool paused)
                 {
                     if (paused)
-                    {
                         pausable.Pause();
-                    }
                     else
-                    {
                         pausable.Resume();
-                    }
                 }
             }
 
             /// <summary>
-            /// ポーズ時のイベントを購買解除する
+            ///     ポーズ時のイベントを購買解除する
             /// </summary>
             /// <param name="pausable"></param>
             static void UnregisterPauseManager(IPausable pausable)

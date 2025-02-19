@@ -4,18 +4,13 @@ using UnityEngine;
 namespace SymphonyFrameWork.System
 {
     /// <summary>
-    /// セーブデータを管理するクラス
+    ///     セーブデータを管理するクラス
     /// </summary>
     /// <typeparam name="DataType">データの型</typeparam>
     public static class SaveDataSystem<DataType> where DataType : new()
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Initialize()
-        {
-            _saveData = null;
-        }
-
         private static SaveData _saveData;
+
         public static DataType Data
         {
             get
@@ -25,6 +20,7 @@ namespace SymphonyFrameWork.System
                 return _saveData.MainData;
             }
         }
+
         public static string SaveDate
         {
             get
@@ -35,29 +31,37 @@ namespace SymphonyFrameWork.System
             }
         }
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void Initialize()
+        {
+            _saveData = null;
+        }
+
         public static void Save()
         {
             _saveData = new SaveData(Data);
-            string data = JsonUtility.ToJson(_saveData);
+            var data = JsonUtility.ToJson(_saveData);
             Debug.Log($"{_saveData.SaveDate}\n{data}");
             PlayerPrefs.SetString(typeof(DataType).Name, data);
-
         }
 
         private static void Load()
         {
             #region Prefsからデータをロードする
-            string json = PlayerPrefs.GetString(typeof(DataType).Name);
+
+            var json = PlayerPrefs.GetString(typeof(DataType).Name);
             if (string.IsNullOrEmpty(json))
             {
                 Debug.LogWarning($"{typeof(DataType).Name}のデータが見つかりませんでした");
                 _saveData = new SaveData(new DataType());
                 return;
             }
+
             #endregion
 
             #region JSONに変換して保存
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            var data = JsonUtility.FromJson<SaveData>(json);
             if (data is not null)
             {
                 Debug.Log($"{typeof(DataType).Name}のデータがロードされました\n{data}");
@@ -68,6 +72,7 @@ namespace SymphonyFrameWork.System
                 Debug.LogWarning($"{typeof(DataType).Name}のロードが出来ませんでした");
                 _saveData = new SaveData(new DataType());
             }
+
             #endregion
         }
 

@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 namespace SymphonyFrameWork.System
 {
     /// <summary>
-    /// SymphonyFrameWorkの管理シーンを持つ
+    ///     SymphonyFrameWorkの管理シーンを持つ
     /// </summary>
     public static class SymphonyCoreSystem
     {
         private static Scene? _systemScene;
 
         /// <summary>
-        /// 初期化でシステム用のシーンを作成
+        ///     初期化でシステム用のシーンを作成
         /// </summary>
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void GameBeforeSceneLoaded()
@@ -25,10 +25,7 @@ namespace SymphonyFrameWork.System
             //シーンが制作されているか、対象がnullになったら進む
             await SymphonyTask.WaitUntil(() => _systemScene != null || go == null);
 
-            if (go)
-            {
-                SceneManager.MoveGameObjectToScene(go, _systemScene.Value);
-            }
+            if (go) SceneManager.MoveGameObjectToScene(go, _systemScene.Value);
         }
     }
 }
