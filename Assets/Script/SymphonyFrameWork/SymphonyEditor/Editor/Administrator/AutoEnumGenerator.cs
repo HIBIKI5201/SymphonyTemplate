@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using SymphonyFrameWork.Config;
 using UnityEditor;
 
 namespace SymphonyFrameWork.Editor
@@ -11,7 +12,7 @@ namespace SymphonyFrameWork.Editor
 
         static AutoEnumGenerator()
         {
-            Config = SymphonyConfigManager.GetConfig<AutoEnumGeneratorConfig>();
+            Config = SymphonyConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
 
             EditorBuildSettings.sceneListChanged -= SceneListChanged;
             EditorBuildSettings.sceneListChanged += SceneListChanged;
