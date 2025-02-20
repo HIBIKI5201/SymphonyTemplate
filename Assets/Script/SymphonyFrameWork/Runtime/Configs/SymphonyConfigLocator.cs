@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using SymphonyFrameWork.Core;
 using SymphonyFrameWork.Editor;
 
@@ -42,13 +41,12 @@ namespace SymphonyFrameWork.Config
                 PathType.Runtime => SymphonyConstant.RESOURCES_RUNTIME_PATH,
                 PathType.Editor => SymphonyConstant.RESOURCES_EDITOR_PATH,
                 _ => string.Empty,
-            };
+            } + "/";
             
             if (string.IsNullOrEmpty(path)) return null;
             
-            //ファイルパスに変換
-            var filePath = $"{path}/{typeof(T).Name}.asset";
-            ;
+            //ファイルパスを生成
+            var filePath = $"{typeof(T).Name}.asset";
 
             if (string.IsNullOrEmpty(filePath))
             {
@@ -73,12 +71,14 @@ namespace SymphonyFrameWork.Config
             {
                 if (type == PathType.Runtime)
                 {
-                    return Resources.Load<T>(paths.Value.filePath);
+                    return Resources.Load<T>(typeof(T).Name);
                 }
                 else
                 {
                     #if UNITY_EDITOR
-                    return AssetDatabase.LoadAssetAtPath<T>(paths.Value.filePath);
+                    return AssetDatabase.LoadAssetAtPath<T>(paths.Value.path + paths.Value.filePath);
+                    #else
+                    return null;
                     #endif
                 }
             }
