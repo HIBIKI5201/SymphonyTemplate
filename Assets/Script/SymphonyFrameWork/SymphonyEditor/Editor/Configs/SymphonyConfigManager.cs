@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using SymphonyFrameWork.Config;
-using SymphonyFrameWork.Core;
 using SymphonyFrameWork.Debugger;
 using UnityEditor;
 using UnityEngine;
@@ -15,13 +12,6 @@ namespace SymphonyFrameWork.Editor
     [InitializeOnLoad]
     public static class SymphonyConfigManager
     {
-        //各クラスのファイルタイプ
-        private static readonly Dictionary<Type, string> _typeDict = new()
-        {
-            { typeof(SceneManagerConfig), SymphonyConstant.RESOURCES_RUNTIME_PATH },
-            { typeof(AutoEnumGeneratorConfig), SymphonyConstant.RESOURCES_EDITOR_PATH }
-        };
-
         static SymphonyConfigManager()
         {
             FileCheck<SceneManagerConfig>();
@@ -34,7 +24,7 @@ namespace SymphonyFrameWork.Editor
         /// <typeparam name="T"></typeparam>
         private static void FileCheck<T>() where T : ScriptableObject
         {
-            var paths = GetFullPath<T>();
+            var paths = SymphonyConfigLocator.GetFullPath<T>();
             if (paths == null)
             {
                 Debug.LogWarning(typeof(T).Name + " doesn't exist!");
@@ -55,42 +45,6 @@ namespace SymphonyFrameWork.Editor
             AssetDatabase.SaveAssets();
 
             SymphonyDebugLog.DirectLog($"'{path}' に新しい {typeof(T).Name} を作成しました。");
-        }
-
-        /// <summary>
-        ///     それぞれのパスを取得する
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        private static (string path, string filePath)? GetFullPath<T>() where T : ScriptableObject
-        {
-            //パスを取得
-            if (!_typeDict.TryGetValue(typeof(T), out var path)) return null;
-
-            //ファイルパスに変換
-            var filePath = $"{path}/{typeof(T).Name}.asset";
-            ;
-
-            if (string.IsNullOrEmpty(filePath))
-            {
-                Debug.LogWarning("file path is null or empty.");
-                return null;
-            }
-
-            return (path, filePath);
-        }
-
-        /// <summary>
-        ///     指定した型のアセットを取得する
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static T GetConfig<T>() where T : ScriptableObject
-        {
-            var paths = GetFullPath<T>();
-            if (paths == null) return null;
-
-            return AssetDatabase.LoadAssetAtPath<T>(paths.Value.filePath);
         }
 
         /// <summary>
