@@ -6,7 +6,6 @@ using SymphonyFrameWork.System;
 using SymphonyFrameWork.Utility;
 using UnityEngine;
 using UnityEngine.UIElements;
-using NotImplementedException = System.NotImplementedException;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -16,11 +15,11 @@ namespace SymphonyFrameWork.Editor
         private FieldInfo _locateInfo;
         private Dictionary<Type, Component> _locateDict;
         private ListView _locateList;
-        
+
         public ServiceLocatorWindow() : base(
             "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/Administrator/UITK/UXML/ServiceLocatorWindow.uxml",
             initializeType: InitializeType.None,
-            loadType : LoadType.AssetDataBase)
+            loadType: LoadType.AssetDataBase)
         {
         }
 
@@ -50,7 +49,7 @@ namespace SymphonyFrameWork.Editor
 
             // 選択タイプの設定
             _locateList.selectionType = SelectionType.None;
-            
+
             return Task.CompletedTask;
         }
 

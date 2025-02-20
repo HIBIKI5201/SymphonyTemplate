@@ -1,8 +1,17 @@
 #Version
-1.19.9
+1.19.11
 
 
 #Log
+1.19.11
+[Update]
+SceneLoader
+SceneManagerConfig
+
+1.19.10
+[Add]
+SymphonyConfigLocator
+
 1.19.9
 [Add]
 EnumGeneratorConfig

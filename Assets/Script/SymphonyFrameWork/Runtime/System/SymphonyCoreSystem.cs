@@ -17,7 +17,13 @@ namespace SymphonyFrameWork.System
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void GameBeforeSceneLoaded()
         {
+            //専用のシーン生成
             _systemScene = SceneManager.CreateScene("SymphonySystem");
+            
+            //各クラスの初期化
+            PauseManager.Initiazlze();
+            ServiceLocator.Initialize();
+            SceneLoader.Initialize();
         }
 
         public static async void MoveObjectToSymphonySystem(GameObject go)

@@ -7,7 +7,7 @@ namespace SymphonyFrameWork.System
     ///     セーブデータを管理するクラス
     /// </summary>
     /// <typeparam name="DataType">データの型</typeparam>
-    public static class SaveDataSystem<DataType> where DataType : new()
+    public static class SaveDataSystem<DataType> where DataType : class, new()
     {
         private static SaveData _saveData;
 
@@ -17,7 +17,7 @@ namespace SymphonyFrameWork.System
             {
                 if (_saveData is null)
                     Load();
-                return _saveData.MainData;
+                return _saveData?.MainData;
             }
         }
 
@@ -27,7 +27,7 @@ namespace SymphonyFrameWork.System
             {
                 if (_saveData is null)
                     Load();
-                return _saveData.SaveDate;
+                return _saveData?.SaveDate;
             }
         }
 

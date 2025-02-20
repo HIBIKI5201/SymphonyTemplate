@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using SymphonyFrameWork.Config;
 using SymphonyFrameWork.Core;
-using SymphonyFrameWork.System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -89,7 +86,7 @@ namespace SymphonyFrameWork.Editor
         private static void SceneLoaderInit(VisualElement root)
         {
             //コンフィグデータを取得
-            var config = SymphonyConfigManager.GetConfig<AutoEnumGeneratorConfig>();
+            var config = SymphonyConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
             _autoSceneListUpdateToggle = root.Q<Toggle>("enum-scene");
             _autoSceneListUpdateToggle.value = config.AutoSceneListUpdate;
 
