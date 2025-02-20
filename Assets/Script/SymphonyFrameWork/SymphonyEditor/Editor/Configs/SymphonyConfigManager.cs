@@ -34,14 +34,14 @@ namespace SymphonyFrameWork.Editor
             var (path, filePath) = paths.Value;
 
             //ファイルが存在するなら終了
-            if (AssetDatabase.LoadAssetAtPath<T>(filePath) != null) return;
+            if (AssetDatabase.LoadAssetAtPath<T>(path + filePath) != null) return;
 
             //フォルダがなければ生成
             CreateResourcesFolder(path);
 
             //対象のアセットを生成してResources内に配置
             var asset = ScriptableObject.CreateInstance<T>();
-            AssetDatabase.CreateAsset(asset, filePath);
+            AssetDatabase.CreateAsset(asset, path + filePath);
             AssetDatabase.SaveAssets();
 
             SymphonyDebugLog.DirectLog($"'{path}' に新しい {typeof(T).Name} を作成しました。");
