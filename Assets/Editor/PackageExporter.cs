@@ -1,21 +1,25 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using SymphonyFrameWork.Core;
+using SymphonyFrameWork.Editor;
 
 public class PackageExporter : EditorWindow
 {
     [MenuItem("Tools/Export SymphonyFrameWork Package")]
     public static void ExportPackage()
     {
+        //Enumを初期化
+        EnumGenerator.EnumGenerate(Array.Empty<string>(), "SceneList");
+        
         // エクスポート対象のフォルダ
         var folderPath = "Assets/Script/SymphonyFrameWork";
 
         // 除外するリソース系のフォルダ
         var excludePaths = new string[]
         {
-            SymphonyConstant.ENUM_PATH,
             SymphonyConstant.RESOURCES_RUNTIME_PATH,
             SymphonyConstant.RESOURCES_EDITOR_PATH,
         };

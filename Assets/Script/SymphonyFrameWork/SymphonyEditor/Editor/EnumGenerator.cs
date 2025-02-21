@@ -50,7 +50,7 @@ namespace SymphonyFrameWork.Editor
             Debug.Log($"{fileName}Enumを生成しました");
         }
 
-        public static string GetEnumFilePath(string fileName) => $"{SymphonyConstant.ENUM_PATH}/{fileName}Enum.cs";
+        private static string GetEnumFilePath(string fileName) => $"{SymphonyConstant.ENUM_PATH}/{fileName}Enum.cs";
 
         /// <summary>
         ///     リソースフォルダが無ければ生成

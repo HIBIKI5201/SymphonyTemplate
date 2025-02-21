@@ -14,8 +14,6 @@ namespace SymphonyFrameWork.Editor
         private const string SceneListFileName = "SceneList";
         static AutoEnumGenerator()
         {
-            SceneListCheck();
-            
             Config = SymphonyConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
 
             EditorBuildSettings.sceneListChanged -= SceneListChanged;
@@ -37,18 +35,6 @@ namespace SymphonyFrameWork.Editor
                 //シーン名のEnumを生成する
                 EnumGenerator.EnumGenerate(sceneList, SceneListFileName);
             }
-        }
-
-        /// <summary>
-        /// シーンリストがない場合を生成する
-        /// </summary>
-        private static void SceneListCheck()
-        {
-            string path = EnumGenerator.GetEnumFilePath(SceneListFileName);
-            
-            if (AssetDatabase.AssetPathExists(path)) return;
-            
-            EnumGenerator.EnumGenerate(Array.Empty<string>(), SceneListFileName);
         }
     }
 }
