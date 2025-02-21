@@ -1,8 +1,12 @@
 #Version
-1.19.11
+1.19.12
 
 
 #Log
+1.19.12
+[Fix]
+AutoEnumGenerator
+
 1.19.11
 [Update]
 SceneLoader
