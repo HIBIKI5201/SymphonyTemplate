@@ -6,19 +6,13 @@ namespace TMPro.Examples
 {
     public class Benchmark01_UGUI : MonoBehaviour
     {
+        private const string label01 = "The <#0050FF>count is: </color>";
+        private const string label02 = "The <color=#0050FF>count is: </color>";
         public int BenchmarkType;
 
         public Canvas canvas;
         public TMP_FontAsset TMProFont;
         public Font TextMeshFont;
-
-        private TextMeshProUGUI m_textMeshPro;
-
-        //private TextContainer m_textContainer;
-        private Text m_textMesh;
-
-        private const string label01 = "The <#0050FF>count is: </color>";
-        private const string label02 = "The <color=#0050FF>count is: </color>";
 
         //private const string label01 = "TextMesh <#0050FF>Pro!</color>  The count is: {0}";
         //private const string label02 = "Text Mesh<color=#0050FF>        The count is: </color>";
@@ -28,6 +22,11 @@ namespace TMPro.Examples
 
         private Material m_material01;
         private Material m_material02;
+
+        //private TextContainer m_textContainer;
+        private Text m_textMesh;
+
+        private TextMeshProUGUI m_textMeshPro;
 
 
         private IEnumerator Start()
@@ -91,7 +90,7 @@ namespace TMPro.Examples
                 }
                 else if (BenchmarkType == 1)
                 {
-                    m_textMesh.text = label02 + (i % 1000);
+                    m_textMesh.text = label02 + i % 1000;
                 }
 
                 yield return null;

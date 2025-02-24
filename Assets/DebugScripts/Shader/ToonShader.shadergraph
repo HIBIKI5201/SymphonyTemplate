@@ -1033,7 +1033,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
     "m_ObjectId": "513de3a1455b46d38ed5b048925f6cba",
     "m_Id": 0,
-    "m_DisplayName": "Shadow Range",
+    "m_DisplayName": "Range",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -1366,10 +1366,10 @@
     "m_Guid": {
         "m_GuidSerialized": "c8fdd1a7-3c9e-401c-a886-faee4040a72c"
     },
-    "m_Name": "Shadow Range",
+    "m_Name": "Range",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Shadow Range",
-    "m_DefaultReferenceName": "_Shadow_Range",
+    "m_RefNameGeneratedByDisplayName": "Range",
+    "m_DefaultReferenceName": "_Range",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -1380,7 +1380,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "x": 0.10000000149011612,
+        "x": 0.009999999776482582,
         "y": 1.0,
         "z": 0.0,
         "w": 0.0
@@ -2095,10 +2095,10 @@
     "m_Guid": {
         "m_GuidSerialized": "f8c4cb7f-53c9-440c-b2a0-f5cb7ef587ab"
     },
-    "m_Name": "Shadow Strangth",
+    "m_Name": "Strangth",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Shadow Strangth",
-    "m_DefaultReferenceName": "_Shadow_Strangth",
+    "m_RefNameGeneratedByDisplayName": "Strangth",
+    "m_DefaultReferenceName": "_Strangth",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -2218,7 +2218,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "e796f6e7858f40bab036379b752ee7c7",
     "m_Id": 0,
-    "m_DisplayName": "Shadow Strangth",
+    "m_DisplayName": "Strangth",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

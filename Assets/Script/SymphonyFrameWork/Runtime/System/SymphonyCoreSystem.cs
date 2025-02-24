@@ -19,7 +19,7 @@ namespace SymphonyFrameWork.System
         {
             //専用のシーン生成
             _systemScene = SceneManager.CreateScene("SymphonySystem");
-            
+
             //各クラスの初期化
             PauseManager.Initiazlze();
             ServiceLocator.Initialize();

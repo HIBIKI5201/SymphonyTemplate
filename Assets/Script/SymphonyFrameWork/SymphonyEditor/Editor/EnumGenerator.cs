@@ -18,7 +18,7 @@ namespace SymphonyFrameWork.Editor
         public static async void EnumGenerate(string[] strings, string fileName)
         {
             //重複を削除
-            var hash = new HashSet<string>(new string[1] {"None"}.Concat(strings))
+            var hash = new HashSet<string>(new string[1] { "None" }.Concat(strings))
                 .Where(s =>
                 {
                     //文字列の頭文字がアルファベットではないものは除外
@@ -46,11 +46,14 @@ namespace SymphonyFrameWork.Editor
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
             File.SetLastAccessTime(enumFilePath, DateTime.Now);
             AssetDatabase.ImportAsset(enumFilePath, ImportAssetOptions.ForceUpdate);
-            
+
             Debug.Log($"{fileName}Enumを生成しました");
         }
 
-        private static string GetEnumFilePath(string fileName) => $"{SymphonyConstant.ENUM_PATH}/{fileName}Enum.cs";
+        private static string GetEnumFilePath(string fileName)
+        {
+            return $"{SymphonyConstant.ENUM_PATH}/{fileName}Enum.cs";
+        }
 
         /// <summary>
         ///     リソースフォルダが無ければ生成

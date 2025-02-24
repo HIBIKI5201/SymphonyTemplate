@@ -16,7 +16,13 @@ namespace SymphonyFrameWork.Editor
 
         private PauseWindow _pauseWindow;
         private ServiceLocatorWindow _serviceLocatorWindow;
-        
+
+        private void Update()
+        {
+            _pauseWindow?.Update();
+            _serviceLocatorWindow?.Update();
+        }
+
         private void OnEnable()
         {
             var container = LoadWindow();
@@ -31,7 +37,7 @@ namespace SymphonyFrameWork.Editor
             {
                 Debug.LogWarning("ウィンドウがロードできませんでした");
             }
-            
+
             EditorApplication.update += Update;
         }
 
@@ -39,13 +45,6 @@ namespace SymphonyFrameWork.Editor
         {
             EditorApplication.update -= Update;
         }
-        
-        private void Update()
-        {
-            _pauseWindow?.Update();
-            _serviceLocatorWindow?.Update();
-        }
-
 
 
         /// <summary>

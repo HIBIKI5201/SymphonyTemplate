@@ -11,12 +11,6 @@ namespace SymphonyFrameWork.System
     //インスタンスを一時的にシーンロードから切り離したい時にも使用できる
     public static class ServiceLocator
     {
-        internal static void Initialize()
-        {
-            _instance = null;
-            _singletonObjects.Clear();
-        }
-        
         public enum LocateType
         {
             Singleton,
@@ -27,6 +21,12 @@ namespace SymphonyFrameWork.System
 
         [Tooltip("シングルトン登録されている型のインスタンス辞書")]
         private static readonly Dictionary<Type, Component> _singletonObjects = new();
+
+        internal static void Initialize()
+        {
+            _instance = null;
+            _singletonObjects.Clear();
+        }
 
         /// <summary>
         ///     インスタンスコンテナが無い場合に生成する

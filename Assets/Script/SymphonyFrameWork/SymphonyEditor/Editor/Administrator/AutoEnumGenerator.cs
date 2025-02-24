@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using SymphonyFrameWork.Config;
@@ -9,9 +8,9 @@ namespace SymphonyFrameWork.Editor
     [InitializeOnLoad]
     public static class AutoEnumGenerator
     {
+        private const string SceneListFileName = "SceneList";
         private static readonly AutoEnumGeneratorConfig Config;
 
-        private const string SceneListFileName = "SceneList";
         static AutoEnumGenerator()
         {
             Config = SymphonyConfigLocator.GetConfig<AutoEnumGeneratorConfig>();

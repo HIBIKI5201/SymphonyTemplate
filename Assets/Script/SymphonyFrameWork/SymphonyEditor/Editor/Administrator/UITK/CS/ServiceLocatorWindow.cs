@@ -12,14 +12,14 @@ namespace SymphonyFrameWork.Editor
     [UxmlElement]
     public partial class ServiceLocatorWindow : SymphonyVisualElement
     {
-        private FieldInfo _locateInfo;
         private Dictionary<Type, Component> _locateDict;
+        private FieldInfo _locateInfo;
         private ListView _locateList;
 
         public ServiceLocatorWindow() : base(
             "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/Administrator/UITK/UXML/ServiceLocatorWindow.uxml",
-            initializeType: InitializeType.None,
-            loadType: LoadType.AssetDataBase)
+            InitializeType.None,
+            LoadType.AssetDataBase)
         {
         }
 
@@ -28,10 +28,7 @@ namespace SymphonyFrameWork.Editor
             _locateInfo =
                 typeof(ServiceLocator).GetField("_singletonObjects", BindingFlags.Static | BindingFlags.NonPublic);
 
-            if (_locateInfo != null)
-            {
-                _locateDict = (Dictionary<Type, Component>)_locateInfo.GetValue(null);
-            }
+            if (_locateInfo != null) _locateDict = (Dictionary<Type, Component>)_locateInfo.GetValue(null);
 
             _locateList = container.Q<ListView>("locate-list");
 

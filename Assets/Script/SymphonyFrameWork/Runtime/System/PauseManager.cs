@@ -14,12 +14,6 @@ namespace SymphonyFrameWork.System
     /// </summary>
     public static class PauseManager
     {
-        internal static void Initiazlze()
-        {
-            _pause = false;
-            OnPauseChanged = null;
-        }
-        
         private static bool _pause;
 
         public static bool Pause
@@ -30,6 +24,12 @@ namespace SymphonyFrameWork.System
                 _pause = value;
                 OnPauseChanged?.Invoke(value);
             }
+        }
+
+        internal static void Initiazlze()
+        {
+            _pause = false;
+            OnPauseChanged = null;
         }
 
         [Tooltip("ポーズ時にtrue、リズーム時にfalseで実行するイベント")]

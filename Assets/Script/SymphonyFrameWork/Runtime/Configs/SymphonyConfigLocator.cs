@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using SymphonyFrameWork.Core;
 using SymphonyFrameWork.Editor;
-
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
-using UnityEngine;
 
 namespace SymphonyFrameWork.Config
 {
@@ -20,12 +18,6 @@ namespace SymphonyFrameWork.Config
             { typeof(AutoEnumGeneratorConfig), PathType.Editor }
         };
 
-        private enum PathType
-        {
-            Runtime,
-            Editor,
-        }
-        
         /// <summary>
         ///     それぞれのパスを取得する
         /// </summary>
@@ -36,15 +28,15 @@ namespace SymphonyFrameWork.Config
             //パスを取得
             if (!_typeDict.TryGetValue(typeof(T), out var type)) return null;
 
-            string path = type switch
+            var path = type switch
             {
                 PathType.Runtime => SymphonyConstant.RESOURCES_RUNTIME_PATH,
                 PathType.Editor => SymphonyConstant.RESOURCES_EDITOR_PATH,
-                _ => string.Empty,
+                _ => string.Empty
             } + "/";
-            
+
             if (string.IsNullOrEmpty(path)) return null;
-            
+
             //ファイルパスを生成
             var filePath = $"{typeof(T).Name}.asset";
 
@@ -69,21 +61,21 @@ namespace SymphonyFrameWork.Config
 
             if (_typeDict.TryGetValue(typeof(T), out var type))
             {
-                if (type == PathType.Runtime)
-                {
-                    return Resources.Load<T>(typeof(T).Name);
-                }
-                else
-                {
-                    #if UNITY_EDITOR
-                    return AssetDatabase.LoadAssetAtPath<T>(paths.Value.path + paths.Value.filePath);
-                    #else
+                if (type == PathType.Runtime) return Resources.Load<T>(typeof(T).Name);
+#if UNITY_EDITOR
+                return AssetDatabase.LoadAssetAtPath<T>(paths.Value.path + paths.Value.filePath);
+#else
                     return null;
-                    #endif
-                }
+#endif
             }
-            
+
             return null;
+        }
+
+        private enum PathType
+        {
+            Runtime,
+            Editor
         }
     }
 }

@@ -12,22 +12,18 @@ namespace SymphonyFrameWork.System
     /// </summary>
     public static class SceneLoader
     {
+        private static readonly Dictionary<string, Scene> _sceneDict = new();
+
         internal static void Initialize()
         {
             _sceneDict.Clear();
 
             var config = SymphonyConfigLocator.GetConfig<SceneManagerConfig>();
             if (config)
-            {
                 foreach (var scene in config.InitializeSceneList)
-                {
                     _ = LoadScene(scene.ToString());
-                }
-            }
         }
-        
-        private static readonly Dictionary<string, Scene> _sceneDict = new();
-        
+
         /// <summary>
         ///     ゲーム開始時の初期化処理
         /// </summary>

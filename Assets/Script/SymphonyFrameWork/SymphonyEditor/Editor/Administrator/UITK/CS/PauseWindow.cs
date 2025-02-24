@@ -11,13 +11,13 @@ namespace SymphonyFrameWork.Editor
     public partial class PauseWindow : SymphonyVisualElement
     {
         private FieldInfo _pauseInfo;
-        private VisualElement _pauseVisual;
         private Label _pauseText;
+        private VisualElement _pauseVisual;
 
         public PauseWindow() : base(
             "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/Administrator/UITK/UXML/PauseWindow.uxml",
-            initializeType: InitializeType.None,
-            loadType: LoadType.AssetDataBase)
+            InitializeType.None,
+            LoadType.AssetDataBase)
         {
         }
 
@@ -31,7 +31,7 @@ namespace SymphonyFrameWork.Editor
 
             container.Q<Button>("button-pause").clicked += () => PauseManager.Pause = true;
             container.Q<Button>("button-resume").clicked += () => PauseManager.Pause = false;
-            
+
             return Task.CompletedTask;
         }
 
