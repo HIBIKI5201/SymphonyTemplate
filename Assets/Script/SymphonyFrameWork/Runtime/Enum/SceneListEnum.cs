@@ -1,4 +1,4 @@
-﻿public enum SceneListEnum
+﻿public enum SceneListEnum : int
 {
-    None = 0
+    None = 0,
 }
