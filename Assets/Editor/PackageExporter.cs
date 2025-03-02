@@ -14,7 +14,7 @@ public class PackageExporter : EditorWindow
         EnumGenerator.EnumGenerate(Array.Empty<string>(), "SceneList");
 
         // エクスポート対象のフォルダ
-        var folderPath = "Assets/Script/SymphonyFrameWork";
+        var folderPath = SymphonyConstant.FRAMEWORK_PATH;
 
         // 除外するリソース系のフォルダ
         var excludePaths = new[]
