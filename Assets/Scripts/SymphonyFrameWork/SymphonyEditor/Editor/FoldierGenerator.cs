@@ -1,4 +1,5 @@
 ﻿using Codice.CM.SEIDInfo;
+using SymphonyFrameWork.Core;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -8,14 +9,14 @@ namespace SymphonyFrameWork.Editor
 {
     public static class FolderGenerator
     {
-        [MenuItem("Tools/Create Default Folders")]
+        [MenuItem(SymphonyConstant.MENU_PATH + nameof(FolderGenerator), priority = 100)]
         public static void GenerateFolder()
         {
             string assetsPath = "Assets";
             string artPath = "Arts";
 
             // アセット直下のフォルダ
-            string[] assetsFolders = { "AssetStoreTools", "Editor", "Scenes", "Scripts", "Prefabs", artPath };
+            string[] assetsFolders = { artPath, "AssetStoreTools", "Editor", "Prefabs", "Scenes", "Scripts", "Settings" };
 
             foreach (string folder in assetsFolders)
             {
