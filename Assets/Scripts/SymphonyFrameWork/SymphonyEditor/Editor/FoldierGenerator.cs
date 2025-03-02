@@ -1,5 +1,4 @@
-﻿using Codice.CM.SEIDInfo;
-using SymphonyFrameWork.Core;
+﻿using SymphonyFrameWork.Core;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -30,7 +29,7 @@ namespace SymphonyFrameWork.Editor
             }
 
             // Arts フォルダ内のフォルダ
-            string[] artFolders = new string[] { "Materials", "Textures", "Audio" }
+            string[] artFolders = new string[] { "Audio", "Material", "Mesh", "Shader", "Sprite", "Texture" }
             .Select(s => $"{artPath}/{s}")
                 .ToArray();
 
