@@ -15,7 +15,7 @@ namespace SymphonyFrameWork.Editor
             string artPath = "Arts";
 
             // アセット直下のフォルダ
-            string[] assetsFolders = { artPath, "AssetStoreTools", "Editor", "Prefabs", "Scenes", "Scripts", "Settings" };
+            string[] assetsFolders = { artPath, "AssetStoreTools", "Editor", "Resources", "Prefabs", "Scenes", "Scripts", "Settings" };
 
             foreach (string folder in assetsFolders)
             {
@@ -29,7 +29,7 @@ namespace SymphonyFrameWork.Editor
             }
 
             // Arts フォルダ内のフォルダ
-            string[] artFolders = new string[] { "Audio", "Material", "Mesh", "Shader", "Sprite", "Texture" }
+            string[] artFolders = new string[] { "Audio", "Materials", "Meshes", "Textures", "Shaders", "Sprites" }
             .Select(s => $"{artPath}/{s}")
                 .ToArray();
 
