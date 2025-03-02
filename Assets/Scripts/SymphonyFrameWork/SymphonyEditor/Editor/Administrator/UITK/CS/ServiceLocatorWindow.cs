@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ namespace SymphonyFrameWork.Editor
         private ListView _locateList;
 
         public ServiceLocatorWindow() : base(
-            "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/Administrator/UITK/UXML/ServiceLocatorWindow.uxml",
+            SymphonyWindow.UITK_UXML_PATH + "ServiceLocatorWindow.uxml",
             InitializeType.None,
             LoadType.AssetDataBase)
         {

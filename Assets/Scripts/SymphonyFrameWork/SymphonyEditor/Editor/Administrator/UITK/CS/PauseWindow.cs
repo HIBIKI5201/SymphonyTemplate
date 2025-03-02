@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Threading.Tasks;
 using SymphonyFrameWork.System;
 using SymphonyFrameWork.Utility;
@@ -15,7 +15,7 @@ namespace SymphonyFrameWork.Editor
         private VisualElement _pauseVisual;
 
         public PauseWindow() : base(
-            "Assets/Script/SymphonyFrameWork/SymphonyEditor/Editor/Administrator/UITK/UXML/PauseWindow.uxml",
+            SymphonyWindow.UITK_UXML_PATH + "PauseWindow.uxml",
             InitializeType.None,
             LoadType.AssetDataBase)
         {

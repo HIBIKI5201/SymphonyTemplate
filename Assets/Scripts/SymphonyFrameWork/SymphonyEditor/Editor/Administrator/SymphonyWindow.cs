@@ -14,6 +14,8 @@ namespace SymphonyFrameWork.Editor
         private const string WINDOW_NAME = "Symphony Administrator";
         private const string UITK_PATH = SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor/Administrator/UITK/";
 
+        public const string UITK_UXML_PATH = UITK_PATH + "UXML/";
+
         private PauseWindow _pauseWindow;
         private ServiceLocatorWindow _serviceLocatorWindow;
 
