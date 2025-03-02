@@ -14,8 +14,15 @@ namespace SymphonyFrameWork.Editor
             string assetsPath = "Assets";
             string artPath = "Arts";
 
-            // アセット直下のフォルダ
-            string[] assetsFolders = { artPath, "AssetStoreTools", "Editor", "Resources", "Prefabs", "Scenes", "Scripts", "Settings" };
+            
+            string[] assetsFolders =
+                // アセット直下のフォルダ
+                new string[] { artPath, "AssetStoreTools", "Editor", "Resources", "Prefabs", "Scenes", "Scripts", "Settings" }
+                //Artフォルダ内のフォルダ
+                .Concat(new string[] { "Audio", "Materials", "Meshes", "Textures", "Shaders", "Sprites" }
+                    .Select(s => $"{artPath}/{s}"))
+                .ToArray();
+            
 
             foreach (string folder in assetsFolders)
             {
@@ -28,25 +35,7 @@ namespace SymphonyFrameWork.Editor
                 }
             }
 
-            // Arts フォルダ内のフォルダ
-            string[] artFolders = new string[] { "Audio", "Materials", "Meshes", "Textures", "Shaders", "Sprites" }
-            .Select(s => $"{artPath}/{s}")
-                .ToArray();
-
-            foreach (string folder in artFolders)
-            {
-                string path = GetPath(folder);
-
-                if (!AssetDatabase.IsValidFolder(path))
-                {
-                    FolderCreate(path);
-                    Debug.Log($"フォルダ作成: {path}");
-                }
-            }
-
             AssetDatabase.Refresh();
-
-            string GetPath(string folder) => $"{assetsPath}/{folder}";
         }
 
         private static void FolderCreate(string path)
