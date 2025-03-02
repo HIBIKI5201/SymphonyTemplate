@@ -14,17 +14,22 @@ namespace SymphonyFrameWork.Editor
     {
         static SymphonyConfigManager()
         {
-            FileCheck<SceneManagerConfig>();
-            FileCheck<AutoEnumGeneratorConfig>();
+            FileCheck<SceneManagerConfig>(ConfigType.Runtime);
+            FileCheck<AutoEnumGeneratorConfig>(ConfigType.Editor);
         }
 
         /// <summary>
         ///     ファイルが存在するか確認する
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        private static void FileCheck<T>() where T : ScriptableObject
+        private static void FileCheck<T>(ConfigType type) where T : ScriptableObject
         {
-            var paths = SymphonyConfigLocator.GetFullPath<T>();
+            var paths = type switch
+            {
+                ConfigType.Runtime => SymphonyConfigLocator.GetFullPath<T>(),
+                ConfigType.Editor => SymphonyEditorConfigLocator.GetFullPath<T>(),
+                _ => null
+            };
             if (paths == null)
             {
                 Debug.LogWarning(typeof(T).Name + " doesn't exist!");
@@ -58,6 +63,12 @@ namespace SymphonyFrameWork.Editor
                 Directory.CreateDirectory(resourcesPath);
                 AssetDatabase.Refresh();
             }
+        }
+
+        private enum ConfigType : int
+        {
+            Runtime,
+            Editor,
         }
     }
 }
