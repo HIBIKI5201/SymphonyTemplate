@@ -1,10 +1,9 @@
 ﻿using System;
-using UnityEditor;
-using UnityEngine;
-using System.Collections.Generic;
 using System.Linq;
 using SymphonyFrameWork.Core;
 using SymphonyFrameWork.Editor;
+using UnityEditor;
+using UnityEngine;
 
 public class PackageExporter : EditorWindow
 {
@@ -13,29 +12,29 @@ public class PackageExporter : EditorWindow
     {
         //Enumを初期化
         EnumGenerator.EnumGenerate(Array.Empty<string>(), "SceneList");
-        
+
         // エクスポート対象のフォルダ
         var folderPath = "Assets/Script/SymphonyFrameWork";
 
         // 除外するリソース系のフォルダ
-        var excludePaths = new string[]
+        var excludePaths = new[]
         {
             SymphonyConstant.RESOURCES_RUNTIME_PATH,
-            SymphonyConstant.RESOURCES_EDITOR_PATH,
+            SymphonyConstant.RESOURCES_EDITOR_PATH
         };
 
-        var parentPaths = new string[]
+        var parentPaths = new[]
         {
             //親フォルダ
             SymphonyConstant.FRAMEWORK_PATH,
             SymphonyConstant.FRAMEWORK_PATH + "/Runtime",
             SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor",
-            SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor",
+            SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor"
         };
 
         // フォルダ内のすべてのアセットを取得
-        string[] assetGUIDs = AssetDatabase.FindAssets(string.Empty, new[] { folderPath });
-        List<string> assetPaths = assetGUIDs
+        var assetGUIDs = AssetDatabase.FindAssets(string.Empty, new[] { folderPath });
+        var assetPaths = assetGUIDs
             .Select(AssetDatabase.GUIDToAssetPath)
             //親フォルダを除外
             .Where(path => parentPaths.All(parent => path != parent))
@@ -48,7 +47,7 @@ public class PackageExporter : EditorWindow
             Debug.LogWarning("エクスポート対象のアセットがありません。");
             return;
         }
-        
+
         Debug.Log(string.Join("\n", assetPaths));
 
         // 保存先のパス（エクスポート先）
