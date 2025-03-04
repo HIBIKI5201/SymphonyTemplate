@@ -1,8 +1,20 @@
 #Version
-1.19.12
+1.19.15
 
 
 #Log
+1.19.15
+[Update]
+SaveDataManager
+
+1.19.14
+[Add]
+FoldierGenerator
+
+1.19.13
+[Add]
+SymphonyEditorConfigLocator
+
 1.19.12
 [Fix]
 AutoEnumGenerator
