@@ -16,11 +16,21 @@ namespace SymphonyFrameWork.Editor
         {
             //コンフィグデータを取得
             var config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
+
             var sceneList = container.Q<Toggle>("scene");
             sceneList.value = config.AutoSceneListUpdate;
-
             sceneList.RegisterValueChangedCallback(
                 evt => config.AutoSceneListUpdate = evt.newValue);
+
+            var tags = container.Q<Toggle>("tags");
+            tags.value = config.AutoTagsUpdate;
+            tags.RegisterValueChangedCallback(
+                evt => config.AutoTagsUpdate = evt.newValue);
+
+            var layers = container.Q<Toggle>("layers");
+            layers.value = config.AutoLayerUpdate;
+            layers.RegisterValueChangedCallback(
+                evt => config.AutoLayerUpdate = evt.newValue);
 
             return Task.CompletedTask;
         }
