@@ -637,9 +637,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 700aa2ecfd602274e99c9b92857224a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 962773592}
-  cuttingPlane: {fileID: 1760602580}
-  capMaterial: {fileID: 2100000, guid: 8e439dfe5846ea0448493073042ab7ed, type: 2}
+  _targetObject: {fileID: 0}
+  _cuttingPlane: {fileID: 0}
+  _capMaterial: {fileID: 0}
 --- !u!4 &2074885359
 Transform:
   m_ObjectHideFlags: 0
