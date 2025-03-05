@@ -62,6 +62,8 @@ namespace SymphonyFrameWork.System
                 return;
             }
 
+            _audioDict = new();
+
             CreateInstance();
 
             AudioMixer mixer = _config?.AudioMixer;
@@ -103,17 +105,16 @@ namespace SymphonyFrameWork.System
                     source.playOnAwake = false;
 
                     //初期のボリュームを取得
-                    if (mixer.GetFloat($"{name}_Volume", out float value))
-                    {
-                        //各情報を追加
-                        _audioDict.Add(type, new AudioSettingData(group, source, value));
+                    float volume = 0;
+                    bool canGetVolume = string.IsNullOrEmpty(data.AudioGroupVolumeParameter) ||
+                        mixer.GetFloat(data.AudioGroupVolumeParameter, out volume);
 
-                        SymphonyDebugLog.AddText($"{name}は正常に追加されました");
-                    }
-                    else
-                    {
-                        SymphonyDebugLog.AddText($"{name}_Volume is not found");
-                    }
+                    //各情報を追加
+                    _audioDict.Add(type, new AudioSettingData(group, source, volume));
+
+                    SymphonyDebugLog.AddText(canGetVolume ?
+                        $"{name}は正常に追加されました。volume : {volume}" :
+                        $"{name}_Volume is not found");
                 }
                 else
                 {
