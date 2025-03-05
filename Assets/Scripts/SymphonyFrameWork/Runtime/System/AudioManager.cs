@@ -103,6 +103,7 @@ namespace SymphonyFrameWork.System
                     AudioSource source = _instance.AddComponent<AudioSource>();
                     source.outputAudioMixerGroup = group;
                     source.playOnAwake = false;
+                    if (data.IsLoop) source.loop = true;
 
                     //初期のボリュームを取得
                     float volume = 0;

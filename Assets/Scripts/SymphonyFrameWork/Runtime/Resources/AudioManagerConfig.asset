@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: AudioManagerConfig
   m_EditorClassIdentifier: 
   _audioMixer: {fileID: 24100000, guid: e9f3a0a9dc334aa47a826e5c0871aebe, type: 2}
-  _audioGroupSettingList: []
+  _audioGroupSettingList:
+  - _audioGroupName: Master
+    _audioGroupVolumeParameter: Master_Volume
+    _isLoop: 0
