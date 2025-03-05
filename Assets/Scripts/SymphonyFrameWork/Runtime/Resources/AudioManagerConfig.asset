@@ -17,3 +17,6 @@ MonoBehaviour:
   - _audioGroupName: Master
     _audioGroupVolumeParameter: Master_Volume
     _isLoop: 0
+  - _audioGroupName: BGM
+    _audioGroupVolumeParameter: 
+    _isLoop: 0

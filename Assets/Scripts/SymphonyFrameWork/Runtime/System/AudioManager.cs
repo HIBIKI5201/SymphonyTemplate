@@ -115,7 +115,7 @@ namespace SymphonyFrameWork.System
 
                     SymphonyDebugLog.AddText(canGetVolume ?
                         $"{name}は正常に追加されました。volume : {volume}" :
-                        $"{name}_Volume is not found");
+                        $"{name}のVolumeParameterが見つかりませんでした");
                 }
                 else
                 {
