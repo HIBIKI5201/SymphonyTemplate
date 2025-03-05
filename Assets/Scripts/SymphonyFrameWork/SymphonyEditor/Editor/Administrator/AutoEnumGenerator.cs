@@ -1,29 +1,36 @@
-﻿using System.IO;
+﻿using SymphonyFrameWork.Core;
+using System.IO;
 using System.Linq;
 using UnityEditor;
+using UnityEditorInternal;
 
 namespace SymphonyFrameWork.Editor
 {
     [InitializeOnLoad]
     public static class AutoEnumGenerator
     {
-        private const string SceneListFileName = "SceneList";
-        private static readonly AutoEnumGeneratorConfig Config;
+        private static readonly AutoEnumGeneratorConfig _config;
 
         static AutoEnumGenerator()
         {
-            Config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
+            _config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
 
-            EditorBuildSettings.sceneListChanged -= SceneListChanged;
-            EditorBuildSettings.sceneListChanged += SceneListChanged;
+            TagsAndLayersPostProcessor.SceneList.OnSettingChanged -= SceneListEnumGenerate;
+            TagsAndLayersPostProcessor.SceneList.OnSettingChanged += SceneListEnumGenerate;
+
+            TagsAndLayersPostProcessor.Tags.OnSettingChanged -= TagsEnumGenerate;
+            TagsAndLayersPostProcessor.Tags.OnSettingChanged += TagsEnumGenerate;
+
+            TagsAndLayersPostProcessor.Layers.OnSettingChanged -= LayersEnumGenerate;
+            TagsAndLayersPostProcessor.Layers.OnSettingChanged += LayersEnumGenerate;
         }
 
         /// <summary>
         ///     シーンリスト変更時の更新
         /// </summary>
-        private static void SceneListChanged()
+        private static void SceneListEnumGenerate()
         {
-            if (Config.AutoSceneListUpdate)
+            if (_config.AutoSceneListUpdate)
             {
                 //シーンリストのシーン名を取得
                 var sceneList = EditorBuildSettings.scenes
@@ -31,7 +38,26 @@ namespace SymphonyFrameWork.Editor
                     .ToArray();
 
                 //シーン名のEnumを生成する
-                EnumGenerator.EnumGenerate(sceneList, SceneListFileName);
+                EnumGenerator.EnumGenerate(sceneList,
+                    SymphonyConstant.EditorSymphonyConstrant.SceneListEnumFileName);
+            }
+        }
+
+        private static void TagsEnumGenerate()
+        {
+            if (_config.AutoTagsUpdate)
+            {
+                EnumGenerator.EnumGenerate(InternalEditorUtility.tags,
+                    SymphonyConstant.EditorSymphonyConstrant.TagsEnumFileName, true);
+            }
+        }
+
+        private static void LayersEnumGenerate()
+        {
+            if (_config.AutoLayerUpdate)
+            {
+                EnumGenerator.EnumGenerate(InternalEditorUtility.layers,
+                    SymphonyConstant.EditorSymphonyConstrant.LayersEnumFileName, true);
             }
         }
     }

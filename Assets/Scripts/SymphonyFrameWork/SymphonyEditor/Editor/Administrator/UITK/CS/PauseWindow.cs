@@ -1,7 +1,7 @@
-﻿using System.Reflection;
-using System.Threading.Tasks;
-using SymphonyFrameWork.System;
+﻿using SymphonyFrameWork.System;
 using SymphonyFrameWork.Utility;
+using System.Reflection;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,8 +18,7 @@ namespace SymphonyFrameWork.Editor
             SymphonyWindow.UITK_UXML_PATH + "PauseWindow.uxml",
             InitializeType.None,
             LoadType.AssetDataBase)
-        {
-        }
+        { }
 
         protected override Task Initialize_S(TemplateContainer container)
         {
