@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using SymphonyFrameWork.Debugger;
 using SymphonyFrameWork.System;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace SymphonyFrameWork.Utility
         /// <param name="d">長さ</param>
         /// <param name="curve">曲線を決める（xの大きさで正規化される）</param>
         /// <param name="token"></param>
-        public static async void Tweening<T>(T s, Action<T> action, T e, float d,
+        public static async Task Tweening<T>(T s, Action<T> action, T e, float d,
             AnimationCurve curve = null,
             CancellationToken token = default) where T : struct
         {
@@ -64,7 +65,7 @@ namespace SymphonyFrameWork.Utility
         /// <param name="d">長さ</param>
         /// <param name="curve">曲線を決める（xの大きさで正規化される）</param>
         /// <param name="token"></param>
-        public static async void PausableTweening<T>(T s, Action<T> action, T e, float d,
+        public static async Task PausableTweening<T>(T s, Action<T> action, T e, float d,
             AnimationCurve curve = null,
             CancellationToken token = default) where T : struct
         {
@@ -112,7 +113,7 @@ namespace SymphonyFrameWork.Utility
         /// <param name="e">エンドの値</param>
         /// <param name="d">長さ</param>
         [Obsolete("旧型式です。" + nameof(Tweening) + "を使用する事を推奨します")]
-        public static async void TweeningLerp<T>(T s, Action<T> action, T e, float d,
+        public static async Task TweeningLerp<T>(T s, Action<T> action, T e, float d,
             CancellationToken token = default) where T : struct
         {
             var timer = Time.time;
@@ -175,7 +176,7 @@ namespace SymphonyFrameWork.Utility
         /// <param name="e">エンドの値</param>
         /// <param name="d">長さ</param>
         [Obsolete("旧型式です。" + nameof(Tweening) + "を使用する事を推奨します")]
-        public static async void TweeningCurve<T>(T s, Action<T> action, T e, float d, AnimationCurve curve,
+        public static async Task TweeningCurve<T>(T s, Action<T> action, T e, float d, AnimationCurve curve,
             CancellationToken token = default) where T : struct
         {
             //カーブを
