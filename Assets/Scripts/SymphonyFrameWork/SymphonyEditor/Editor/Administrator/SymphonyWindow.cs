@@ -17,6 +17,7 @@ namespace SymphonyFrameWork.Editor
 
         private PauseWindow _pauseWindow;
         private ServiceLocatorWindow _serviceLocatorWindow;
+        private AutoEnumGeneratorWindow _generatorWindow;
 
         private void Update()
         {
@@ -32,7 +33,7 @@ namespace SymphonyFrameWork.Editor
             {
                 _pauseWindow = container.Q<PauseWindow>();
                 _serviceLocatorWindow = container.Q<ServiceLocatorWindow>();
-                SceneLoaderInit(container);
+                _generatorWindow = container.Q<AutoEnumGeneratorWindow>();
             }
             else
             {
@@ -78,23 +79,5 @@ namespace SymphonyFrameWork.Editor
             Debug.LogError("ウィンドウが見つかりません");
             return null;
         }
-
-        #region SceneLoader
-
-        private static Toggle _autoSceneListUpdateToggle;
-
-        private static void SceneLoaderInit(VisualElement root)
-        {
-            //コンフィグデータを取得
-            var config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
-            _autoSceneListUpdateToggle = root.Q<Toggle>("enum-scene");
-            _autoSceneListUpdateToggle.value = config.AutoSceneListUpdate;
-
-            //トグルが変更された時にコンフィグを更新
-            _autoSceneListUpdateToggle.RegisterValueChangedCallback(
-                evt => config.AutoSceneListUpdate = evt.newValue);
-        }
-
-        #endregion
     }
 }
