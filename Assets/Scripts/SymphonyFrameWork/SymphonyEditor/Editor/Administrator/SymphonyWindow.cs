@@ -1,5 +1,4 @@
-﻿using SymphonyFrameWork.Config;
-using SymphonyFrameWork.Core;
+﻿using SymphonyFrameWork.Core;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;

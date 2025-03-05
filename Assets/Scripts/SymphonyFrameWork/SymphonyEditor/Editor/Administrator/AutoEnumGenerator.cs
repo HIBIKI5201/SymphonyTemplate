@@ -1,21 +1,29 @@
-﻿using System.IO;
+﻿using SymphonyFrameWork.Core;
+using System.IO;
 using System.Linq;
 using UnityEditor;
+using UnityEditorInternal;
+using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
     [InitializeOnLoad]
     public static class AutoEnumGenerator
     {
-        private const string SceneListFileName = "SceneList";
         private static readonly AutoEnumGeneratorConfig Config;
 
         static AutoEnumGenerator()
         {
             Config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
 
-            EditorBuildSettings.sceneListChanged -= SceneListChanged;
-            EditorBuildSettings.sceneListChanged += SceneListChanged;
+            TagsAndLayersPostProcessor.SceneList.OnSettingChanged -= SceneListChanged;
+            TagsAndLayersPostProcessor.SceneList.OnSettingChanged += SceneListChanged;
+
+            TagsAndLayersPostProcessor.Tags.OnSettingChanged -= TagsChanged;
+            TagsAndLayersPostProcessor.Tags.OnSettingChanged += TagsChanged;
+
+            TagsAndLayersPostProcessor.Layers.OnSettingChanged -= LayersChanged;
+            TagsAndLayersPostProcessor.Layers.OnSettingChanged += LayersChanged;
         }
 
         /// <summary>
@@ -31,8 +39,23 @@ namespace SymphonyFrameWork.Editor
                     .ToArray();
 
                 //シーン名のEnumを生成する
-                EnumGenerator.EnumGenerate(sceneList, SceneListFileName);
+                EnumGenerator.EnumGenerate(sceneList,
+                    SymphonyConstant.EditorSymphonyConstrant.SceneListEnumFileName);
             }
+        }
+
+        private static void TagsChanged()
+        {
+            string[] tags = InternalEditorUtility.tags;
+            EnumGenerator.EnumGenerate(tags,
+                SymphonyConstant.EditorSymphonyConstrant.TagsEnumFileName, true);
+        }
+
+        private static void LayersChanged()
+        {
+            string[] layers = InternalEditorUtility.layers;
+            EnumGenerator.EnumGenerate(layers,
+                SymphonyConstant.EditorSymphonyConstrant.LayersEnumFileName, true);
         }
     }
 }
