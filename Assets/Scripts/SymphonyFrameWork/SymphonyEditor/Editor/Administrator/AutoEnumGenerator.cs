@@ -10,11 +10,11 @@ namespace SymphonyFrameWork.Editor
     [InitializeOnLoad]
     public static class AutoEnumGenerator
     {
-        private static readonly AutoEnumGeneratorConfig Config;
+        private static readonly AutoEnumGeneratorConfig _config;
 
         static AutoEnumGenerator()
         {
-            Config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
+            _config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
 
             TagsAndLayersPostProcessor.SceneList.OnSettingChanged -= SceneListChanged;
             TagsAndLayersPostProcessor.SceneList.OnSettingChanged += SceneListChanged;
@@ -31,7 +31,7 @@ namespace SymphonyFrameWork.Editor
         /// </summary>
         private static void SceneListChanged()
         {
-            if (Config.AutoSceneListUpdate)
+            if (_config.AutoSceneListUpdate)
             {
                 //シーンリストのシーン名を取得
                 var sceneList = EditorBuildSettings.scenes

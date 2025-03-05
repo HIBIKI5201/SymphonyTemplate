@@ -1,8 +1,19 @@
 #Version
-1.19.20
+1.19.22
 
 
 #Log
+1.19.22
+[Update]
+AutoEnumGenerator
+AutoEnumGeneratorConfig
+[Fix]
+EnumGenerator
+
+1.19.21
+[Add]
+TagsAndLayersPostProcessor
+
 1.19.20
 [Update]
 ServiceLocater
