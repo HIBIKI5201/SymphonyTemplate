@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -21,6 +22,10 @@ namespace SymphonyFrameWork
             [SerializeField]
             private string _audioGroupName = string.Empty;
             public string AudioGroupName { get => _audioGroupName; }
+
+            [SerializeField]
+            private string _audioGroupVolumeParameter = string.Empty;
+            public string AudioGroupVolumeParameter { get => _audioGroupVolumeParameter; }
 
             [SerializeField]
             private bool _isLoop = false;
