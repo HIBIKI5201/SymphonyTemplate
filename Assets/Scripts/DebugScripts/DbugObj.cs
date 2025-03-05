@@ -1,9 +1,10 @@
-﻿using SymphonyFrameWork.Attribute;
+﻿using SymphonyFrameWork;
+using SymphonyFrameWork.Attribute;
 using SymphonyFrameWork.System;
 using SymphonyFrameWork.Utility;
 using UnityEngine;
 
-public class DbugObj : MonoBehaviour
+public class DbugObj : MonoBehaviour, IGameObject
 {
     [SerializeField] private float _speed = 5;
 
