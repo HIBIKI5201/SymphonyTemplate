@@ -17,6 +17,10 @@ namespace SymphonyFrameWork.System
     //インスタンスを一時的にシーンロードから切り離したい時にも使用できる
     public static class ServiceLocator
     {
+#if UNITY_EDITOR
+        internal const string ServiceLocatorGetInstanceLog = "ServiceLocatorGetInstanceLog";
+#endif
+
         public enum LocateType
         {
             Singleton,
@@ -107,7 +111,10 @@ namespace SymphonyFrameWork.System
         /// <returns>指定した型のインスタンス</returns>
         public static T GetInstance<T>() where T : Component
         {
-            SymphonyDebugLog.AddText($"ServiceLocator\n{typeof(T).Name}の取得がリクエストされました。");
+#if UNITY_EDITOR
+            if (EditorPrefs.GetBool(ServiceLocatorGetInstanceLog, false))
+                SymphonyDebugLog.AddText($"ServiceLocator\n{typeof(T).Name}の取得がリクエストされました。");
+#endif
 
             if (_singletonObjects.TryGetValue(typeof(T), out var md))
             {
@@ -126,8 +133,13 @@ namespace SymphonyFrameWork.System
 
             void OutputLog(string text)
             {
-                SymphonyDebugLog.AddText(text);
-                SymphonyDebugLog.TextLog();
+#if UNITY_EDITOR
+                if (EditorPrefs.GetBool(ServiceLocatorGetInstanceLog, false))
+                {
+                    SymphonyDebugLog.AddText(text);
+                    SymphonyDebugLog.TextLog();
+                }
+#endif
             }
         }
     }
