@@ -15,6 +15,7 @@ namespace SymphonyFrameWork.Editor
         static SymphonyConfigManager()
         {
             FileCheck<SceneManagerConfig>(ConfigType.Runtime);
+            FileCheck<AudioManagerConfig>(ConfigType.Runtime);
             FileCheck<AutoEnumGeneratorConfig>(ConfigType.Editor);
         }
 
