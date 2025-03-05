@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditorInternal;
-using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -16,20 +15,20 @@ namespace SymphonyFrameWork.Editor
         {
             _config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
 
-            TagsAndLayersPostProcessor.SceneList.OnSettingChanged -= SceneListChanged;
-            TagsAndLayersPostProcessor.SceneList.OnSettingChanged += SceneListChanged;
+            TagsAndLayersPostProcessor.SceneList.OnSettingChanged -= SceneListEnumGenerate;
+            TagsAndLayersPostProcessor.SceneList.OnSettingChanged += SceneListEnumGenerate;
 
-            TagsAndLayersPostProcessor.Tags.OnSettingChanged -= TagsChanged;
-            TagsAndLayersPostProcessor.Tags.OnSettingChanged += TagsChanged;
+            TagsAndLayersPostProcessor.Tags.OnSettingChanged -= TagsEnumGenerate;
+            TagsAndLayersPostProcessor.Tags.OnSettingChanged += TagsEnumGenerate;
 
-            TagsAndLayersPostProcessor.Layers.OnSettingChanged -= LayersChanged;
-            TagsAndLayersPostProcessor.Layers.OnSettingChanged += LayersChanged;
+            TagsAndLayersPostProcessor.Layers.OnSettingChanged -= LayersEnumGenerate;
+            TagsAndLayersPostProcessor.Layers.OnSettingChanged += LayersEnumGenerate;
         }
 
         /// <summary>
         ///     シーンリスト変更時の更新
         /// </summary>
-        private static void SceneListChanged()
+        private static void SceneListEnumGenerate()
         {
             if (_config.AutoSceneListUpdate)
             {
@@ -44,18 +43,22 @@ namespace SymphonyFrameWork.Editor
             }
         }
 
-        private static void TagsChanged()
+        private static void TagsEnumGenerate()
         {
-            string[] tags = InternalEditorUtility.tags;
-            EnumGenerator.EnumGenerate(tags,
-                SymphonyConstant.EditorSymphonyConstrant.TagsEnumFileName, true);
+            if (_config.AutoTagsUpdate)
+            {
+                EnumGenerator.EnumGenerate(InternalEditorUtility.tags,
+                    SymphonyConstant.EditorSymphonyConstrant.TagsEnumFileName, true);
+            }
         }
 
-        private static void LayersChanged()
+        private static void LayersEnumGenerate()
         {
-            string[] layers = InternalEditorUtility.layers;
-            EnumGenerator.EnumGenerate(layers,
-                SymphonyConstant.EditorSymphonyConstrant.LayersEnumFileName, true);
+            if (_config.AutoLayerUpdate)
+            {
+                EnumGenerator.EnumGenerate(InternalEditorUtility.layers,
+                    SymphonyConstant.EditorSymphonyConstrant.LayersEnumFileName, true);
+            }
         }
     }
 }
