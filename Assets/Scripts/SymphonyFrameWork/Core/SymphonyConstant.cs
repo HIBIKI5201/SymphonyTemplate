@@ -15,7 +15,10 @@
         public class EditorSymphonyConstrant
         {
 #if UNITY_EDITOR
-            public const string ServiceLocatorGetInstanceLog = "ServiceLocatorGetInstanceLog";
+            public const string ServiceLocatorSetInstanceKey = "ServiceLocatorSetInstanceLog";
+            public const bool ServiceLocatorSetInstanceDefault = true;
+            public const string ServiceLocatorGetInstanceKey = "ServiceLocatorGetInstanceLog";
+            public const bool ServiceLocatorGetInstanceDefault = false;
 #endif
         }
     }
