@@ -63,8 +63,13 @@ namespace SymphonyFrameWork.System
                 return;
             }
 
-            Debug.Log($"{typeof(T).Name}クラスの{instance.name}が" +
-                      $"{type switch { LocateType.Locator => "ロケート", LocateType.Singleton => "シングルトン", _ => string.Empty }}登録されました");
+#if UNITY_EDITOR
+            if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceKey,
+                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceDefault))
+                Debug.Log($"{typeof(T).Name}クラスの{instance.name}が" +
+                    $"{type switch { LocateType.Locator => "ロケート", LocateType.Singleton => "シングルトン", _ => string.Empty }}登録されました");
+
+#endif
 
             if (type == LocateType.Singleton)
             {
@@ -109,7 +114,8 @@ namespace SymphonyFrameWork.System
         public static T GetInstance<T>() where T : Component
         {
 #if UNITY_EDITOR
-            if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, false))
+            if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceKey,
+                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceDefault))
                 SymphonyDebugLog.AddText($"ServiceLocator\n{typeof(T).Name}の取得がリクエストされました。");
 #endif
 
@@ -131,7 +137,8 @@ namespace SymphonyFrameWork.System
             void OutputLog(string text, SymphonyDebugLog.LogKind kind = SymphonyDebugLog.LogKind.Normal)
             {
 #if UNITY_EDITOR
-                if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, false))
+                if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceKey,
+                    SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceDefault))
                 {
                     SymphonyDebugLog.AddText(text);
                     SymphonyDebugLog.TextLog(kind);
