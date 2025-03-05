@@ -12,6 +12,7 @@ public class PackageExporter : EditorWindow
     {
         //Enumを初期化
         EnumGenerator.EnumGenerate(Array.Empty<string>(), "SceneList");
+        EnumGenerator.EnumGenerate(Array.Empty<string>(), "AudioGroupType");
 
         // エクスポート対象のフォルダ
         var folderPath = SymphonyConstant.FRAMEWORK_PATH;
