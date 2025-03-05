@@ -14,7 +14,6 @@ namespace SymphonyFrameWork.Editor
             string assetsPath = "Assets";
             string artPath = "Arts";
 
-            
             string[] assetsFolders =
                 // アセット直下のフォルダ
                 new string[] { artPath, "AssetStoreTools", "Editor", "Resources", "Prefabs", "Scenes", "Scripts", "Settings" }
@@ -36,6 +35,8 @@ namespace SymphonyFrameWork.Editor
             }
 
             AssetDatabase.Refresh();
+
+            EditorUtility.DisplayDialog("フォルダを生成", "フォルダを生成しました", "OK");
         }
 
         private static void FolderCreate(string path)

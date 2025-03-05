@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using SymphonyFrameWork.Core;
 using SymphonyFrameWork.System;
 using SymphonyFrameWork.Utility;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,6 +17,8 @@ namespace SymphonyFrameWork.Editor
         private Dictionary<Type, Component> _locateDict;
         private FieldInfo _locateInfo;
         private ListView _locateList;
+        private Toggle _getInstanceLogActive;
+
 
         public ServiceLocatorWindow() : base(
             SymphonyWindow.UITK_UXML_PATH + "ServiceLocatorWindow.uxml",
@@ -40,12 +44,23 @@ namespace SymphonyFrameWork.Editor
                 var kvp = GetLocateList()[index];
                 (element as Label).text = $"type : {kvp.Key.Name}\nobj : {kvp.Value.name}";
             };
-
+            
             // データのセット
             _locateList.itemsSource = GetLocateList();
 
             // 選択タイプの設定
             _locateList.selectionType = SelectionType.None;
+
+            //
+            _getInstanceLogActive = container.Q<Toggle>("get_instance-log-active");
+            if (_getInstanceLogActive != null)
+            {
+                _getInstanceLogActive.value = EditorPrefs.GetBool(
+                   SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, false);
+
+                _getInstanceLogActive.RegisterValueChangedCallback(
+                    e => EditorPrefs.SetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, e.newValue));
+            }
 
             return Task.CompletedTask;
         }

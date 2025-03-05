@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using SymphonyFrameWork.Debugger;
+using SymphonyFrameWork.Core;
+
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace SymphonyFrameWork.System
 {
@@ -101,16 +108,36 @@ namespace SymphonyFrameWork.System
         /// <returns>指定した型のインスタンス</returns>
         public static T GetInstance<T>() where T : Component
         {
+#if UNITY_EDITOR
+            if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, false))
+                SymphonyDebugLog.AddText($"ServiceLocator\n{typeof(T).Name}の取得がリクエストされました。");
+#endif
+
             if (_singletonObjects.TryGetValue(typeof(T), out var md))
             {
-                if (md != null) return md as T;
+                if (md)
+                {
+                    OutputLog($"正常に行われました。");
+                    return md as T;
+                }
 
-                Debug.LogError($"{typeof(T).Name} は破棄されています。");
+                OutputLog($"{typeof(T).Name} は破棄されています。", SymphonyDebugLog.LogKind.Warning);
                 return null;
             }
 
-            Debug.LogWarning($"{typeof(T).Name} は登録されていません。");
+            OutputLog($"{typeof(T).Name} は登録されていません。", SymphonyDebugLog.LogKind.Warning);
             return null;
+
+            void OutputLog(string text, SymphonyDebugLog.LogKind kind = SymphonyDebugLog.LogKind.Normal)
+            {
+#if UNITY_EDITOR
+                if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, false))
+                {
+                    SymphonyDebugLog.AddText(text);
+                    SymphonyDebugLog.TextLog(kind);
+                }
+#endif
+            }
         }
     }
 }

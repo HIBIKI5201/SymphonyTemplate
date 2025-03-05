@@ -10,5 +10,13 @@
         public const string ENUM_PATH = FRAMEWORK_PATH + "/Runtime/Enum";
 
         public const string MENU_PATH = "Window/Symphony FrameWork/";
+
+
+        public class EditorSymphonyConstrant
+        {
+#if UNITY_EDITOR
+            public const string ServiceLocatorGetInstanceLog = "ServiceLocatorGetInstanceLog";
+#endif
+        }
     }
 }

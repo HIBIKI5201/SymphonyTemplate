@@ -19,10 +19,10 @@ namespace SymphonyFrameWork.Debugger
         /// </summary>
         /// <param name="text"></param>
         [Conditional("UNITY_EDITOR")]
-        public static void DirectLog(string text)
+        public static void DirectLog(string text, LogKind kind = LogKind.Normal)
         {
 #if UNITY_EDITOR
-            Debug.Log(text);
+            GetDebugActionByKind(kind)?.Invoke(text);
 #endif
         }
 
@@ -53,12 +53,31 @@ namespace SymphonyFrameWork.Debugger
         ///     追加されたメッセージをログに出力する
         /// </summary>
         [Conditional("UNITY_EDITOR")]
-        public static void TextLog()
+        public static void TextLog(LogKind kind = LogKind.Normal, bool clearText = true)
         {
 #if UNITY_EDITOR
-            Debug.Log(_logText);
+            GetDebugActionByKind(kind)?.Invoke(_logText);
+            if (clearText) ClearText();
 #endif
         }
+
+        public enum LogKind
+        {
+            Normal,
+            Warning,
+            Error,
+        }
+
+#if UNITY_EDITOR
+        private static Action<object> GetDebugActionByKind(LogKind kind) =>
+            kind switch
+            {
+                LogKind.Normal => Debug.Log,
+                LogKind.Warning => Debug.LogWarning,
+                LogKind.Error => Debug.LogError,
+                _ => Debug.Log
+            };
+#endif
 
         /// <summary>
         ///     コンポーネントだった場合に警告を表示する

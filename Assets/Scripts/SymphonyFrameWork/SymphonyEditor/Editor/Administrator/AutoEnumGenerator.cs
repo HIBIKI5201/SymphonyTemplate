@@ -13,6 +13,7 @@ namespace SymphonyFrameWork.Editor
         static AutoEnumGenerator()
         {
             Config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
+
             EditorBuildSettings.sceneListChanged -= SceneListChanged;
             EditorBuildSettings.sceneListChanged += SceneListChanged;
         }
