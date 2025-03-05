@@ -15,7 +15,7 @@ namespace SymphonyFrameWork.Editor
         private static readonly Regex IdentifierRegex = new(@"^@?[a-zA-Z_][a-zA-Z0-9_]*$");
         private static readonly string[] ReservedWords = { "abstract", "as", "base", "bool", "break", "while" };
 
-        public static async void EnumGenerate(string[] strings, string fileName)
+        public static async void EnumGenerate(string[] strings, string fileName, bool flag = false)
         {
             //重複を削除
             var hash = new HashSet<string>(new string[1] { "None" }.Concat(strings))
@@ -41,7 +41,7 @@ namespace SymphonyFrameWork.Editor
             //ファイル名を生成
             var enumFilePath = GetEnumFilePath(fileName);
 
-            var content = NormalEnumGenerate(fileName, hash);
+            var content = !flag ? NormalEnumGenerate(fileName, hash) : FlagEnumGenerate(fileName, hash);
 
             await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
             File.SetLastAccessTime(enumFilePath, DateTime.Now);
