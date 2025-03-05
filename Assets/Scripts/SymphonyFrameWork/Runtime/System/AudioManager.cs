@@ -13,16 +13,35 @@ namespace SymphonyFrameWork.System
     /// </summary>
     public static class AudioManager
     {
+        private static AudioManagerConfig _config;
         private static GameObject _instance;
 
         private static
-            Dictionary<AudioType, (AudioMixerGroup group, AudioSource source, float originalVolume)> _audioDict = new();
+            Dictionary<AudioType, AudioSettingData> _audioDict = new();
         
-        private class 
+        private class AudioSettingData
+        {
+            private AudioMixerGroup _group;
+            public AudioMixerGroup Group { get => _group; }
+
+            private AudioSource _source;
+            public AudioSource Source { get => _source; }
+
+            private float _originalVolume = 1;
+            public float OriginalVolume { get => _originalVolume; }
+
+            public AudioSettingData(AudioMixerGroup group, AudioSource source, float originalVolume)
+            {
+                _group = group;
+                _source = source;
+                _originalVolume = originalVolume;
+            }
+        }
 
         internal static void Initialize()
         {
             _instance = null;
+            _config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
         }
 
         private static void CreateInstance()
@@ -37,7 +56,7 @@ namespace SymphonyFrameWork.System
 
         private static void AudioSourceInitialize()
         {
-            AudioMixer mixer = SymphonyConfigLocator.GetConfig<AudioManagerConfig>()?.AudioMixer;
+            AudioMixer mixer = _config?.AudioMixer;
 
             if (!mixer)
             {
@@ -66,7 +85,7 @@ namespace SymphonyFrameWork.System
                     if (mixer.GetFloat($"{name}_Volume", out float value))
                     {
                         //各情報を追加
-                        _audioDict.Add(type, (group, source, value));
+                        _audioDict.Add(type, new AudioSettingData(group, source, value));
                     }
                     else
                     {
