@@ -68,7 +68,6 @@ namespace SymphonyFrameWork.System
                 SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceDefault))
                 Debug.Log($"{typeof(T).Name}クラスの{instance.name}が" +
                     $"{type switch { LocateType.Locator => "ロケート", LocateType.Singleton => "シングルトン", _ => string.Empty }}登録されました");
-
 #endif
 
             if (type == LocateType.Singleton)
@@ -98,11 +97,17 @@ namespace SymphonyFrameWork.System
             {
                 Object.Destroy(md.gameObject);
                 _singletonObjects.Remove(typeof(T));
-                Debug.Log($"{typeof(T).Name}が破棄されました");
+
+#if UNITY_EDITOR
+                if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorDestroyInstanceKey,
+                    SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorDestroyInstanceDefault))
+                    Debug.Log($"{typeof(T).Name}が破棄されました");
+#endif
+
             }
             else
             {
-                Debug.Log($"{typeof(T).Name}は登録されていません");
+                Debug.LogWarning($"{typeof(T).Name}は登録されていません");
             }
         }
 

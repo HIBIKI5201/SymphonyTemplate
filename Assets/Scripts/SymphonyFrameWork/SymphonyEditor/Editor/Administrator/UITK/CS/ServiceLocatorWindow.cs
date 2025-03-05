@@ -18,9 +18,6 @@ namespace SymphonyFrameWork.Editor
         private FieldInfo _locateInfo;
         private ListView _locateList;
 
-        private Toggle _setInstanceLogActive;
-        private Toggle _getInstanceLogActive;
-
         public ServiceLocatorWindow() : base(
             SymphonyWindow.UITK_UXML_PATH + "ServiceLocatorWindow.uxml",
             InitializeType.None,
@@ -53,15 +50,20 @@ namespace SymphonyFrameWork.Editor
             _locateList.selectionType = SelectionType.None;
 
             //ログのコンフィグを初期化
-            _setInstanceLogActive = container.Q<Toggle>("set_instance-log-active");
-            InitializeToggle(_setInstanceLogActive,
+            var setInstanceLogActive = container.Q<Toggle>("set_instance-log-active");
+            InitializeToggle(setInstanceLogActive,
                 SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceKey,
                 SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceDefault);
 
-            _getInstanceLogActive = container.Q<Toggle>("get_instance-log-active");
-            InitializeToggle(_getInstanceLogActive,
+            var getInstanceLogActive = container.Q<Toggle>("get_instance-log-active");
+            InitializeToggle(getInstanceLogActive,
                 SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceKey,
                 SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceDefault);
+
+            var destroyInstanceLogActive = container.Q<Toggle>("destroy_instance-log-active");
+            InitializeToggle(destroyInstanceLogActive,
+                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorDestroyInstanceKey,
+                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorDestroyInstanceDefault);
 
             return Task.CompletedTask;
         }

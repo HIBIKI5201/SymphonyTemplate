@@ -19,6 +19,8 @@
             public const bool ServiceLocatorSetInstanceDefault = true;
             public const string ServiceLocatorGetInstanceKey = "ServiceLocatorGetInstanceLog";
             public const bool ServiceLocatorGetInstanceDefault = false;
+            public const string ServiceLocatorDestroyInstanceKey = "ServiceLocatorDestroyInstanceLog";
+            public const bool ServiceLocatorDestroyInstanceDefault = true;
 #endif
         }
     }
