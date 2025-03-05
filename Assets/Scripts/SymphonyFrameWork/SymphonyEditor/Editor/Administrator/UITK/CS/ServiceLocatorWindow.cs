@@ -17,8 +17,9 @@ namespace SymphonyFrameWork.Editor
         private Dictionary<Type, Component> _locateDict;
         private FieldInfo _locateInfo;
         private ListView _locateList;
-        private Toggle _getInstanceLogActive;
 
+        private Toggle _setInstanceLogActive;
+        private Toggle _getInstanceLogActive;
 
         public ServiceLocatorWindow() : base(
             SymphonyWindow.UITK_UXML_PATH + "ServiceLocatorWindow.uxml",
@@ -51,16 +52,16 @@ namespace SymphonyFrameWork.Editor
             // 選択タイプの設定
             _locateList.selectionType = SelectionType.None;
 
-            //
-            _getInstanceLogActive = container.Q<Toggle>("get_instance-log-active");
-            if (_getInstanceLogActive != null)
-            {
-                _getInstanceLogActive.value = EditorPrefs.GetBool(
-                   SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, false);
+            //ログのコンフィグを初期化
+            _setInstanceLogActive = container.Q<Toggle>("set_instance-log-active");
+            InitializeToggle(_setInstanceLogActive,
+                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceKey,
+                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceDefault);
 
-                _getInstanceLogActive.RegisterValueChangedCallback(
-                    e => EditorPrefs.SetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, e.newValue));
-            }
+            _getInstanceLogActive = container.Q<Toggle>("get_instance-log-active");
+            InitializeToggle(_getInstanceLogActive,
+                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceKey,
+                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceDefault);
 
             return Task.CompletedTask;
         }
@@ -79,6 +80,15 @@ namespace SymphonyFrameWork.Editor
             {
                 _locateList.itemsSource = GetLocateList();
                 _locateList.Rebuild();
+            }
+        }
+
+        private void InitializeToggle(Toggle toggle, string key, bool defaultValue)
+        {
+            if (toggle != null)
+            {
+                toggle.value = EditorPrefs.GetBool(key, defaultValue);
+                toggle.RegisterValueChangedCallback(e => EditorPrefs.SetBool(key, e.newValue));
             }
         }
     }
