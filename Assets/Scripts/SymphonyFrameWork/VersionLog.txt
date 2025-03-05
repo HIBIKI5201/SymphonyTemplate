@@ -1,8 +1,16 @@
 #Version
-1.19.15
+1.19.17
 
 
 #Log
+1.19.17
+[Update]
+SymphonyTween
+
+1.19.16
+[Update]
+SymphonyDebugLog
+
 1.19.15
 [Update]
 SaveDataManager
