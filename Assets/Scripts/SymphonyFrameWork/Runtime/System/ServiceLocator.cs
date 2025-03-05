@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using SymphonyFrameWork.Debugger;
+using SymphonyFrameWork.Core;
 
 
 #if UNITY_EDITOR
@@ -17,10 +18,6 @@ namespace SymphonyFrameWork.System
     //インスタンスを一時的にシーンロードから切り離したい時にも使用できる
     public static class ServiceLocator
     {
-#if UNITY_EDITOR
-        internal const string ServiceLocatorGetInstanceLog = "ServiceLocatorGetInstanceLog";
-#endif
-
         public enum LocateType
         {
             Singleton,
@@ -112,7 +109,7 @@ namespace SymphonyFrameWork.System
         public static T GetInstance<T>() where T : Component
         {
 #if UNITY_EDITOR
-            if (EditorPrefs.GetBool(ServiceLocatorGetInstanceLog, false))
+            if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, false))
                 SymphonyDebugLog.AddText($"ServiceLocator\n{typeof(T).Name}の取得がリクエストされました。");
 #endif
 
@@ -134,7 +131,7 @@ namespace SymphonyFrameWork.System
             void OutputLog(string text)
             {
 #if UNITY_EDITOR
-                if (EditorPrefs.GetBool(ServiceLocatorGetInstanceLog, false))
+                if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, false))
                 {
                     SymphonyDebugLog.AddText(text);
                     SymphonyDebugLog.TextLog();
