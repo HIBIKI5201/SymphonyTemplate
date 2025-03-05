@@ -18,7 +18,9 @@ namespace SymphonyFrameWork.Editor
             var myScript = target as AudioManagerConfig;
             if (GUILayout.Button($"{AudioGroupTypeEnumName}Enumを再生成"))
             {
-                EnumGenerator.EnumGenerate(myScript.AudioGroupSettingList.Select(s => s.AudioGroupName).ToArray(), AudioGroupTypeEnumName);
+                EnumGenerator.EnumGenerate(
+                    myScript.AudioGroupSettingList.Select(s => s.AudioGroupName).ToArray(),
+                    AudioGroupTypeEnumName);
             }
         }
 

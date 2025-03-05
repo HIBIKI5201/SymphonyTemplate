@@ -72,6 +72,8 @@ namespace SymphonyFrameWork.System
                 return;
             }
 
+            SymphonyDebugLog.AddText("Audio Managerを初期化しました。");
+
             foreach (AudioGroupTypeEnum type in Enum.GetValues(typeof(AudioGroupTypeEnum)))
             {
                 if (type == AudioGroupTypeEnum.None) continue;
@@ -83,7 +85,14 @@ namespace SymphonyFrameWork.System
                     continue;
                 }
 
-                SymphonyDebugLog.AddText("Audio Managerを初期化しました。");
+                //Enum名からデータを取得
+                var data = _config.AudioGroupSettingList.Find(s => s.AudioGroupName == name);
+
+                if (data == null)
+                {
+                    Debug.LogWarning($"{name}のデータがありません。");
+                    continue;
+                }
 
                 //ミキサーグループを取得する
                 AudioMixerGroup group = mixer.FindMatchingGroups(name).FirstOrDefault();
