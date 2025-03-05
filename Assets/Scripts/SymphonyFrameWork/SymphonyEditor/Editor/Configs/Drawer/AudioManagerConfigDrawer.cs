@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -17,7 +18,7 @@ namespace SymphonyFrameWork.Editor
             var myScript = target as AudioManagerConfig;
             if (GUILayout.Button($"{AudioGroupTypeEnumName}Enumを再生成"))
             {
-                EnumGenerator.EnumGenerate(Array.Empty<string>(), AudioGroupTypeEnumName);
+                EnumGenerator.EnumGenerate(myScript.AudioGroupSettingList.Select(s => s.AudioGroupName).ToArray(), AudioGroupTypeEnumName);
             }
         }
 
