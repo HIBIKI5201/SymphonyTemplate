@@ -22,8 +22,7 @@ namespace SymphonyFrameWork.Editor
             SymphonyWindow.UITK_UXML_PATH + "ServiceLocatorWindow.uxml",
             InitializeType.None,
             LoadType.AssetDataBase)
-        {
-        }
+        { }
 
         protected override Task Initialize_S(TemplateContainer container)
         {
