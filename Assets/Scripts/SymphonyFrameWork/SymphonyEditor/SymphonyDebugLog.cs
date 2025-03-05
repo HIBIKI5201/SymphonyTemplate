@@ -53,10 +53,11 @@ namespace SymphonyFrameWork.Debugger
         ///     追加されたメッセージをログに出力する
         /// </summary>
         [Conditional("UNITY_EDITOR")]
-        public static void TextLog(LogKind kind = LogKind.Normal)
+        public static void TextLog(LogKind kind = LogKind.Normal, bool clearText = true)
         {
 #if UNITY_EDITOR
             GetDebugActionByKind(kind)?.Invoke(_logText);
+            if (clearText) ClearText();
 #endif
         }
 
