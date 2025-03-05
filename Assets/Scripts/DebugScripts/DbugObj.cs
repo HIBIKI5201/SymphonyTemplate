@@ -20,6 +20,8 @@ public class DbugObj : MonoBehaviour, IGameObject
         var renderer = GetComponent<MeshRenderer>();
         SymphonyTween.PausableTweening(new Color(0, 0, 0), x => renderer.material.color = x, new Color(1, 1, 1), 10,
             _curve);
+
+        ServiceLocator.GetInstance<DbugObj>();
     }
 
     private void Update()
