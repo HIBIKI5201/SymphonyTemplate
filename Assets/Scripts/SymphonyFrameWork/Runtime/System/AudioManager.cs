@@ -1,9 +1,9 @@
 ﻿using SymphonyFrameWork.Config;
+using SymphonyFrameWork.Debugger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.Audio;
 
 namespace SymphonyFrameWork.System
@@ -17,8 +17,8 @@ namespace SymphonyFrameWork.System
         private static GameObject _instance;
 
         private static
-            Dictionary<AudioType, AudioSettingData> _audioDict = new();
-        
+            Dictionary<AudioGroupTypeEnum, AudioSettingData> _audioDict = new();
+
         private class AudioSettingData
         {
             private AudioMixerGroup _group;
@@ -42,6 +42,7 @@ namespace SymphonyFrameWork.System
         {
             _instance = null;
             _config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
+            _audioDict = null;
         }
 
         private static void CreateInstance()
@@ -56,6 +57,13 @@ namespace SymphonyFrameWork.System
 
         private static void AudioSourceInitialize()
         {
+            if (_audioDict != null)
+            {
+                return;
+            }
+
+            CreateInstance();
+
             AudioMixer mixer = _config?.AudioMixer;
 
             if (!mixer)
@@ -64,8 +72,10 @@ namespace SymphonyFrameWork.System
                 return;
             }
 
-            foreach (AudioType type in Enum.GetValues(typeof(AudioType)))
+            foreach (AudioGroupTypeEnum type in Enum.GetValues(typeof(AudioGroupTypeEnum)))
             {
+                if (type == AudioGroupTypeEnum.None) continue;
+
                 //Enumの名前を出す
                 string name = type.ToString();
                 if (string.IsNullOrEmpty(name))
@@ -89,14 +99,32 @@ namespace SymphonyFrameWork.System
                     }
                     else
                     {
-                        Debug.LogWarning($"{name}_Volume is not found");
+                        SymphonyDebugLog.AddText($"{name}_Volume is not found");
                     }
                 }
                 else
                 {
-                    Debug.LogWarning($"{name} is not a valid AudioMixerGroup.");
+                    SymphonyDebugLog.AddText($"{name} is not a valid AudioMixerGroup.");
                 }
             }
+
+            SymphonyDebugLog.TextLog();
+        }
+
+        public static void VolumeSliderChanged(AudioGroupTypeEnum type, float value)
+        {
+            AudioSourceInitialize();
+
+            if (value < 0 || 1 < value)
+            {
+                Debug.LogWarning("入力は無効な値です");
+                return;
+            }
+
+            //デシベルで音量を割合変更
+            float db = value * (_audioDict[type].OriginalVolume + 80) - 80;
+
+            _config?.AudioMixer.SetFloat(type.ToString(), db);
         }
     }
 }
