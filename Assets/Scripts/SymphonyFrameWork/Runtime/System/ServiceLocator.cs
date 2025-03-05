@@ -117,24 +117,24 @@ namespace SymphonyFrameWork.System
             {
                 if (md)
                 {
-                    OutputLog($"正常に行われました");
+                    OutputLog($"正常に行われました。");
                     return md as T;
                 }
 
-                OutputLog($"{typeof(T).Name} は破棄されています。");
+                OutputLog($"{typeof(T).Name} は破棄されています。", SymphonyDebugLog.LogKind.Warning);
                 return null;
             }
 
-            OutputLog($"{typeof(T).Name} は登録されていません。");
+            OutputLog($"{typeof(T).Name} は登録されていません。", SymphonyDebugLog.LogKind.Warning);
             return null;
 
-            void OutputLog(string text)
+            void OutputLog(string text, SymphonyDebugLog.LogKind kind = SymphonyDebugLog.LogKind.Normal)
             {
 #if UNITY_EDITOR
                 if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceLog, false))
                 {
                     SymphonyDebugLog.AddText(text);
-                    SymphonyDebugLog.TextLog();
+                    SymphonyDebugLog.TextLog(kind);
                 }
 #endif
             }
