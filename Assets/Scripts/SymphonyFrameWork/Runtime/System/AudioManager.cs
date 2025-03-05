@@ -83,6 +83,8 @@ namespace SymphonyFrameWork.System
                     continue;
                 }
 
+                SymphonyDebugLog.AddText("Audio Managerを初期化しました。");
+
                 //ミキサーグループを取得する
                 AudioMixerGroup group = mixer.FindMatchingGroups(name).FirstOrDefault();
                 if (group)
@@ -96,6 +98,8 @@ namespace SymphonyFrameWork.System
                     {
                         //各情報を追加
                         _audioDict.Add(type, new AudioSettingData(group, source, value));
+
+                        SymphonyDebugLog.AddText($"{name}は正常に追加されました");
                     }
                     else
                     {
@@ -115,16 +119,35 @@ namespace SymphonyFrameWork.System
         {
             AudioSourceInitialize();
 
+            if (type == AudioGroupTypeEnum.None)
+            {
+                return;
+            }
+
             if (value < 0 || 1 < value)
             {
                 Debug.LogWarning("入力は無効な値です");
                 return;
             }
 
+            if (!_audioDict.TryGetValue(type, out var data)) return;
+
             //デシベルで音量を割合変更
-            float db = value * (_audioDict[type].OriginalVolume + 80) - 80;
+            float db = value * (data.OriginalVolume + 80) - 80;
 
             _config?.AudioMixer.SetFloat(type.ToString(), db);
+        }
+
+        public static AudioSource GetAudioSource(AudioGroupTypeEnum type)
+        {
+            AudioSourceInitialize();
+
+            if (type == AudioGroupTypeEnum.None)
+            {
+                return null;
+            }
+
+            return _audioDict.TryGetValue(type, out var data) ? data.Source : null;
         }
     }
 }
