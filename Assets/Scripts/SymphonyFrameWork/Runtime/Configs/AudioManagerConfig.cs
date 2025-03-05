@@ -21,11 +21,11 @@ namespace SymphonyFrameWork
         public class AudioGroupSettings
         {
             [SerializeField]
-            private string _audioGroupName;
+            private string _audioGroupName = string.Empty;
             public string AudioGroupName { get => _audioGroupName; }
 
             [SerializeField]
-            private bool _isLoop;
+            private bool _isLoop = false;
             public bool IsLoop { get => _isLoop; }
         }
     }
