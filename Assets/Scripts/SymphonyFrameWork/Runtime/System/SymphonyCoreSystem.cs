@@ -21,9 +21,10 @@ namespace SymphonyFrameWork.System
             _systemScene = SceneManager.CreateScene("SymphonySystem");
 
             //各クラスの初期化
-            PauseManager.Initiazlze();
+            PauseManager.Initialize();
             ServiceLocator.Initialize();
             SceneLoader.Initialize();
+            AudioManager.Initialize();
         }
 
         public static async void MoveObjectToSymphonySystem(GameObject go)

@@ -26,7 +26,7 @@ namespace SymphonyFrameWork.System
             }
         }
 
-        internal static void Initiazlze()
+        internal static void Initialize()
         {
             _pause = false;
             OnPauseChanged = null;
