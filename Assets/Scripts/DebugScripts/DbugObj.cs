@@ -2,6 +2,7 @@
 using SymphonyFrameWork.Attribute;
 using SymphonyFrameWork.System;
 using SymphonyFrameWork.Utility;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class DbugObj : MonoBehaviour, IGameObject
@@ -18,8 +19,8 @@ public class DbugObj : MonoBehaviour, IGameObject
         _velocity = Vector3.up * _speed;
 
         var renderer = GetComponent<MeshRenderer>();
-        SymphonyTween.PausableTweening(new Color(0, 0, 0), x => renderer.material.color = x, new Color(1, 1, 1), 10,
-            _curve);
+        Task task = SymphonyTween.PausableTweening(new Color(0, 0, 0), x => renderer.material.color = x, new Color(1, 1, 1), 10,
+            _curve).OnComplete(() => Debug.Log("Tween終了"));
 
         ServiceLocator.GetInstance<DbugObj>();
     }
