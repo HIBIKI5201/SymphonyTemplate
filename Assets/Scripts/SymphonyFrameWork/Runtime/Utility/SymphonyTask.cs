@@ -42,5 +42,25 @@ namespace SymphonyFrameWork.Utility
         {
             while (!action.Invoke()) await Awaitable.NextFrameAsync(token);
         }
+
+        /// <summary>
+        /// 親のタスクが終了した時に実行される
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns>親のタスク</returns>
+        public static Task OnComplete(this Task task, Action action, CancellationToken token = default)
+        {
+            OnCompleteInvoke();
+            return task;
+
+            async void OnCompleteInvoke()
+            {
+                await task;
+
+                if (token.IsCancellationRequested) return;
+
+                action?.Invoke();
+            }
+        }
     }
 }
