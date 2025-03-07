@@ -27,10 +27,10 @@ namespace SymphonyFrameWork.System
             private AudioSource _source;
             public AudioSource Source { get => _source; }
 
-            private float _originalVolume = 1;
-            public float OriginalVolume { get => _originalVolume; }
+            private float? _originalVolume = 1;
+            public float? OriginalVolume { get => _originalVolume; }
 
-            public AudioSettingData(AudioMixerGroup group, AudioSource source, float originalVolume)
+            public AudioSettingData(AudioMixerGroup group, AudioSource source, float? originalVolume)
             {
                 _group = group;
                 _source = source;
@@ -106,16 +106,20 @@ namespace SymphonyFrameWork.System
                     if (data.IsLoop) source.loop = true;
 
                     //初期のボリュームを取得
-                    float volume = 0;
-                    bool canGetVolume = string.IsNullOrEmpty(data.AudioGroupVolumeParameter) ||
-                        mixer.GetFloat(data.AudioGroupVolumeParameter, out volume);
+                    float? volume = null;
+                    if (string.IsNullOrEmpty(data.AudioGroupVolumeParameter) &&
+                        mixer.GetFloat(data.AudioGroupVolumeParameter, out var value))
+                    {
+                        volume = value;
+                        SymphonyDebugLog.AddText($"{name}は正常に追加されました。volume : {volume}");
+                    }
+                    else
+                    {
+                        SymphonyDebugLog.AddText($"{name}のVolumeParameterが見つかりませんでした");
+                    }
 
                     //各情報を追加
                     _audioDict.Add(type, new AudioSettingData(group, source, volume));
-
-                    SymphonyDebugLog.AddText(canGetVolume ?
-                        $"{name}は正常に追加されました。volume : {volume}" :
-                        $"{name}のVolumeParameterが見つかりませんでした");
                 }
                 else
                 {
@@ -143,8 +147,14 @@ namespace SymphonyFrameWork.System
 
             if (!_audioDict.TryGetValue(type, out var data)) return;
 
+            if (data.OriginalVolume == null)
+            {
+                Debug.LogWarning($"{type}のボリュームがありません");
+                return;
+            }
+
             //デシベルで音量を割合変更
-            float db = value * (data.OriginalVolume + 80) - 80;
+            float db = value * (data.OriginalVolume.Value + 80) - 80;
 
             _config?.AudioMixer.SetFloat(type.ToString(), db);
         }

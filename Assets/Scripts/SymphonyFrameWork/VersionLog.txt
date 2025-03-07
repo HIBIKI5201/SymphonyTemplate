@@ -1,9 +1,17 @@
 #Version
-1.19.22
+1.20.3
 
 
 #Log
-1.19.22
+1.20.3
+[Update]
+SymphonyPackageLoader
+
+1.20.2
+[Update]
+FoldierGenerator
+
+1.20.1
 [Update]
 AutoEnumGenerator
 AutoEnumGeneratorConfig
