@@ -1,4 +1,5 @@
 ﻿using SymphonyFrameWork.Core;
+using SymphonyFrameWork.Debugger;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -34,12 +35,12 @@ namespace SymphonyFrameWork.Editor
                 if (!AssetDatabase.IsValidFolder(path))
                 {
                     FolderCreate(path);
-                    Debug.Log($"フォルダ作成: {path}");
+                    SymphonyDebugLog.AddText($"フォルダ作成: {path}");
                 }
             }
-
             AssetDatabase.Refresh();
 
+            SymphonyDebugLog.TextLog();
             EditorUtility.DisplayDialog("フォルダを生成", "フォルダを生成しました", "OK");
         }
 
