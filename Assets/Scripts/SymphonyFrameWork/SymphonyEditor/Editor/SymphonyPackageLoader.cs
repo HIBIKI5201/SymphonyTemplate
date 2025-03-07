@@ -17,6 +17,7 @@ namespace SymphonyFrameWork.Editor
         private static readonly string[] requirePackages =
         {
             "ai.navigation",
+            "animation.rigging",
             "addressables",
             "cinemachine",
             "behavior",
