@@ -294,10 +294,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneShape: 1
   drawBones: 1
-  drawTripods: 0
-  boneSize: 1
-  tripodSize: 1
-  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
+  drawTripods: 1
+  boneSize: 0.3
+  tripodSize: 0.5
+  boneColor: {r: 0, g: 0, b: 1, a: 0.2509804}
   m_Transforms:
   - {fileID: 2049642725}
   - {fileID: 1177673275}
@@ -927,6 +927,10 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 0.17008397
       objectReference: {fileID: 0}
+    - target: {fileID: -5694092435888646316, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -1728013695380148634, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
       propertyPath: m_Name
       value: Symphony_model
@@ -958,6 +962,18 @@ PrefabInstance:
     - target: {fileID: 2953604236389334553, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
       propertyPath: m_AABB.m_Extent.z
       value: 0.1379151
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953604236389334553, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953604236389334553, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f3db82a4918e3a44290fe42fdd58fefa, type: 2}
+    - target: {fileID: 4870552773557632513, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4870552773557632513, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
       propertyPath: m_Controller
