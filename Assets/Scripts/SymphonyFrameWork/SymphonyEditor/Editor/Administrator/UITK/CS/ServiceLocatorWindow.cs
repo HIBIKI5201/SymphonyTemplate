@@ -51,18 +51,18 @@ namespace SymphonyFrameWork.Editor
             //ログのコンフィグを初期化
             var setInstanceLogActive = container.Q<Toggle>("set_instance-log-active");
             InitializeToggle(setInstanceLogActive,
-                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceKey,
-                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceDefault);
+                EditorSymphonyConstrant.ServiceLocatorSetInstanceKey,
+                EditorSymphonyConstrant.ServiceLocatorSetInstanceDefault);
 
             var getInstanceLogActive = container.Q<Toggle>("get_instance-log-active");
             InitializeToggle(getInstanceLogActive,
-                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceKey,
-                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceDefault);
+                EditorSymphonyConstrant.ServiceLocatorGetInstanceKey,
+                EditorSymphonyConstrant.ServiceLocatorGetInstanceDefault);
 
             var destroyInstanceLogActive = container.Q<Toggle>("destroy_instance-log-active");
             InitializeToggle(destroyInstanceLogActive,
-                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorDestroyInstanceKey,
-                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorDestroyInstanceDefault);
+                EditorSymphonyConstrant.ServiceLocatorDestroyInstanceKey,
+                EditorSymphonyConstrant.ServiceLocatorDestroyInstanceDefault);
 
             return Task.CompletedTask;
         }

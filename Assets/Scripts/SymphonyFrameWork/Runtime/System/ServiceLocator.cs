@@ -64,8 +64,8 @@ namespace SymphonyFrameWork.System
             }
 
 #if UNITY_EDITOR
-            if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceKey,
-                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorSetInstanceDefault))
+            if (EditorPrefs.GetBool(EditorSymphonyConstrant.ServiceLocatorSetInstanceKey,
+                EditorSymphonyConstrant.ServiceLocatorSetInstanceDefault))
                 Debug.Log($"{typeof(T).Name}クラスの{instance.name}が" +
                     $"{type switch { LocateType.Locator => "ロケート", LocateType.Singleton => "シングルトン", _ => string.Empty }}登録されました");
 #endif
@@ -99,8 +99,8 @@ namespace SymphonyFrameWork.System
                 _singletonObjects.Remove(typeof(T));
 
 #if UNITY_EDITOR
-                if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorDestroyInstanceKey,
-                    SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorDestroyInstanceDefault))
+                if (EditorPrefs.GetBool(EditorSymphonyConstrant.ServiceLocatorDestroyInstanceKey,
+                    EditorSymphonyConstrant.ServiceLocatorDestroyInstanceDefault))
                     Debug.Log($"{typeof(T).Name}が破棄されました");
 #endif
 
@@ -119,8 +119,8 @@ namespace SymphonyFrameWork.System
         public static T GetInstance<T>() where T : Component
         {
 #if UNITY_EDITOR
-            if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceKey,
-                SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceDefault))
+            if (EditorPrefs.GetBool(EditorSymphonyConstrant.ServiceLocatorGetInstanceKey,
+                EditorSymphonyConstrant.ServiceLocatorGetInstanceDefault))
                 SymphonyDebugLog.AddText($"ServiceLocator\n{typeof(T).Name}の取得がリクエストされました。");
 #endif
 
@@ -142,8 +142,8 @@ namespace SymphonyFrameWork.System
             void OutputLog(string text, SymphonyDebugLog.LogKind kind = SymphonyDebugLog.LogKind.Normal)
             {
 #if UNITY_EDITOR
-                if (EditorPrefs.GetBool(SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceKey,
-                    SymphonyConstant.EditorSymphonyConstrant.ServiceLocatorGetInstanceDefault))
+                if (EditorPrefs.GetBool(EditorSymphonyConstrant.ServiceLocatorGetInstanceKey,
+                    EditorSymphonyConstrant.ServiceLocatorGetInstanceDefault))
                 {
                     SymphonyDebugLog.AddText(text);
                     SymphonyDebugLog.TextLog(kind);
