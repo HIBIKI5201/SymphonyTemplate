@@ -15,7 +15,7 @@ public class PackageExporter : EditorWindow
         EnumGenerator.EnumGenerate(Array.Empty<string>(), "AudioGroupType");
 
         // エクスポート対象のフォルダ
-        var folderPath = SymphonyConstant.FRAMEWORK_PATH;
+        var folderPath = SymphonyConstant.FRAMEWORK_PATH();
 
         // 除外するリソース系のフォルダ
         var excludePaths = new[]
@@ -27,10 +27,10 @@ public class PackageExporter : EditorWindow
         var parentPaths = new[]
         {
             //親フォルダ
-            SymphonyConstant.FRAMEWORK_PATH,
-            SymphonyConstant.FRAMEWORK_PATH + "/Runtime",
-            SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor",
-            SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor"
+            SymphonyConstant.FRAMEWORK_PATH(),
+            SymphonyConstant.FRAMEWORK_PATH() + "/Runtime",
+            SymphonyConstant.FRAMEWORK_PATH() + "/SymphonyEditor",
+            SymphonyConstant.FRAMEWORK_PATH() + "/SymphonyEditor/Editor"
         };
 
         // フォルダ内のすべてのアセットを取得

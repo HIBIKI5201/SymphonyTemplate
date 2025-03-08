@@ -3,9 +3,9 @@
     public static class EditorSymphonyConstrant
     {
 #if UNITY_EDITOR
-        public static string RESOURCES_EDITOR_PATH = "Assets/Editor/" + SymphonyConstant.SYMPHONYFRAMEWORK + "/Configs";
+        public static string RESOURCES_EDITOR_PATH = "Assets/Editor/" + SymphonyConstant.SYMPHONY_FRAMEWORK + "/Configs";
 
-        public static string UITK_PATH = SymphonyConstant.FRAMEWORK_PATH + "/SymphonyEditor/Editor/Administrator/UITK/";
+        public static string UITK_PATH = SymphonyConstant.FRAMEWORK_PATH() + "/SymphonyEditor/Editor/Administrator/UITK/";
 
         #region ウィンドウのコンフィグ
         public const string ServiceLocatorSetInstanceKey = "ServiceLocatorSetInstanceLog";
