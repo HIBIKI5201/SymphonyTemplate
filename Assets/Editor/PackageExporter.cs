@@ -21,7 +21,7 @@ public class PackageExporter : EditorWindow
         var excludePaths = new[]
         {
             SymphonyConstant.RESOURCES_RUNTIME_PATH,
-            SymphonyConstant.RESOURCES_EDITOR_PATH
+            EditorSymphonyConstrant.RESOURCES_EDITOR_PATH
         };
 
         var parentPaths = new[]

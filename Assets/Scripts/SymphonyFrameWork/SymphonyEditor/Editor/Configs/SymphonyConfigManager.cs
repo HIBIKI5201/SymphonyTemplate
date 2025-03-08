@@ -37,17 +37,17 @@ namespace SymphonyFrameWork.Editor
                 return;
             }
 
-            var (path, filePath) = paths.Value;
+            var (path, fileName) = paths.Value;
 
             // ファイルが存在するなら終了
-            if (AssetDatabase.LoadAssetAtPath<T>(path + filePath) != null) return;
+            if (AssetDatabase.LoadAssetAtPath<T>(path + fileName) != null) return;
 
             // リソースフォルダがなければ生成
             CreateResourcesFolder(path);
 
             // 対象のアセットを生成してResources内に配置
             var asset = ScriptableObject.CreateInstance<T>();
-            AssetDatabase.CreateAsset(asset, path + filePath);
+            AssetDatabase.CreateAsset(asset, path + fileName);
 
             // 変更を反映させるためにRefresh()を呼び出す
             AssetDatabase.Refresh();
