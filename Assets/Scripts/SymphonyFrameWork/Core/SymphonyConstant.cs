@@ -14,13 +14,13 @@ namespace SymphonyFrameWork.Core
         /// <returns></returns>
         public static string FRAMEWORK_PATH([CallerFilePath] string sourceFilePath = "")
         {
-            if (sourceFilePath[0] != '.')
+            if (sourceFilePath[0] == '.')
             {
-                return "Assets/Scripts/" + SYMPHONY_FRAMEWORK;
+                return "Packages/" + SYMPHONY_PACKAGE;
             }
             else
             {
-                return "Packages/" + SYMPHONY_PACKAGE;
+                return "Assets/Scripts/" + SYMPHONY_FRAMEWORK;
             }
         }
 
