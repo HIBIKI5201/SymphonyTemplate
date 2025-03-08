@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SymphonyFrameWork.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using SymphonyFrameWork.Core;
 using UnityEditor;
 using UnityEngine;
 
@@ -50,10 +50,7 @@ namespace SymphonyFrameWork.Editor
             Debug.Log($"{fileName}Enumを生成しました");
         }
 
-        private static string GetEnumFilePath(string fileName)
-        {
-            return $"{SymphonyConstant.ENUM_PATH}/{fileName}Enum.cs";
-        }
+        public static string GetEnumFilePath(string fileName) => $"{SymphonyConstant.ENUM_PATH}/{fileName}Enum.cs";
 
         /// <summary>
         ///     リソースフォルダが無ければ生成
@@ -65,7 +62,79 @@ namespace SymphonyFrameWork.Editor
             {
                 Directory.CreateDirectory(resourcesPath);
                 AssetDatabase.ImportAsset(resourcesPath, ImportAssetOptions.ForceUpdate);
+
+                string enumPath = "Assets/Scripts/SymphonyFrameWork/Enum";
+                string enumAsmdefPath = Path.Combine(enumPath, "SymphonyFrameWork.Enum.asmdef");
+                string mainAsmdefPath = "Assets/SymphonyFrameWork/SymphonyFrameWork.asmdef";
+
+                // SymphonyFrameWork.Enum.asmdef の生成
+                if (!File.Exists(enumAsmdefPath))
+                {
+                    var enumAsmdef = new AssemblyDefinitionData
+                    {
+                        name = "SymphonyFrameWork.Enum",
+                        references = new string[0],  // 他のアセンブリは参照しない
+                        includePlatforms = new string[0],
+                        excludePlatforms = new string[0],
+                        defineConstraints = new string[0],
+                        allowUnsafeCode = false,
+                        overrideReferences = false,
+                        precompiledReferences = new string[0],
+                        autoReferenced = true,
+                        platforms = new string[0]
+                    };
+
+                    // アセンブリ定義ファイルを作成
+                    string json = JsonUtility.ToJson(enumAsmdef, true);
+                    File.WriteAllText(enumAsmdefPath, json);
+                    AssetDatabase.ImportAsset(enumAsmdefPath); // アセットデータベースにインポート
+                }
+
+                // SymphonyFrameWork.asmdef に参照を追加
+                if (File.Exists(mainAsmdefPath))
+                {
+                    string mainAsmdefJson = File.ReadAllText(mainAsmdefPath);
+                    var mainAsmdef = JsonUtility.FromJson<AssemblyDefinitionData>(mainAsmdefJson);
+
+                    // 参照がすでに追加されていない場合にのみ追加
+                    if (!Array.Exists(mainAsmdef.references, r => r == "SymphonyFrameWork.Enum"))
+                    {
+                        var referencesList = new List<string>(mainAsmdef.references)
+                {
+                    "SymphonyFrameWork.Enum"
+                };
+                        mainAsmdef.references = referencesList.ToArray();
+
+                        // 変更を反映
+                        string updatedJson = JsonUtility.ToJson(mainAsmdef, true);
+                        File.WriteAllText(mainAsmdefPath, updatedJson);
+                        AssetDatabase.ImportAsset(mainAsmdefPath); // アセットデータベースにインポート
+                    }
+                }
+                else
+                {
+                    Debug.LogError("SymphonyFrameWork.asmdef が見つかりません。");
+                }
+
+                AssetDatabase.Refresh(); // アセットデータベースのリフレッシュ
+                Debug.Log("AssemblyDefinition 更新が完了しました！");
             }
+
+        }
+
+        [Serializable]
+        public class AssemblyDefinitionData
+        {
+            public string name;
+            public string[] references;
+            public string[] includePlatforms;
+            public string[] excludePlatforms;
+            public string[] defineConstraints;
+            public bool allowUnsafeCode;
+            public bool overrideReferences;
+            public string[] precompiledReferences;
+            public bool autoReferenced;
+            public string[] platforms;
         }
 
         /// <summary>
