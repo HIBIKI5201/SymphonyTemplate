@@ -3,12 +3,18 @@
     public static class SymphonyConstant
     {
         public const string SYMPHONYFRAMEWORK = "SymphonyFrameWork";
-        public const string FRAMEWORK_PATH = "Assets/Scripts/" + SYMPHONYFRAMEWORK;
+        public static string FRAMEWORK_PATH
+        {
+            get
+            {
+                return "Assets/Scripts/" + SYMPHONYFRAMEWORK;
+            }
+        }
 
-        public const string RESOURCES_RUNTIME_PATH = FRAMEWORK_PATH + "/Runtime/Resources";
-        public const string RESOURCES_EDITOR_PATH = FRAMEWORK_PATH + "/SymphonyEditor/Editor/Resources";
-
-        public const string ENUM_PATH = FRAMEWORK_PATH + "/Runtime/Enum";
+        #region 自動生成物のパス
+        public const string RESOURCES_RUNTIME_PATH = "Assets/Resources/" + SYMPHONYFRAMEWORK;
+        public const string ENUM_PATH = "Assets/Script/" + SYMPHONYFRAMEWORK + "/Enum";
+        #endregion
 
         public const string MENU_PATH = "Window/Symphony FrameWork/";
     }
