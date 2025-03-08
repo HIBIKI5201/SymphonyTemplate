@@ -20,7 +20,7 @@ namespace SymphonyFrameWork.Core
             }
             else
             {
-                return "Assets/Scripts/" + SYMPHONY_FRAMEWORK;
+                return "Assets/" + SYMPHONY_FRAMEWORK;
             }
         }
 
