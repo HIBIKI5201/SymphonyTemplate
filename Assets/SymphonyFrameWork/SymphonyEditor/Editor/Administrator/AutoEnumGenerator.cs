@@ -39,7 +39,7 @@ namespace SymphonyFrameWork.Editor
 
                 //シーン名のEnumを生成する
                 EnumGenerator.EnumGenerate(sceneList,
-                    EditorSymphonyConstrant.SceneListEnumFileName);
+                    EditorSymphonyConstant.SceneListEnumFileName);
             }
         }
 
@@ -48,7 +48,7 @@ namespace SymphonyFrameWork.Editor
             if (_config.AutoTagsUpdate)
             {
                 EnumGenerator.EnumGenerate(InternalEditorUtility.tags,
-                    EditorSymphonyConstrant.TagsEnumFileName, true);
+                    EditorSymphonyConstant.TagsEnumFileName, true);
             }
         }
 
@@ -57,7 +57,7 @@ namespace SymphonyFrameWork.Editor
             if (_config.AutoLayerUpdate)
             {
                 EnumGenerator.EnumGenerate(InternalEditorUtility.layers,
-                    EditorSymphonyConstrant.LayersEnumFileName, true);
+                    EditorSymphonyConstant.LayersEnumFileName, true);
             }
         }
     }

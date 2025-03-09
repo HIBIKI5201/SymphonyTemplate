@@ -12,7 +12,7 @@ namespace SymphonyFrameWork.Editor
     {
         public static void CreateEnumAssembly()
         {
-            string enumAsmdefPath = Path.Combine(SymphonyConstant.ENUM_PATH, "SymphonyFrameWork.Enum.asmdef");
+            string enumAsmdefPath = Path.Combine(EditorSymphonyConstant.ENUM_PATH, "SymphonyFrameWork.Enum.asmdef");
             string mainAsmdefPath = "Assets/SymphonyFrameWork/SymphonyFrameWork.asmdef";
 
             // SymphonyFrameWork.Enum.asmdef の生成
