@@ -6,7 +6,7 @@ namespace SymphonyFrameWork.Core
     {
 #if UNITY_EDITOR
         public static bool IsPackage([CallerFilePath] string sourceFilePath = "") =>
-            sourceFilePath.Replace('\\', '/').Contains("/Packages/");
+            !sourceFilePath.Replace('\\', '/').Contains("/Assets/");
 
         /// <summary>
         /// アセットかパッケージのルートパスを返す
