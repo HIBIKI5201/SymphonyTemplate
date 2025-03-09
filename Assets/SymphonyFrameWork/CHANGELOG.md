@@ -1,11 +1,10 @@
-#Version
-1.20.4
+# Changelog
+
+## [1.20.4] - 2025-03-10
+### Add
+- AssemblyGenerator
 
 
-#Log
-1.20.4
-[Add]
-AssemblyGenerator
 
 [Fix]
 EnumGenerator
