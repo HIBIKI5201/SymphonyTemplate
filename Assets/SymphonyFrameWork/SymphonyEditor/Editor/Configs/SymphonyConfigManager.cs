@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using SymphonyFrameWork.Config;
+using SymphonyFrameWork.Core;
 using SymphonyFrameWork.Debugger;
 using UnityEditor;
 using UnityEngine;
@@ -25,29 +26,34 @@ namespace SymphonyFrameWork.Editor
         /// <typeparam name="T"></typeparam>
         private static void FileCheck<T>(ConfigType type) where T : ScriptableObject
         {
-            var paths = type switch
+            var path = type switch
             {
                 ConfigType.Runtime => SymphonyConfigLocator.GetFullPath<T>(),
                 ConfigType.Editor => SymphonyEditorConfigLocator.GetFullPath<T>(),
                 _ => null
             };
-            if (paths == null)
+            if (path == null)
             {
                 Debug.LogWarning(typeof(T).Name + " doesn't exist!");
                 return;
             }
 
-            var (path, fileName) = paths.Value;
-
             // ファイルが存在するなら終了
-            if (AssetDatabase.LoadAssetAtPath<T>(path + fileName) != null) return;
+            if (AssetDatabase.LoadAssetAtPath<T>(path) != null) return;
+
+            string directory = type switch
+            {
+                ConfigType.Runtime => SymphonyConstant.RESOURCES_RUNTIME_PATH,
+                ConfigType.Editor => EditorSymphonyConstant.RESOURCES_EDITOR_PATH,
+                _ => null
+            };
 
             // リソースフォルダがなければ生成
-            CreateResourcesFolder(path);
+            CreateResourcesFolder(directory);
 
             // 対象のアセットを生成してResources内に配置
             var asset = ScriptableObject.CreateInstance<T>();
-            AssetDatabase.CreateAsset(asset, path + fileName);
+            AssetDatabase.CreateAsset(asset, path);
 
             // 変更を反映させるためにRefresh()を呼び出す
             AssetDatabase.Refresh();

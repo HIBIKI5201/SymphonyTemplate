@@ -23,21 +23,6 @@ namespace SymphonyFrameWork.Editor
 
             TagsAndLayersPostProcessor.Layers.OnSettingChanged -= LayersEnumGenerate;
             TagsAndLayersPostProcessor.Layers.OnSettingChanged += LayersEnumGenerate;
-
-            if (!FileCheck(EditorSymphonyConstrant.SceneListEnumFileName))
-                SceneListEnumGenerate();
-
-            if (!FileCheck(EditorSymphonyConstrant.TagsEnumFileName))
-                TagsEnumGenerate();
-
-            if (!FileCheck(EditorSymphonyConstrant.LayersEnumFileName))
-                LayersEnumGenerate();
-        }
-
-        public static bool FileCheck(string fileName)
-        {
-            string path = EnumGenerator.GetEnumFilePath(fileName);
-            return File.Exists(path);
         }
 
         /// <summary>
@@ -54,7 +39,7 @@ namespace SymphonyFrameWork.Editor
 
                 //シーン名のEnumを生成する
                 EnumGenerator.EnumGenerate(sceneList,
-                    EditorSymphonyConstrant.SceneListEnumFileName);
+                    EditorSymphonyConstant.SceneListEnumFileName);
             }
         }
 
@@ -63,7 +48,7 @@ namespace SymphonyFrameWork.Editor
             if (_config.AutoTagsUpdate)
             {
                 EnumGenerator.EnumGenerate(InternalEditorUtility.tags,
-                    EditorSymphonyConstrant.TagsEnumFileName, true);
+                    EditorSymphonyConstant.TagsEnumFileName, true);
             }
         }
 
@@ -72,7 +57,7 @@ namespace SymphonyFrameWork.Editor
             if (_config.AutoLayerUpdate)
             {
                 EnumGenerator.EnumGenerate(InternalEditorUtility.layers,
-                    EditorSymphonyConstrant.LayersEnumFileName, true);
+                    EditorSymphonyConstant.LayersEnumFileName, true);
             }
         }
     }

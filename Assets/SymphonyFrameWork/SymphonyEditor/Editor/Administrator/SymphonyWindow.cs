@@ -12,7 +12,7 @@ namespace SymphonyFrameWork.Editor
     {
         private const string WINDOW_NAME = "Symphony Administrator";
 
-        public static string UITK_UXML_PATH = EditorSymphonyConstrant.UITK_PATH + "UXML/";
+        public static string UITK_UXML_PATH = EditorSymphonyConstant.UITK_PATH + "UXML/";
 
         private PauseWindow _pauseWindow;
         private ServiceLocatorWindow _serviceLocatorWindow;
@@ -66,7 +66,7 @@ namespace SymphonyFrameWork.Editor
         {
             rootVisualElement.Clear();
 
-            var windowTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(EditorSymphonyConstrant.UITK_PATH + "SymphonyWindow.uxml");
+            var windowTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(EditorSymphonyConstant.UITK_PATH + "SymphonyWindow.uxml");
             ;
             if (windowTree != null)
             {
