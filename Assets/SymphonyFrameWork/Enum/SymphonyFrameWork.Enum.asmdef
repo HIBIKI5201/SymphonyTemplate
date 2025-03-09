@@ -4,10 +4,12 @@
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "defineConstraints": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false,
     "platforms": []
 }

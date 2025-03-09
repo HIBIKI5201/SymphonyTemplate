@@ -3,7 +3,7 @@
     "rootNamespace": "SymphonyFrameWork",
     "references": [
         "GUID:b4e9782619c924d4fa0455d751d099be",
-        "GUID:ad0eac4c89d06484093046f765440ad3"
+        "GUID:78cb920c5f33dc24389f43fc0a27daf0"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -13,5 +13,6 @@
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
-    "noEngineReferences": false
+    "noEngineReferences": false,
+    "platforms": []
 }
