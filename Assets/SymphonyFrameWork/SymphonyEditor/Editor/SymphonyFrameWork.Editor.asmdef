@@ -1,5 +1,5 @@
 {
-    "name": "SymphonyFrameWork-Editor",
+    "name": "SymphonyFrameWork.Editor",
     "rootNamespace": "SymphonyFrameWork.Editor",
     "references": [
         "GUID:68a532f43eeefd5408e4e8871b769ee4",
