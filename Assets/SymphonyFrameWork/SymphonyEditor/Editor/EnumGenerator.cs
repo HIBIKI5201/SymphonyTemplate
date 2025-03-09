@@ -83,19 +83,7 @@ namespace SymphonyFrameWork.Editor
                     Directory.CreateDirectory(directoryPath);
                 }
 
-                var enumAsmdef = new AssemblyDefinitionData
-                {
-                    name = "SymphonyFrameWork.Enum",
-                    references = new string[0],  // 他のアセンブリは参照しない
-                    includePlatforms = new string[0],
-                    excludePlatforms = new string[0],
-                    defineConstraints = new string[0],
-                    allowUnsafeCode = false,
-                    overrideReferences = false,
-                    precompiledReferences = new string[0],
-                    autoReferenced = true,
-                    platforms = new string[0]
-                };
+                var enumAsmdef = new AssemblyDefinitionData("SymphonyFrameWork.Enum");
 
                 // アセンブリ定義ファイルを作成
                 string json = JsonUtility.ToJson(enumAsmdef, true);
@@ -136,19 +124,24 @@ namespace SymphonyFrameWork.Editor
         [Serializable]
         public class AssemblyDefinitionData
         {
-            public string name;
-            public string rootNamespace;
-            public string[] references;
-            public string[] includePlatforms;
-            public string[] excludePlatforms;
-            public bool allowUnsafeCode;
-            public bool overrideReferences;
-            public string[] precompiledReferences;
-            public bool autoReferenced;
-            public string[] defineConstraints;
-            public string[] versionDefines;
-            public bool noEngineReferences;
-            public string[] platforms;
+            public string name = string.Empty;
+            public string rootNamespace = string.Empty;
+            public string[] references = new string[0];
+            public string[] includePlatforms = new string[0];
+            public string[] excludePlatforms = new string[0];
+            public bool allowUnsafeCode = false;
+            public bool overrideReferences = false;
+            public string[] precompiledReferences = new string[0];
+            public bool autoReferenced = true;
+            public string[] defineConstraints = new string[0];
+            public string[] versionDefines = new string[0];
+            public bool noEngineReferences = false;
+            public string[] platforms = new string[0];
+
+            public AssemblyDefinitionData(string name)
+            {
+                this.name = name;
+            }
         }
 
         /// <summary>
