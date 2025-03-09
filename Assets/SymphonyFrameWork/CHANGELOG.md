@@ -3,298 +3,290 @@
 ## [1.20.4] - 2025-03-10
 ### Add
 - AssemblyGenerator
-
-
-
-[Fix]
-EnumGenerator
-
-1.20.3
-[Update]
-SymphonyPackageLoader
-
-1.20.2
-[Update]
-FoldierGenerator
-
-1.20.1
-[Update]
-AutoEnumGenerator
-AutoEnumGeneratorConfig
-[Fix]
-EnumGenerator
-
-1.19.21
-[Add]
-TagsAndLayersPostProcessor
-
-1.19.20
-[Update]
-ServiceLocater
-
-1.19.19
-[Add]
-AudioManager
-AudioManagerConfig
-
-1.19.18
-[Update]
-SymphonyTask
-
-1.19.17
-[Update]
-SymphonyTween
-
-1.19.16
-[Update]
-SymphonyDebugLog
-
-1.19.15
-[Update]
-SaveDataManager
-
-1.19.14
-[Add]
-FoldierGenerator
-
-1.19.13
-[Add]
-SymphonyEditorConfigLocator
-
-1.19.12
-[Fix]
-AutoEnumGenerator
-
-1.19.11
-[Update]
-SceneLoader
-SceneManagerConfig
-
-1.19.10
-[Add]
-SymphonyConfigLocator
-
-1.19.9
-[Add]
-EnumGeneratorConfig
-
-1.19.8
-[Update]
-EnumGenerator
-
-1.19.7
-[Update]
-SceneManagerConfig
-
-1.19.6
-[Fix]
-EnumGenerator
-
-1.19.5
-[Update]
-SceneManagerConfig
-
-1.19.4
-[Update]
-DisplayTextAttribute
-
-1.19.3
-[Update]
-SymphonyConstant
-
-1.19.2
-[Update]
-EnumGenerator
-
-1.19.1
-[Update]
-SymphonyAssetPostProcessor
-
-1.19.0
-[Add]
-DisplayTextAttribute
-ReadOnryAttribute
-
-1.18.11
-[Upadate]
-EnumGenerator
-
-1.18.10
-[Add]
-SymphonyConstant
-
-1.18.9
-[Upadate]
-EnumGenerator
-
-1.18.8
-[Add]
-EnumGenerator
-
-1.18.7
-[Add]
-SymphonyFrameWork-Editor assembly
-
-1.18.6
-[Add]
-SceneManagerConfig
-
-1.18.5
-[Add]
-SymphonyConfigManager
-
-1.18.4
-[Update]
-SymphonyTween
-
-1.18.3
-[Add]
-SymphonyTween
-
-1.18.2
-[Update]
-SymphonyStopWatch
-
-1.18.1
-[Update]
-SymphonyWindow
-
-1.18.0
-[Add]
-SymphonyPackageLoader
-
-1.17.7
-[Add]
-SymphonyLocate
-
-1.17.6
-[Update]
-SymphonyWindow
-
-1.17.5
-[Update]
-SymphonyVisualElement
-
-1.17.4
-[Update]
-PauseManager
-
-1.17.3
-[Delete]
-SymphonyUtility
-
-1.17.2
-[Fix]
-SymphonySystem
-ServiceLocator
-SceneLoader
-SaveDataSystem
-PauseManager
-
-1.17.1
-[Update]
-SymphonyTask
-
-1.17.0
-[Add]
-SymphoWindow
-SymphonyAssetPostProcessor
-
-1.16.8
-[Add]
-SymphonySingleton
-
-[Update]
-ServiceLocator
-
-[Fix]
-ServiceLocator
-
-1.16.7
-[Update]
-PauseManager
-
-1.16.6
-[Update]
-SymphonyVisualElement
-
-1.16.5
-[Update]
-PauseManager
-
-1.16.4
-[Update]
-ServiceLocator
-
-1.16.3
-[Update]
-ServiceLocator
-
-[Fix]
-SymphonyVisualElement
-
-1.16.2
-[Update]
-SymphonyVisualElement
-
-1.16.1
-[Update]
-ServiceLocator
-
-[Fix]
-ServiceLocator
-SceneLoader
-SaveDataSystem
-PauseManager
-
-1.16
-[Add]
-SymphonyVisualElement
-
-1.15
-[Update]
-SceneLoader
-
-1.14
-[fix]
-SymphonySystem
-SceneLoader
-
-1.13
-[Add]
-SymphonySystem
-
-1.12
-[Add]
-SymphonyUtility
-
-[Update]
-SingletonDirector -> ServiceLocator
-
-1.11
-Assembly Definition added
-
-1.03
-[Update]
-SymphonyDebugLog
-
-1.02
-[Add]
-PauseManager
-
-1.01
-[Update]
-SymphonyStopWatch
-
-[Fix]
-SingletonDirector
-SymphonyTask
-
-1.00
-[Add]
-SaveDataSystem
-SceneLoader
-SingletonDirector
-SymphonyDebugLog
-SymphonyStopWatch
-SymphonyTask
+### Fix
+- EnumGenerator
+
+## [1.20.3] - 2025-03-10
+### Update
+- SymphonyPackageLoader
+
+## [1.20.2] - 2025-03-08
+### Update
+- FoldierGenerator
+
+## [1.20.1] - 2025-03-05
+### Update
+- AutoEnumGenerator
+- AutoEnumGeneratorConfig
+### Fix
+- EnumGenerator
+
+## [1.19.21] - 2025-03-05
+### Add
+- TagsAndLayersPostProcessor
+
+## [1.19.20] - 2025-03-05
+### Update
+- ServiceLocater
+
+## [1.19.19] - 2025-03-05
+### Add
+- AudioManager
+- AudioManagerConfig
+
+## [1.19.18] - 2025-03-04
+### Update
+- SymphonyTask
+
+## [1.19.17] - 2025-03-04
+### Update
+- SymphonyTween
+
+## [1.19.16] - 2025-03-02
+### Update
+- SymphonyDebugLog
+
+## [1.19.15] - 2025-03-02
+### Update
+- SaveDataManager
+
+## [1.19.14] - 2025-03-02
+### Add
+- FoldierGenerator
+
+## [1.19.13] - 2025-03-01
+### Add
+- SymphonyEditorConfigLocator
+
+## [1.19.12] - 2025-03-01
+### Fix
+- AutoEnumGenerator
+
+## [1.19.11] - 2025-03-01
+### Update
+- SceneLoader
+- SceneManagerConfig
+
+## [1.19.10] - 2025-02-28
+### Add
+- SymphonyConfigLocator
+
+## [1.19.9] - 2025-02-28
+### Add
+- EnumGeneratorConfig
+
+## [1.19.8] - 2025-02-28
+### Update
+- EnumGenerator
+
+## [1.19.7] - 2025-02-27
+### Update
+- SceneManagerConfig
+
+## [1.19.6] - 2025-02-27
+### Fix
+- EnumGenerator
+
+## [1.19.5] - 2025-02-26
+### Update
+- SceneManagerConfig
+
+## [1.19.4] - 2025-02-26
+### Update
+- DisplayTextAttribute
+
+## [1.19.3] - 2025-02-26
+### Update
+- SymphonyConstant
+
+## [1.19.2] - 2025-02-25
+### Update
+- EnumGenerator
+
+## [1.19.1] - 2025-02-25
+### Update
+- SymphonyAssetPostProcessor
+
+## [1.19.0] - 2025-02-25
+### Add
+- DisplayTextAttribute
+- ReadOnryAttribute
+
+## [1.18.11] - Y2025-02-24
+### Update
+- EnumGenerator
+
+## [1.18.10] - 2025-02-24
+### Add
+- SymphonyConstant
+
+## [1.18.9] - 2025-02-24
+### Update
+- EnumGenerator
+
+## [1.18.8] - 2025-02-24
+### Add
+- EnumGenerator
+
+## [1.18.7] - 2025-02-23
+### Add
+- SymphonyFrameWork-Editor assembly
+
+## [1.18.6] - 2025-02-23
+### Add
+- SceneManagerConfig
+
+## [1.18.5] - 2025-02-22
+### Add
+- SymphonyConfigManager
+
+## [1.18.4] - 2025-02-22
+### Update
+- SymphonyTween
+
+## [1.18.3] - 2025-02-22
+### Add
+- SymphonyTween
+
+## [1.18.2] - 2025-02-21
+### Update
+- SymphonyStopWatch
+
+## [1.18.1] - 2025-02-21
+### Update
+- SymphonyWindow
+
+## [1.18.0] - 2025-02-21
+### Add
+- SymphonyPackageLoader
+
+## [1.17.7] - 2025-02-20
+### Add
+- SymphonyLocate
+
+## [1.17.6] - 2025-02-20
+### Update
+- SymphonyWindow
+
+## [1.17.5] - 2025-02-20
+### Update
+- SymphonyVisualElement
+
+## [1.17.4] - 2025-02-20
+### Update
+- PauseManager
+
+## [1.17.3] - 2025-02-20
+### Delete
+- SymphonyUtility
+
+## [1.17.2] - 2025-02-20
+### Fix
+- SymphonySystem
+- ServiceLocator
+- SceneLoader
+- SaveDataSystem
+- PauseManager
+
+## [1.17.1] - 2025-02-20
+### Update
+- SymphonyTask
+
+## [1.17.0] - 2025-02-19
+### Add
+- SymphoWindow
+- SymphonyAssetPostProcessor
+
+## [1.16.8] - 2025-02-19
+### Add
+- SymphonySingleton
+### Update
+- ServiceLocator
+### Fix
+- ServiceLocator
+
+## [1.16.7] - 2025-02-18
+### Update
+- PauseManager
+
+## [1.16.6] - 2025-02-18
+### Update
+- SymphonyVisualElement
+
+## [1.16.5] - 2025-02-18
+### Update
+- PauseManager
+
+## [1.16.4] - 2025-02-18
+### Update
+- ServiceLocator
+
+## [1.16.3] - 2025-02-17
+### Update
+- ServiceLocator
+### Fix
+- SymphonyVisualElement
+
+## [1.16.2] - 2025-02-17
+### Update
+- SymphonyVisualElement
+
+## [1.16.1] - 2025-02-17
+### Update
+- ServiceLocator
+### Fix
+- ServiceLocator
+- SceneLoader
+- SaveDataSystem
+- PauseManager
+
+## [1.16] - 2025-02-16
+### Add
+- SymphonyVisualElement
+
+## [1.15] - 2025-02-16
+### Update
+- SceneLoader
+
+## [1.14] - 2025-02-15
+### Fix
+- SymphonySystem
+- SceneLoader
+
+## [1.13] - 2025-02-15
+### Add
+- SymphonySystem
+
+## [1.12] - 2025-02-15
+### Add
+- SymphonyUtility
+### Update
+- SingletonDirector -> ServiceLocator
+
+## [1.11] - 2025-02-14
+### Add
+- Assembly Definition
+
+## [1.03] - 2025-02-14
+### Update
+- SymphonyDebugLog
+
+## [1.02] - 2025-02-14
+### Add
+- PauseManager
+
+## [1.01] - 2025-02-13
+### Update
+- SymphonyStopWatch
+### Fix
+- SingletonDirector
+- SymphonyTask
+
+## [1.00] - 2025-02-13
+### Add
+- SaveDataSystem
+- SceneLoader
+- SingletonDirector
+- SymphonyDebugLog
+- SymphonyStopWatch
+- SymphonyTask
