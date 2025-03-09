@@ -68,7 +68,7 @@ public class VersionLogGenerator : EditorWindow
                 data.type = StringToLogType(lines[i + 1].Substring(4));
 
                 int counter = 0;
-                while (!string.IsNullOrEmpty(lines[i + 2 + counter]) && lines[i+ 2 + counter][0] == '-')
+                while (!string.IsNullOrEmpty(lines[i + 2 + counter]) && lines[i + 2 + counter][0] == '-')
                 {
                     data.text = lines[i + 2 + counter];
                     counter++;
@@ -94,12 +94,10 @@ public class VersionLogGenerator : EditorWindow
         data.type = (LogType)EditorGUILayout.EnumPopup("Player Class", data.type);
 
         // テキストフィールドを追加
-        var text = EditorGUILayout.TextField("version", data.version);
-
-        // フィールドの値を表示
-        GUILayout.Label("Window Title: " + text);
+        data.version = EditorGUILayout.TextField("version", data.version);
+        data.text = EditorGUILayout.TextField("text", data.text);
     }
-    
+
     private void AddLog()
     {
         if (logs.Select(data => data.version).Contains(data.version))
@@ -108,7 +106,12 @@ public class VersionLogGenerator : EditorWindow
             return;
         }
 
+        logs = new List<LogData>() { data }.Concat(logs).ToList();
 
+        string text = $"# Changelog\n\n" +
+            string.Join("\n\n", logs);
+
+        File.WriteAllText(logPath, text);
     }
 
     [Serializable]
@@ -120,10 +123,8 @@ public class VersionLogGenerator : EditorWindow
         public string text;
 
         public override string ToString() =>
-            $"## [{version}]  - {date}\n" +
-            LogTypeToString(type) + $"\n- {text}";
-
-
+            $"## [{version}] - {date}\n" +
+            "### " + LogTypeToString(type) + $"\n- {text}";
     }
 
     private static LogType StringToLogType(string str) => str switch
