@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.unity.nuget.newtonsoft-json": "3.2.2",
-    "https://github.com/HIBIKI5201/SymphonyTemplate.git?path=Assets/SymphonyFrameWork": "1.0.0"
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
   }
 }
