@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.20.5] - 2025-03-10
+### Fix
+- SymphonyConfigLocator
+- SymphonyEditorConfigLocator
+
 ## [1.20.4] - 2025-03-10
 ### Add
 - AssemblyGenerator
