@@ -112,6 +112,35 @@ public class VersionLogGenerator : EditorWindow
 
         // テキストフィールドを追加
         data.version = EditorGUILayout.TextField("version", data.version);
+
+        // リストの編集
+        ListGUI("AddText", ref data.addText);
+        ListGUI("UpdateText", ref data.updateText);
+        ListGUI("FixText", ref data.fixText);
+    }
+
+    private void ListGUI(string label, ref List<string> list)
+    {
+        EditorGUILayout.Space(10);
+        GUILayout.Label(label);
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            // 各要素の編集フィールド
+            list[i] = EditorGUILayout.TextField("Item " + i, list[i]);
+
+            // 要素を削除するボタン
+            if (GUILayout.Button("Remove Item " + i))
+            {
+                list.RemoveAt(i);
+            }
+        }
+
+        // 新しいアイテムを追加するボタン
+        if (GUILayout.Button("Add Item"))
+        {
+            list.Add(string.Empty);
+        }
     }
 
     private void AddLog()
