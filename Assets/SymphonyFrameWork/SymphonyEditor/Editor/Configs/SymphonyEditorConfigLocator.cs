@@ -1,5 +1,5 @@
-﻿using SymphonyFrameWork.Core;
-using System.IO;
+﻿using SymphonyFrameWork.Config;
+using SymphonyFrameWork.Core;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,18 +12,10 @@ namespace SymphonyFrameWork.Editor
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static (string path, string fileName)? GetFullPath<T>() where T : ScriptableObject
+        public static string GetFullPath<T>() where T : ScriptableObject
         {
-            //ファイル名を生成
-            var filePath = $"{typeof(T).Name}.asset";
-
-            if (string.IsNullOrEmpty(filePath))
-            {
-                Debug.LogWarning("file path is null or empty.");
-                return null;
-            }
-
-            return ($"{EditorSymphonyConstrant.RESOURCES_EDITOR_PATH}/", filePath);
+            var name = SymphonyConfigLocator.GetConfigPathInResources<T>();
+            return $"{EditorSymphonyConstant.RESOURCES_EDITOR_PATH}/{name}";
         }
 
         /// <summary>
@@ -36,7 +28,7 @@ namespace SymphonyFrameWork.Editor
             var paths = GetFullPath<T>();
             if (paths == null) return null;
 
-            return AssetDatabase.LoadAssetAtPath<T>(paths.Value.path + paths.Value.fileName);
+            return AssetDatabase.LoadAssetAtPath<T>(paths);
         }
     }
 }

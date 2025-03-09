@@ -36,7 +36,7 @@ namespace SymphonyFrameWork.Editor
                 .ToHashSet();
 
             //ディレクトリを生成
-            CreateResourcesFolder($"{SymphonyConstant.ENUM_PATH}/");
+            CreateResourcesFolder($"{EditorSymphonyConstant.ENUM_PATH}/");
 
             //ファイル名を生成
             var enumFilePath = GetEnumFilePath(fileName);
@@ -50,7 +50,7 @@ namespace SymphonyFrameWork.Editor
             Debug.Log($"{fileName}Enumを生成しました");
         }
 
-        public static string GetEnumFilePath(string fileName) => $"{SymphonyConstant.ENUM_PATH}/{fileName}Enum.cs";
+        public static string GetEnumFilePath(string fileName) => $"{EditorSymphonyConstant.ENUM_PATH}/{fileName}Enum.cs";
 
         /// <summary>
         ///     リソースフォルダが無ければ生成
@@ -103,6 +103,6 @@ namespace SymphonyFrameWork.Editor
         }
 
         [MenuItem(SymphonyConstant.MENU_PATH + "Debug/" + nameof(CreateResourcesFolder), priority = 1000)]
-        private static void CreateResourceFolderDebug() => CreateResourcesFolder($"{SymphonyConstant.ENUM_PATH}/");
+        private static void CreateResourceFolderDebug() => CreateResourcesFolder($"{EditorSymphonyConstant.ENUM_PATH}/");
     }
 }
