@@ -154,7 +154,7 @@ public class VersionLogGenerator : EditorWindow
         logs = new List<LogData>() { data }.Concat(logs).ToList();
 
         string text = $"# Changelog\n\n" +
-            string.Join("\n\n", logs);
+            string.Join("\n\n", logs) + "\n";
 
         File.WriteAllText(logPath, text);
     }
