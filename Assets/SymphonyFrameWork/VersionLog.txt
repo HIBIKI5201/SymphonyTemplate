@@ -1,8 +1,15 @@
 #Version
-1.20.3
+1.20.4
 
 
 #Log
+1.20.4
+[Add]
+AssemblyGenerator
+
+[Fix]
+EnumGenerator
+
 1.20.3
 [Update]
 SymphonyPackageLoader

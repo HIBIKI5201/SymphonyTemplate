@@ -64,85 +64,12 @@ namespace SymphonyFrameWork.Editor
                 AssetDatabase.ImportAsset(resourcesPath, ImportAssetOptions.ForceUpdate);
             }
 
-            CreateAssembly();
+            AssemblyGenerator.CreateEnumAssembly();
 
             AssetDatabase.Refresh();
         }
 
-        private static void CreateAssembly()
-        {
-            string enumAsmdefPath = Path.Combine(SymphonyConstant.ENUM_PATH, "SymphonyFrameWork.Enum.asmdef");
-            string mainAsmdefPath = "Assets/SymphonyFrameWork/SymphonyFrameWork.asmdef";
 
-            // SymphonyFrameWork.Enum.asmdef の生成
-            if (!File.Exists(enumAsmdefPath))
-            {
-                string directoryPath = Path.GetDirectoryName(enumAsmdefPath);
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
-
-                var enumAsmdef = new AssemblyDefinitionData("SymphonyFrameWork.Enum");
-
-                // アセンブリ定義ファイルを作成
-                string json = JsonUtility.ToJson(enumAsmdef, true);
-                File.WriteAllText(enumAsmdefPath, json);
-                AssetDatabase.ImportAsset(enumAsmdefPath); // アセットデータベースにインポート
-            }
-
-            // SymphonyFrameWork.asmdef に参照を追加
-            if (File.Exists(mainAsmdefPath))
-            {
-                string mainAsmdefJson = File.ReadAllText(mainAsmdefPath);
-                var mainAsmdef = JsonUtility.FromJson<AssemblyDefinitionData>(mainAsmdefJson);
-
-                string enumAsmdefGUID = "GUID:" + AssetDatabase.AssetPathToGUID(enumAsmdefPath);
-
-                // 参照がすでに追加されていない場合にのみ追加
-
-                if (!mainAsmdef.references.Contains(enumAsmdefGUID))
-                {
-                    var referencesList = new List<string>(mainAsmdef.references)
-                {
-                    enumAsmdefGUID
-                };
-                    mainAsmdef.references = referencesList.ToArray();
-
-                    // 変更を反映
-                    string updatedJson = JsonUtility.ToJson(mainAsmdef, true);
-                    File.WriteAllText(mainAsmdefPath, updatedJson);
-                    AssetDatabase.ImportAsset(mainAsmdefPath); // アセットデータベースにインポート
-                }
-            }
-            else
-            {
-                Debug.LogError("SymphonyFrameWork.asmdef が見つかりません。");
-            }
-        }
-
-        [Serializable]
-        public class AssemblyDefinitionData
-        {
-            public string name = string.Empty;
-            public string rootNamespace = string.Empty;
-            public string[] references = new string[0];
-            public string[] includePlatforms = new string[0];
-            public string[] excludePlatforms = new string[0];
-            public bool allowUnsafeCode = false;
-            public bool overrideReferences = false;
-            public string[] precompiledReferences = new string[0];
-            public bool autoReferenced = true;
-            public string[] defineConstraints = new string[0];
-            public string[] versionDefines = new string[0];
-            public bool noEngineReferences = false;
-            public string[] platforms = new string[0];
-
-            public AssemblyDefinitionData(string name)
-            {
-                this.name = name;
-            }
-        }
 
         /// <summary>
         ///     通常のEnumを生成する
