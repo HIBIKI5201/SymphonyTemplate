@@ -177,7 +177,7 @@
 - PauseManager
 
 ## [1.17.3] - 2025-02-20
-### Delete
+### Update
 - SymphonyUtility
 
 ## [1.17.2] - 2025-02-20
