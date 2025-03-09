@@ -11,9 +11,19 @@ public class VersionLogGenerator : EditorWindow
 {
     private const string logPath = "Assets/SymphonyFrameWork/CHANGELOG.md";
 
+    private static Action OnShowWindow;
+
     private static List<LogData> logs = new();
 
     private LogData data;
+
+    VersionLogGenerator()
+    {
+        OnShowWindow += () =>
+        {
+            data.version = logs.FirstOrDefault().version;
+        };
+    }
 
     [MenuItem("Tools/" + nameof(VersionLogGenerator))]
     public static void ShowWindow()
@@ -25,6 +35,8 @@ public class VersionLogGenerator : EditorWindow
 
         var log = ReadChangelog();
         ConvertLogData(log);
+
+        OnShowWindow?.Invoke();
     }
 
     private static string ReadChangelog()
@@ -74,18 +86,29 @@ public class VersionLogGenerator : EditorWindow
         data.date = $"{date.Year.ToString("0000")}-{date.Month.ToString("00")}-{date.Day.ToString("00")}";
         GUILayout.Label("date: " + data.date);
 
-        if (GUILayout.Button("Click Me"))
+        if (GUILayout.Button("Add Log"))
         {
-            Debug.Log("Button clicked!");
+            AddLog();
         }
 
         data.type = (LogType)EditorGUILayout.EnumPopup("Player Class", data.type);
 
         // テキストフィールドを追加
-        var text = EditorGUILayout.TextField("version", data.text);
+        var text = EditorGUILayout.TextField("version", data.version);
 
         // フィールドの値を表示
         GUILayout.Label("Window Title: " + text);
+    }
+    
+    private void AddLog()
+    {
+        if (logs.Select(data => data.version).Contains(data.version))
+        {
+            Debug.LogWarning($"version :{data.version}は既に存在します");
+            return;
+        }
+
+
     }
 
     [Serializable]
