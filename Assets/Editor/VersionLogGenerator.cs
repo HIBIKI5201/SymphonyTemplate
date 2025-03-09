@@ -15,7 +15,7 @@ public class VersionLogGenerator : EditorWindow
 
     private static List<LogData> logs = new();
 
-    private LogData data;
+    private LogData data = new();
 
     VersionLogGenerator()
     {
@@ -28,6 +28,8 @@ public class VersionLogGenerator : EditorWindow
     [MenuItem("Tools/" + nameof(VersionLogGenerator))]
     public static void ShowWindow()
     {
+        logs.Clear();
+
         // ウィンドウを表示
         var window = GetWindow<VersionLogGenerator>();
         window.titleContent = new GUIContent(nameof(VersionLogGenerator));
@@ -65,13 +67,30 @@ public class VersionLogGenerator : EditorWindow
                 data.version = lines[i].Substring(lines[i].IndexOf("[") + 1, lines[i].IndexOf("]") - lines[i].IndexOf("[") - 1);
                 data.date = lines[i].Substring(lines[i].IndexOf("- ") + 2);
 
-                data.type = StringToLogType(lines[i + 1].Substring(4));
-
-                int counter = 0;
-                while (!string.IsNullOrEmpty(lines[i + 2 + counter]) && lines[i + 2 + counter][0] == '-')
+                string title = string.Empty;
+                i += 1;
+                while (!string.IsNullOrEmpty(lines[i]))
                 {
-                    data.text = lines[i + 2 + counter];
-                    counter++;
+                    if (lines[i].StartsWith("### "))
+                    {
+                        title = lines[i].Substring(4);
+                    }
+                    else if (lines[i].StartsWith("- "))
+                    {
+                        switch (title)
+                        {
+                            case "Add":
+                                data.addText.Add(lines[i].Substring(2));
+                                break;
+                            case "Update":
+                                data.updateText.Add(lines[i].Substring(2));
+                                break;
+                            case "Fix":
+                                data.fixText.Add(lines[i].Substring(2));
+                                break;
+                        }
+                    }
+                    i++;
                 }
 
                 logs.Add(data);
@@ -91,11 +110,8 @@ public class VersionLogGenerator : EditorWindow
             AddLog();
         }
 
-        data.type = (LogType)EditorGUILayout.EnumPopup("Player Class", data.type);
-
         // テキストフィールドを追加
         data.version = EditorGUILayout.TextField("version", data.version);
-        data.text = EditorGUILayout.TextField("text", data.text);
     }
 
     private void AddLog()
@@ -115,34 +131,29 @@ public class VersionLogGenerator : EditorWindow
     }
 
     [Serializable]
-    private struct LogData
+    private class LogData
     {
         public string version;
         public string date;
-        public LogType type;
-        public string text;
+        public List<string> addText;
+        public List<string> updateText;
+        public List<string> fixText;
+
+        public LogData()
+        {
+            version = string.Empty;
+            date = "2000-01-01";
+            addText = new();
+            updateText = new();
+            fixText = new();
+        }
 
         public override string ToString() =>
             $"## [{version}] - {date}\n" +
-            "### " + LogTypeToString(type) + $"\n- {text}";
+            (addText.Count > 0 ? "### Add" + $"\n- {string.Join("\n", addText)}" : string.Empty)+
+            (updateText.Count > 0 ? "### Update" + $"\n- {string.Join("\n", updateText)}" : string.Empty) +
+            (fixText.Count > 0 ? "### Fix" + $"\n- {string.Join("\n", fixText)}" : string.Empty);
     }
-
-    private static LogType StringToLogType(string str) => str switch
-    {
-        "Add" => LogType.Add,
-        "Update" => LogType.Update,
-        "Fix" => LogType.Fix,
-        _ => LogType.Other
-    };
-
-    private static string LogTypeToString(LogType type) => type switch
-    {
-        LogType.Add => "Add",
-        LogType.Update => "Update",
-        LogType.Fix => "Fix",
-        _ => string.Empty
-    };
-
 
     private enum LogType
     {
