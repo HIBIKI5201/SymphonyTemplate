@@ -28,8 +28,6 @@ public class VersionLogGenerator : EditorWindow
     [MenuItem("Tools/" + nameof(VersionLogGenerator))]
     public static void ShowWindow()
     {
-        logs.Clear();
-
         // ウィンドウを表示
         var window = GetWindow<VersionLogGenerator>();
         window.titleContent = new GUIContent(nameof(VersionLogGenerator));
@@ -56,6 +54,8 @@ public class VersionLogGenerator : EditorWindow
 
     private static void ConvertLogData(string text)
     {
+        logs.Clear();
+
         var lines = text.Split("\n").Select(l => l.TrimEnd('\r')).ToArray();
 
         for (int i = 0; i < lines.Length; i++)
@@ -178,10 +178,10 @@ public class VersionLogGenerator : EditorWindow
         }
 
         public override string ToString() =>
-            $"## [{version}] - {date}\n" +
-            (addText.Count > 0 ? "### Add" + $"\n- {string.Join("\n", addText)}" : string.Empty)+
-            (updateText.Count > 0 ? "### Update" + $"\n- {string.Join("\n", updateText)}" : string.Empty) +
-            (fixText.Count > 0 ? "### Fix" + $"\n- {string.Join("\n", fixText)}" : string.Empty);
+            $"## [{version}] - {date}" +
+            (addText.Count > 0 ? "\n### Add" + $"\n- {string.Join("\n- ", addText)}" : string.Empty)+
+            (updateText.Count > 0 ? "\n### Update" + $"\n- {string.Join("\n- ", updateText)}" : string.Empty) +
+            (fixText.Count > 0 ? "\n### Fix" + $"\n- {string.Join("\n- ", fixText)}" : string.Empty);
     }
 
     private enum LogType
