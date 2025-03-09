@@ -26,7 +26,7 @@ namespace SymphonyFrameWork.Core
 
         #region 自動生成物のパス
         public const string RESOURCES_RUNTIME_PATH = "Assets/Resources/" + SYMPHONY_FRAMEWORK;
-        public const string ENUM_PATH = "Assets/Scripts/" + SYMPHONY_FRAMEWORK + "/Enum";
+        public static string ENUM_PATH = FRAMEWORK_PATH() + "/Enum";
         #endregion
 
         public const string MENU_PATH = "Window/Symphony FrameWork/";
