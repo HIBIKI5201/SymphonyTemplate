@@ -167,5 +167,8 @@ namespace SymphonyFrameWork.Editor
 
             return content;
         }
+
+        [MenuItem(SymphonyConstant.MENU_PATH + "Debug/" + nameof(CreateResourcesFolder), priority = 1000)]
+        private static void CreateResourceFolderDebug() => CreateResourcesFolder($"{SymphonyConstant.ENUM_PATH}/");
     }
 }

@@ -3,7 +3,6 @@ using SymphonyFrameWork.Debugger;
 using System.IO;
 using System.Linq;
 using UnityEditor;
-using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -14,7 +13,7 @@ namespace SymphonyFrameWork.Editor
         {
             string assetsPath = "Assets";
             string artPath = "Arts";
-            string animationPath =  "Animation";
+            string animationPath = "Animation";
 
             string[] assetsFolders =
                 // アセット直下のフォルダ
@@ -26,7 +25,7 @@ namespace SymphonyFrameWork.Editor
                 .Concat(new string[] { "Clips", "Controllers" }
                     .Select(s => $"{artPath}/{animationPath}/{s}"))
                 .ToArray();
-            
+
 
             foreach (string folder in assetsFolders)
             {
