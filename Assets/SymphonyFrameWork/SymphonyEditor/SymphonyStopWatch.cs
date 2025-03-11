@@ -5,7 +5,7 @@ using Debug = UnityEngine.Debug;
 namespace SymphonyFrameWork.Debugger
 {
     /// <summary>
-    ///     ストップウォッチを提供するクラス
+    ///     UnityEditorで動作するストップウォッチを提供する
     /// </summary>
     public static class SymphonyStopWatch
     {

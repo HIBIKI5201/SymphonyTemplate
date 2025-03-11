@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
+    /// <summary>
+    ///     タグやレイヤーの変更を監視する
+    /// </summary>
     public class TagsAndLayersPostProcessor : AssetPostprocessor
     {
         public static TagsAndLayersSettingData SceneList = new();

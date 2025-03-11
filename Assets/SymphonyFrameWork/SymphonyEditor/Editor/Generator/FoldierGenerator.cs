@@ -6,8 +6,14 @@ using UnityEditor;
 
 namespace SymphonyFrameWork.Editor
 {
+    /// <summary>
+    ///     フォルダを生成する
+    /// </summary>
     public static class FolderGenerator
     {
+        /// <summary>
+        ///     規定のディレクトリ構成を生成する
+        /// </summary>
         [MenuItem(SymphonyConstant.MENU_PATH + nameof(FolderGenerator), priority = 100)]
         public static void GenerateFolder()
         {
@@ -26,7 +32,7 @@ namespace SymphonyFrameWork.Editor
                     .Select(s => $"{artPath}/{animationPath}/{s}"))
                 .ToArray();
 
-
+            //全てのフォルダを生成する
             foreach (string folder in assetsFolders)
             {
                 string path = $"{assetsPath}/{folder}";
@@ -43,6 +49,10 @@ namespace SymphonyFrameWork.Editor
             EditorUtility.DisplayDialog("フォルダを生成", "フォルダを生成しました", "OK");
         }
 
+        /// <summary>
+        ///     フォルダを生成する
+        /// </summary>
+        /// <param name="path"></param>
         private static void FolderCreate(string path)
         {
             if (AssetDatabase.IsValidFolder(path)) return;

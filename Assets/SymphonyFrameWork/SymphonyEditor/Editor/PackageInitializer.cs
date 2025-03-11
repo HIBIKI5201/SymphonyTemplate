@@ -5,6 +5,9 @@ using UnityEditor;
 
 namespace SymphonyFrameWork.Editor
 {
+    /// <summary>
+    ///     UPMからインストールされた時に初期化する
+    /// </summary>
     [InitializeOnLoad]
     public static class PackageInitializer
     {

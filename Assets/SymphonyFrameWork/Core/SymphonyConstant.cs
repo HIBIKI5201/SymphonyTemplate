@@ -1,5 +1,8 @@
 ﻿namespace SymphonyFrameWork.Core
 {
+    /// <summary>
+    ///     ランタイム用の定数値を持つ
+    /// </summary>
     public static class SymphonyConstant
     {
         public const string SYMPHONY_PACKAGE = "symphony.framework";

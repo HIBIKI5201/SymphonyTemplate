@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
+    /// <summary>
+    ///     アセンブリを自動生成する
+    /// </summary>
     public static class AssemblyGenerator
     {
         public static void CreateEnumAssembly()
