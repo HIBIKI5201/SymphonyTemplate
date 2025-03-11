@@ -3,7 +3,8 @@
     "rootNamespace": "SymphonyFrameWork",
     "references": [
         "GUID:b4e9782619c924d4fa0455d751d099be",
-        "GUID:78cb920c5f33dc24389f43fc0a27daf0"
+        "GUID:78cb920c5f33dc24389f43fc0a27daf0",
+        "GUID:"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

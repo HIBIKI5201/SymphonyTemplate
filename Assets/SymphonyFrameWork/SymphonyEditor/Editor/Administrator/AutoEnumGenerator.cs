@@ -10,20 +10,27 @@ namespace SymphonyFrameWork.Editor
     [InitializeOnLoad]
     public static class AutoEnumGenerator
     {
-        private static readonly AutoEnumGeneratorConfig _config;
-
         static AutoEnumGenerator()
         {
-            _config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
+            var config = SymphonyEditorConfigLocator.GetConfig<AutoEnumGeneratorConfig>();
 
-            TagsAndLayersPostProcessor.SceneList.OnSettingChanged -= SceneListEnumGenerate;
-            TagsAndLayersPostProcessor.SceneList.OnSettingChanged += SceneListEnumGenerate;
+            TagsAndLayersPostProcessor.SceneList.Dispose();
+            TagsAndLayersPostProcessor.SceneList.OnSettingChanged += () =>
+                {
+                    if (config.AutoSceneListUpdate) SceneListEnumGenerate();
+                };
 
-            TagsAndLayersPostProcessor.Tags.OnSettingChanged -= TagsEnumGenerate;
-            TagsAndLayersPostProcessor.Tags.OnSettingChanged += TagsEnumGenerate;
+            TagsAndLayersPostProcessor.Tags.Dispose();
+            TagsAndLayersPostProcessor.Tags.OnSettingChanged += () =>
+            {
+                if (config.AutoTagsUpdate) TagsEnumGenerate();
+            };
 
-            TagsAndLayersPostProcessor.Layers.OnSettingChanged -= LayersEnumGenerate;
-            TagsAndLayersPostProcessor.Layers.OnSettingChanged += LayersEnumGenerate;
+            TagsAndLayersPostProcessor.Layers.Dispose();
+            TagsAndLayersPostProcessor.Layers.OnSettingChanged += () =>
+            {
+                if (config.AutoLayerUpdate) LayersEnumGenerate();
+            };
         }
 
         /// <summary>
@@ -31,35 +38,26 @@ namespace SymphonyFrameWork.Editor
         /// </summary>
         public static void SceneListEnumGenerate()
         {
-            if (_config.AutoSceneListUpdate)
-            {
-                //シーンリストのシーン名を取得
-                var sceneList = EditorBuildSettings.scenes
-                    .Select(s => Path.GetFileNameWithoutExtension(s.path))
-                    .ToArray();
+            //シーンリストのシーン名を取得
+            var sceneList = EditorBuildSettings.scenes
+                .Select(s => Path.GetFileNameWithoutExtension(s.path))
+                .ToArray();
 
-                //シーン名のEnumを生成する
-                EnumGenerator.EnumGenerate(sceneList,
-                    EditorSymphonyConstant.SceneListEnumFileName);
-            }
+            //シーン名のEnumを生成する
+            EnumGenerator.EnumGenerate(sceneList,
+                EditorSymphonyConstant.SceneListEnumFileName);
         }
 
         public static void TagsEnumGenerate()
         {
-            if (_config.AutoTagsUpdate)
-            {
-                EnumGenerator.EnumGenerate(InternalEditorUtility.tags,
-                    EditorSymphonyConstant.TagsEnumFileName, true);
-            }
+            EnumGenerator.EnumGenerate(InternalEditorUtility.tags,
+                EditorSymphonyConstant.TagsEnumFileName, true);
         }
 
         public static void LayersEnumGenerate()
         {
-            if (_config.AutoLayerUpdate)
-            {
-                EnumGenerator.EnumGenerate(InternalEditorUtility.layers,
-                    EditorSymphonyConstant.LayersEnumFileName, true);
-            }
+            EnumGenerator.EnumGenerate(InternalEditorUtility.layers,
+                EditorSymphonyConstant.LayersEnumFileName, true);
         }
 
         public static void AudioEnumGenerate()
