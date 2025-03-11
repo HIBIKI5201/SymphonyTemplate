@@ -8,7 +8,7 @@ namespace SymphonyFrameWork.Editor
     /// <summary>
     ///     SymphonyFrameWorkの管理パネルを表示するクラス
     /// </summary>
-    public class SymphonyWindow : EditorWindow
+    public class SymphonyAdministrator : EditorWindow
     {
         private const string WINDOW_NAME = "Symphony Administrator";
 
@@ -54,7 +54,7 @@ namespace SymphonyFrameWork.Editor
         [MenuItem(SymphonyConstant.MENU_PATH + WINDOW_NAME, priority = 0)]
         public static void ShowWindow()
         {
-            var wnd = GetWindow<SymphonyWindow>();
+            var wnd = GetWindow<SymphonyAdministrator>();
             wnd.titleContent = new GUIContent(WINDOW_NAME);
         }
 

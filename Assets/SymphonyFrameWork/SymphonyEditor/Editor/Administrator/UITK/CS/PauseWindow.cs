@@ -15,7 +15,7 @@ namespace SymphonyFrameWork.Editor
         private VisualElement _pauseVisual;
 
         public PauseWindow() : base(
-            SymphonyWindow.UITK_UXML_PATH + "PauseWindow.uxml",
+            SymphonyAdministrator.UITK_UXML_PATH + "PauseWindow.uxml",
             InitializeType.None,
             LoadType.AssetDataBase)
         { }

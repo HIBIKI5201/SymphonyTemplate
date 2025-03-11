@@ -8,7 +8,7 @@ namespace SymphonyFrameWork.Editor
     public partial class AutoEnumGeneratorWindow : SymphonyVisualElement
     {
         public AutoEnumGeneratorWindow() : base(
-            SymphonyWindow.UITK_UXML_PATH + "AutoEnumGeneratorWindow.uxml",
+            SymphonyAdministrator.UITK_UXML_PATH + "AutoEnumGeneratorWindow.uxml",
             InitializeType.None,
             LoadType.AssetDataBase)
         { }

@@ -19,7 +19,7 @@ namespace SymphonyFrameWork.Editor
         private ListView _locateList;
 
         public ServiceLocatorWindow() : base(
-            SymphonyWindow.UITK_UXML_PATH + "ServiceLocatorWindow.uxml",
+            SymphonyAdministrator.UITK_UXML_PATH + "ServiceLocatorWindow.uxml",
             InitializeType.None,
             LoadType.AssetDataBase)
         { }
