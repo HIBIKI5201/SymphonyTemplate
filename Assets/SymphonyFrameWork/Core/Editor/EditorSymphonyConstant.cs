@@ -27,7 +27,10 @@ namespace SymphonyFrameWork.Core
 
         #region 自動生成物のパス
         public static string RESOURCES_EDITOR_PATH = "Assets/Editor/" + SymphonyConstant.SYMPHONY_FRAMEWORK + "/Configs";
-        public static string ENUM_PATH = FRAMEWORK_PATH() + "/Enum";
+        public static string ENUM_PATH = (IsPackage() ? 
+            "Assets/Scripts/" + SymphonyConstant.SYMPHONY_FRAMEWORK :
+            "Packages/" + SymphonyConstant.SYMPHONY_PACKAGE)
+            + "/Enum";
         #endregion
 
         public static string UITK_PATH = FRAMEWORK_PATH() + "/SymphonyEditor/Editor/Administrator/UITK/";
@@ -42,6 +45,7 @@ namespace SymphonyFrameWork.Core
         #endregion
 
         #region Enumの名前
+        public const string AudioGroupTypeEnumName = "AudioGroupType";
         public const string SceneListEnumFileName = "SceneList";
         public const string TagsEnumFileName = "Tags";
         public const string LayersEnumFileName = "Layers";

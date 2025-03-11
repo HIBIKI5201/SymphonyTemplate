@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.20.7] - 2025-03-12
+### Fix
+- EnumGenerator
+
+## [1.20.6] - 2025-03-12
+### Add
+- PackageInitializer
+
+## [1.20.5] - 2025-03-10
+### Fix
+- SymphonyConfigLocator
+- SymphonyEditorConfigLocator
+
 ## [1.20.4] - 2025-03-10
 ### Add
 - AssemblyGenerator
