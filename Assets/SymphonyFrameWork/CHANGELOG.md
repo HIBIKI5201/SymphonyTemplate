@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.7] - 2025-03-12
+### Fix
+- EnumGenerator
+
 ## [1.20.6] - 2025-03-12
 ### Add
 - PackageInitializer
