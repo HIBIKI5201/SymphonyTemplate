@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.6] - 2025-03-12
+### Add
+- PackageInitializer
+
 ## [1.20.5] - 2025-03-10
 ### Fix
 - SymphonyConfigLocator
