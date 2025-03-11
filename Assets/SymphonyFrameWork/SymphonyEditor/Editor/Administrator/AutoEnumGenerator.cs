@@ -1,4 +1,5 @@
-﻿using SymphonyFrameWork.Core;
+﻿using SymphonyFrameWork.Config;
+using SymphonyFrameWork.Core;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -28,7 +29,7 @@ namespace SymphonyFrameWork.Editor
         /// <summary>
         ///     シーンリスト変更時の更新
         /// </summary>
-        private static void SceneListEnumGenerate()
+        public static void SceneListEnumGenerate()
         {
             if (_config.AutoSceneListUpdate)
             {
@@ -43,7 +44,7 @@ namespace SymphonyFrameWork.Editor
             }
         }
 
-        private static void TagsEnumGenerate()
+        public static void TagsEnumGenerate()
         {
             if (_config.AutoTagsUpdate)
             {
@@ -52,13 +53,22 @@ namespace SymphonyFrameWork.Editor
             }
         }
 
-        private static void LayersEnumGenerate()
+        public static void LayersEnumGenerate()
         {
             if (_config.AutoLayerUpdate)
             {
                 EnumGenerator.EnumGenerate(InternalEditorUtility.layers,
                     EditorSymphonyConstant.LayersEnumFileName, true);
             }
+        }
+
+        public static void AudioEnumGenerate()
+        {
+            var config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
+
+            EnumGenerator.EnumGenerate(
+                    config.AudioGroupSettingList.Select(s => s.AudioGroupName).ToArray(),
+                    EditorSymphonyConstant.AudioGroupTypeEnumName);
         }
     }
 }
