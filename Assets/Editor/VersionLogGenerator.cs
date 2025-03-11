@@ -157,6 +157,8 @@ public class VersionLogGenerator : EditorWindow
             string.Join("\n\n", logs) + "\n";
 
         File.WriteAllText(logPath, text);
+
+        Debug.Log($"ログを追加\n{data}");
     }
 
     [Serializable]
