@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditorInternal;
+using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -60,13 +61,22 @@ namespace SymphonyFrameWork.Editor
                 EditorSymphonyConstant.LayersEnumFileName, true);
         }
 
-        public static void AudioEnumGenerate()
+        // ReSharper disable Unity.PerformanceAnalysis
+        public static async void AudioEnumGenerate()
         {
+            await Awaitable.NextFrameAsync(); //ドメインリロードを避けるために待機
+            
             var config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
-
-            EnumGenerator.EnumGenerate(
-                    config.AudioGroupSettingList.Select(s => s.AudioGroupName).ToArray(),
-                    EditorSymphonyConstant.AudioGroupTypeEnumName);
+            if (config)
+            {
+                EnumGenerator.EnumGenerate(
+                        config.AudioGroupSettingList.Select(s => s.AudioGroupName).ToArray(),
+                        EditorSymphonyConstant.AudioGroupTypeEnumName);
+            }
+            else
+            {
+                Debug.LogWarning("Audio group settings not found.");
+            }
         }
     }
 }

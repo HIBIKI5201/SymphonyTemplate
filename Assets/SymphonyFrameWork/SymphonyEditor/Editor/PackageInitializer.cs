@@ -23,17 +23,10 @@ namespace SymphonyFrameWork.Editor
                 AssetDatabase.Refresh();
 
                 //Enumファイルを生成する
-                EnumGenerator.EnumGenerate(Array.Empty<string>(),
-                    EditorSymphonyConstant.AudioGroupTypeEnumName);
-
-                EnumGenerator.EnumGenerate(Array.Empty<string>(),
-                    EditorSymphonyConstant.SceneListEnumFileName);
-
-                EnumGenerator.EnumGenerate(Array.Empty<string>(),
-                    EditorSymphonyConstant.TagsEnumFileName);
-
-                EnumGenerator.EnumGenerate(Array.Empty<string>(),
-                    EditorSymphonyConstant.LayersEnumFileName);
+                AutoEnumGenerator.SceneListEnumGenerate();
+                AutoEnumGenerator.TagsEnumGenerate();
+                AutoEnumGenerator.TagsEnumGenerate();
+                AutoEnumGenerator.AudioEnumGenerate();
             }
         }
     }

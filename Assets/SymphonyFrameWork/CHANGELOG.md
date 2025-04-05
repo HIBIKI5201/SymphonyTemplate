@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.10] - 2025-04-05
+### Fix
+- AutoEnumGenerator
+
 ## [1.20.9] - 2025-04-05
 ### Fix
 - PackageInitializer
