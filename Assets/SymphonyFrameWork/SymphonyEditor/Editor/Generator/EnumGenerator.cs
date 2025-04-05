@@ -7,6 +7,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
+using FileMode = System.IO.FileMode;
+using Task = System.Threading.Tasks.Task;
 
 namespace SymphonyFrameWork.Editor
 {
@@ -41,12 +43,44 @@ namespace SymphonyFrameWork.Editor
             //ディレクトリを生成
             CreateResourcesFolder($"{EditorSymphonyConstant.ENUM_PATH}/");
 
-            //ファイル名を生成
+            // ファイル名を生成
             var enumFilePath = GetEnumFilePath(fileName);
 
+            // 中身を生成
             var content = !flag ? NormalEnumGenerate(fileName, hash) : FlagEnumGenerate(fileName, hash);
 
-            await File.WriteAllLinesAsync(enumFilePath, content, Encoding.UTF8);
+            // リトライ付きで書き込み
+            int maxRetries = 5;
+
+            for (int attempt = 1; attempt <= maxRetries; attempt++)
+            {
+                try
+                {
+                    using (var stream = new FileStream(enumFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                    using (var writer = new StreamWriter(stream, Encoding.UTF8))
+                    {
+                        foreach (var line in content)
+                        {
+                            await writer.WriteLineAsync(line);
+                        }
+                    }
+
+                    return; // 成功したら終了
+                }
+                catch (IOException e)
+                {
+                    if (attempt == maxRetries)
+                    {
+                        Debug.LogError($"ファイル書き込みに失敗しました（{enumFilePath}）：{e.Message}");
+                        throw;
+                    }
+
+                    Debug.LogWarning($"ファイルが使用中のため再試行します（{attempt}/{maxRetries}）...");
+                    await Task.Delay(500);
+                }
+            }
+
+// アセット更新
             File.SetLastAccessTime(enumFilePath, DateTime.Now);
             AssetDatabase.ImportAsset(enumFilePath, ImportAssetOptions.ForceUpdate);
 
