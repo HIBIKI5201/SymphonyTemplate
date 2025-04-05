@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.20.14] - 2025-04-05
+### Fix
+- AutoEnumGeneratorConfig
+- SymphonyAdministrator
+
 ## [1.20.13] - 2025-04-05
 ### Update
 - SceneLoader
