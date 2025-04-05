@@ -15,5 +15,5 @@ MonoBehaviour:
   _audioMixer: {fileID: 24100000, guid: e9f3a0a9dc334aa47a826e5c0871aebe, type: 2}
   _audioGroupSettingList:
   - _audioGroupName: BGM
-    _audioGroupVolumeParameter: 
+    _exposedParameterName: BGM_Volume
     _isLoop: 0

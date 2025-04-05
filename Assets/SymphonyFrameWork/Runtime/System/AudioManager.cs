@@ -19,30 +19,27 @@ namespace SymphonyFrameWork.System
         private static
             Dictionary<AudioGroupTypeEnum, AudioSettingData> _audioDict = new();
 
-        private class AudioSettingData
+        private struct AudioSettingData
         {
-            private AudioMixerGroup _group;
-            public AudioMixerGroup Group { get => _group; }
+            public readonly AudioMixerGroup Group;
+            public readonly AudioSource Source;
+            public readonly string ExposedName;
+            public readonly float? OriginalVolume;
 
-            private AudioSource _source;
-            public AudioSource Source { get => _source; }
-
-            private float? _originalVolume = 1;
-            public float? OriginalVolume { get => _originalVolume; }
-
-            public AudioSettingData(AudioMixerGroup group, AudioSource source, float? originalVolume)
+            public AudioSettingData(AudioMixerGroup group, AudioSource source, string exposedName, float? originalVolume)
             {
-                _group = group;
-                _source = source;
-                _originalVolume = originalVolume;
+                Group = group;
+                Source = source;
+                ExposedName = exposedName;
+                OriginalVolume = originalVolume;
             }
         }
 
         internal static void Initialize()
         {
             _instance = null;
-            _config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
             _audioDict = null;
+            _config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
         }
 
         private static void CreateInstance()
@@ -107,8 +104,8 @@ namespace SymphonyFrameWork.System
 
                     //初期のボリュームを取得
                     float? volume = null;
-                    if (string.IsNullOrEmpty(data.AudioGroupVolumeParameter) &&
-                        mixer.GetFloat(data.AudioGroupVolumeParameter, out var value))
+                    if (!string.IsNullOrEmpty(data.ExposedParameterName) &&
+                        mixer.GetFloat(data.ExposedParameterName, out var value))
                     {
                         volume = value;
                         SymphonyDebugLog.AddText($"{name}は正常に追加されました。volume : {volume}");
@@ -119,7 +116,7 @@ namespace SymphonyFrameWork.System
                     }
 
                     //各情報を追加
-                    _audioDict.Add(type, new AudioSettingData(group, source, volume));
+                    _audioDict.Add(type, new AudioSettingData(group, source, data.ExposedParameterName, volume ?? 0));
                 }
                 else
                 {
@@ -156,7 +153,7 @@ namespace SymphonyFrameWork.System
             //デシベルで音量を割合変更
             float db = value * (data.OriginalVolume.Value + 80) - 80;
 
-            _config?.AudioMixer.SetFloat(type.ToString(), db);
+            _config?.AudioMixer.SetFloat(data.ExposedName, db);
         }
 
         public static AudioSource GetAudioSource(AudioGroupTypeEnum type)

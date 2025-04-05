@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.11] - 2025-04-05
+### Update
+- AudioManager
+
 ## [1.20.10] - 2025-04-05
 ### Fix
 - AutoEnumGenerator
