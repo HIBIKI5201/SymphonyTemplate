@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.13] - 2025-04-05
+### Update
+- SceneLoader
+
 ## [1.20.12] - 2025-04-05
 ### Fix
 - PackageInitializer

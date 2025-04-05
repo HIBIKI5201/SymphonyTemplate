@@ -67,27 +67,37 @@ namespace SymphonyFrameWork.System
         /// <param name="sceneName">シーン名</param>
         /// <param name="loadingAction">ロードの進捗率を引数にしたメソッド</param>
         /// <returns>ロードに成功したか</returns>
-        public static async Task<bool> LoadScene(string sceneName, Action<float> loadingAction = null)
+        public static async Task<bool> LoadScene(string sceneName, Action<float> loadingAction = null, LoadSceneMode mode = LoadSceneMode.Additive)
         {
+            //ロードしようとしているシーンが既にないか確認
             if (_sceneDict.ContainsKey(sceneName))
             {
                 Debug.LogWarning($"{sceneName}シーンは既にロードされています");
                 return false;
             }
 
-            var operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            //シーンのロードを開始
+            var operation = SceneManager.LoadSceneAsync(sceneName, mode);
             if (operation == null)
             {
                 Debug.LogError($"{sceneName}シーンは登録されていません");
                 return false;
             }
 
+            //ロード中の処理
             while (!operation.isDone)
             {
                 loadingAction?.Invoke(operation.progress);
                 await Awaitable.NextFrameAsync();
             }
 
+            //シングルロードの場合は辞書をクリアする
+            if (mode == LoadSceneMode.Single)
+            {
+                _sceneDict.Clear();
+            }
+
+            //辞書にシーン名とシーン情報を保存
             var loadedScene = SceneManager.GetSceneByName(sceneName);
             if (loadedScene.IsValid() && loadedScene.isLoaded)
             {
