@@ -13,20 +13,23 @@ namespace SymphonyFrameWork.Editor
     {
         static PackageInitializer()
         {
-            string path = $"Packages/{SymphonyConstant.SYMPHONY_PACKAGE}/Enum";
+            string path = $"Packages/{SymphonyConstant.SYMPHONY_PACKAGE}/Enum"; //パッケージ内のEnumフォルダ
 
             if (Directory.Exists(path))
             {
-                //パッケージのEnumを消す
+                //パッケージ内のEnumを消す
                 FileUtil.DeleteFileOrDirectory(path);
                 FileUtil.DeleteFileOrDirectory(path + ".meta");
                 AssetDatabase.Refresh();
 
-                //Enumファイルを生成する
-                AutoEnumGenerator.SceneListEnumGenerate();
-                AutoEnumGenerator.TagsEnumGenerate();
-                AutoEnumGenerator.LayersEnumGenerate();
-                AutoEnumGenerator.AudioEnumGenerate();
+                if (!Directory.Exists(EditorSymphonyConstant.ENUM_PATH))
+                {
+                    //Enumファイルを生成する
+                    AutoEnumGenerator.SceneListEnumGenerate();
+                    AutoEnumGenerator.TagsEnumGenerate();
+                    AutoEnumGenerator.LayersEnumGenerate();
+                    AutoEnumGenerator.AudioEnumGenerate();
+                }
             }
         }
     }
