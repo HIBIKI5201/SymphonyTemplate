@@ -25,7 +25,7 @@ namespace SymphonyFrameWork.Editor
                 //Enumファイルを生成する
                 AutoEnumGenerator.SceneListEnumGenerate();
                 AutoEnumGenerator.TagsEnumGenerate();
-                AutoEnumGenerator.TagsEnumGenerate();
+                AutoEnumGenerator.LayersEnumGenerate();
                 AutoEnumGenerator.AudioEnumGenerate();
             }
         }
