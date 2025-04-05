@@ -62,10 +62,11 @@ namespace SymphonyFrameWork.Editor
         }
 
         // ReSharper disable Unity.PerformanceAnalysis
-        public static void AudioEnumGenerate()
+        public static async void AudioEnumGenerate()
         {
+            await Awaitable.NextFrameAsync(); //ドメインリロードを避けるために待機
+            
             var config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
-
             if (config)
             {
                 EnumGenerator.EnumGenerate(
