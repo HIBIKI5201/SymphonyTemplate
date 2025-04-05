@@ -41,8 +41,8 @@ namespace SymphonyFrameWork.System
         internal static void Initialize()
         {
             _instance = null;
-            _config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
             _audioDict = null;
+            _config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
         }
 
         private static void CreateInstance()
