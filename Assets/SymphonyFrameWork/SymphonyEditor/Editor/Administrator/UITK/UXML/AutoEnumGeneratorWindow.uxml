@@ -3,6 +3,10 @@
     <engine:VisualElement class="base">
         <engine:Label text="AutoEnumGenerator" class="title" />
         <engine:VisualElement class="text" style="flex-grow: 1;">
+            <engine:VisualElement name="scene" style="flex-direction: row;">
+                <engine:Button text="生成" class="button" style="height: auto; width: auto;" />
+                <engine:Toggle label="SceneList" />
+            </engine:VisualElement>
             <engine:VisualElement name="tags" style="flex-grow: 1; flex-direction: row;">
                 <engine:Button text="生成" class="button" style="height: auto; width: auto;" />
                 <engine:Toggle label="Tags" />
@@ -10,10 +14,6 @@
             <engine:VisualElement name="layers" style="flex-grow: 1; flex-direction: row;">
                 <engine:Button text="生成" class="button" style="height: auto; width: auto;" />
                 <engine:Toggle label="Layers" />
-            </engine:VisualElement>
-            <engine:VisualElement name="scene" style="flex-direction: row;">
-                <engine:Button text="生成" class="button" style="height: auto; width: auto;" />
-                <engine:Toggle label="SceneList" />
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>
