@@ -23,7 +23,7 @@ namespace SymphonyFrameWork.Config
         /// <returns></returns>
         public static T GetConfig<T>() where T : ScriptableObject
         {
-            var path = GetConfigPathInResources<T>();
+            var path = $"{SymphonyConstant.SYMPHONY_FRAMEWORK}/{GetConfigPathInResources<T>()}";
             if (path == null) return null;
 
             return Resources.Load<T>(path);
