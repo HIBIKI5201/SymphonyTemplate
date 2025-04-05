@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Serialization;
 
 namespace SymphonyFrameWork
 {
@@ -24,8 +25,8 @@ namespace SymphonyFrameWork
             public string AudioGroupName { get => _audioGroupName; }
 
             [SerializeField]
-            private string _audioGroupVolumeParameter = string.Empty;
-            public string AudioGroupVolumeParameter { get => _audioGroupVolumeParameter; }
+            private string _exposedParameterName = string.Empty;
+            public string ExposedParameterName { get => _exposedParameterName; }
 
             [SerializeField]
             private bool _isLoop = false;
