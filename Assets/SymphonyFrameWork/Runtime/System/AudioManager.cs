@@ -107,8 +107,8 @@ namespace SymphonyFrameWork.System
 
                     //初期のボリュームを取得
                     float? volume = null;
-                    if (string.IsNullOrEmpty(data.AudioGroupVolumeParameter) &&
-                        mixer.GetFloat(data.AudioGroupVolumeParameter, out var value))
+                    if (string.IsNullOrEmpty(data.ExposedParameterName) &&
+                        mixer.GetFloat(data.ExposedParameterName, out var value))
                     {
                         volume = value;
                         SymphonyDebugLog.AddText($"{name}は正常に追加されました。volume : {volume}");
@@ -119,7 +119,7 @@ namespace SymphonyFrameWork.System
                     }
 
                     //各情報を追加
-                    _audioDict.Add(type, new AudioSettingData(group, source, volume));
+                    _audioDict.Add(type, new AudioSettingData(group, source, volume ?? 0));
                 }
                 else
                 {
