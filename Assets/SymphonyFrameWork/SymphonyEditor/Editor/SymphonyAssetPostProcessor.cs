@@ -64,13 +64,11 @@ namespace SymphonyFrameWork.Editor
                 var oldPath = movedFromAssetPaths[i];
                 var newPath = movedAssets[i];
 
-                // 移動がSymphonyFrameWorkのアセットかどうかを判定
+                //移動がSymphonyFrameWorkのアセットかどうかを判定
                 if (oldPath.Contains(SymphonyConstant.SYMPHONY_FRAMEWORK))
                 {
-                    var isLock = EditorPrefs.GetBool(LOCK_PATH, true);
-
                     //ロックされている時は移動できない
-                    if (isLock)
+                    if (EditorPrefs.GetBool(LOCK_PATH, true))
                     {
                         if (EditorUtility.DisplayDialog(
                                 "移動禁止",

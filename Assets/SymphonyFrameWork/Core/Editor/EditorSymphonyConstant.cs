@@ -2,6 +2,9 @@
 
 namespace SymphonyFrameWork.Core
 {
+    /// <summary>
+    ///     エディタ用の定数値を持つ
+    /// </summary>
     public static class EditorSymphonyConstant
     {
 #if UNITY_EDITOR

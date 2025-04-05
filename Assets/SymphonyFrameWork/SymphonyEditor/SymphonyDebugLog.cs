@@ -6,7 +6,7 @@ using Debug = UnityEngine.Debug;
 namespace SymphonyFrameWork.Debugger
 {
     /// <summary>
-    ///     エディタ用のログを発行するクラス
+    ///     UnityEditor上のみのログを発行する
     /// </summary>
     public static class SymphonyDebugLog
     {

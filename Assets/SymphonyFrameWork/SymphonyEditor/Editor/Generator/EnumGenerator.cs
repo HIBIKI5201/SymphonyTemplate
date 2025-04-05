@@ -10,6 +10,9 @@ using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
+    /// <summary>
+    ///     Enumを自動生成する
+    /// </summary>
     public static class EnumGenerator
     {
         private static readonly Regex IdentifierRegex = new(@"^@?[a-zA-Z_][a-zA-Z0-9_]*$");

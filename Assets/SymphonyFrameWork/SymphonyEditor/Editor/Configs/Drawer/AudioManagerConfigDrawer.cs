@@ -12,12 +12,9 @@ namespace SymphonyFrameWork.Editor
         {
             DrawDefaultInspector();
 
-            var myScript = target as AudioManagerConfig;
             if (GUILayout.Button($"{EditorSymphonyConstant.AudioGroupTypeEnumName}Enumを再生成"))
             {
-                EnumGenerator.EnumGenerate(
-                    myScript.AudioGroupSettingList.Select(s => s.AudioGroupName).ToArray(),
-                    EditorSymphonyConstant.AudioGroupTypeEnumName);
+                AutoEnumGenerator.AudioEnumGenerate();
             }
         }
 

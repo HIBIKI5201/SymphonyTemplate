@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.20.9] - 2025-04-05
+### Fix
+- PackageInitializer
+
+## [1.20.8] - 2025-03-12
+### Update
+- SymphonyAdministrator
+
 ## [1.20.7] - 2025-03-12
 ### Fix
 - EnumGenerator
@@ -167,7 +175,7 @@
 
 ## [1.18.1] - 2025-02-21
 ### Update
-- SymphonyWindow
+- SymphonyAdministrator
 
 ## [1.18.0] - 2025-02-21
 ### Add
@@ -179,7 +187,7 @@
 
 ## [1.17.6] - 2025-02-20
 ### Update
-- SymphonyWindow
+- SymphonyAdministrator
 
 ## [1.17.5] - 2025-02-20
 ### Update
