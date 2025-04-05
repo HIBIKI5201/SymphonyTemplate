@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.12] - 2025-04-05
+### Fix
+- PackageInitializer
+
 ## [1.20.11] - 2025-04-05
 ### Update
 - AudioManager
