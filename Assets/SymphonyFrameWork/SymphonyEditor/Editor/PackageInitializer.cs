@@ -13,6 +13,12 @@ namespace SymphonyFrameWork.Editor
     {
         static PackageInitializer()
         {
+            SymphonyConfigManager.AllConfigCheck();
+            EnumInitialize();
+        }
+
+        private static void EnumInitialize()
+        {
             string path = $"Packages/{SymphonyConstant.SYMPHONY_PACKAGE}/Enum"; //パッケージ内のEnumフォルダ
 
             if (Directory.Exists(path))
