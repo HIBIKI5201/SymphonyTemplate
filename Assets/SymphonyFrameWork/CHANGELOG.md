@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.20.15] - 2025-04-29
+### Update
+- PackageInitializer
+- SymphonyConfigManager
+
 ## [1.20.14] - 2025-04-05
 ### Fix
 - AutoEnumGeneratorConfig
