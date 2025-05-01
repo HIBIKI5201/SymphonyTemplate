@@ -1,7 +1,8 @@
-﻿using SymphonyFrameWork.Config;
-using SymphonyFrameWork.Core;
+﻿using System;
 using System.IO;
 using System.Linq;
+using SymphonyFrameWork.Config;
+using SymphonyFrameWork.Core;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -17,9 +18,9 @@ namespace SymphonyFrameWork.Editor
 
             TagsAndLayersPostProcessor.SceneList.Dispose();
             TagsAndLayersPostProcessor.SceneList.OnSettingChanged += () =>
-                {
-                    if (config.AutoSceneListUpdate) SceneListEnumGenerate();
-                };
+            {
+                if (config.AutoSceneListUpdate) SceneListEnumGenerate();
+            };
 
             TagsAndLayersPostProcessor.Tags.Dispose();
             TagsAndLayersPostProcessor.Tags.OnSettingChanged += () =>
@@ -60,23 +61,24 @@ namespace SymphonyFrameWork.Editor
             EnumGenerator.EnumGenerate(InternalEditorUtility.layers,
                 EditorSymphonyConstant.LayersEnumFileName, true);
         }
-
-        // ReSharper disable Unity.PerformanceAnalysis
         public static async void AudioEnumGenerate()
         {
             await Awaitable.NextFrameAsync(); //ドメインリロードを避けるために待機
-            
+
             var config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
+            string[] list = null;
             if (config)
             {
-                EnumGenerator.EnumGenerate(
-                        config.AudioGroupSettingList.Select(s => s.AudioGroupName).ToArray(),
-                        EditorSymphonyConstant.AudioGroupTypeEnumName);
+                list = config.AudioGroupSettingList.Select(s => s.AudioGroupName).ToArray();
             }
             else
             {
                 Debug.LogWarning("Audio group settings not found.");
+                list = Array.Empty<string>();
             }
+
+            EnumGenerator.EnumGenerate(list,
+                EditorSymphonyConstant.AudioGroupTypeEnumName);
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿using SymphonyFrameWork.Core;
-using System;
-using System.IO;
+﻿using System.IO;
+using SymphonyFrameWork.Core;
 using UnityEditor;
 
 namespace SymphonyFrameWork.Editor
@@ -19,7 +18,7 @@ namespace SymphonyFrameWork.Editor
 
         private static void EnumInitialize()
         {
-            string path = $"Packages/{SymphonyConstant.SYMPHONY_PACKAGE}/Enum"; //パッケージ内のEnumフォルダ
+            var path = $"Packages/{SymphonyConstant.SYMPHONY_PACKAGE}/Enum"; //パッケージ内のEnumフォルダ
 
             if (Directory.Exists(path))
             {
@@ -38,7 +37,8 @@ namespace SymphonyFrameWork.Editor
                 }
                 else
                 {
-                    var enumAsmdefPath = Path.Combine(EditorSymphonyConstant.ENUM_PATH, "SymphonyFrameWork.Enum.asmdef");
+                    var enumAsmdefPath =
+                        Path.Combine(EditorSymphonyConstant.ENUM_PATH, "SymphonyFrameWork.Enum.asmdef");
                     var mainAsmdefPath = EditorSymphonyConstant.FRAMEWORK_PATH() + "/SymphonyFrameWork.asmdef";
                     AssemblyGenerator.AddAsssemblyReference(mainAsmdefPath, enumAsmdefPath);
                 }

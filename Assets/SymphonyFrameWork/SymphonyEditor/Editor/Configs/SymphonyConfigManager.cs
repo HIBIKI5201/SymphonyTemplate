@@ -10,14 +10,8 @@ namespace SymphonyFrameWork.Editor
     /// <summary>
     ///     コンフィグ用データを生成するクラス
     /// </summary>
-    [InitializeOnLoad]
     public static class SymphonyConfigManager
     {
-        static SymphonyConfigManager()
-        {
-            AllConfigCheck();
-        }
-
         internal static void AllConfigCheck()
         {
             FileCheck<SceneManagerConfig>(ConfigType.Runtime);
