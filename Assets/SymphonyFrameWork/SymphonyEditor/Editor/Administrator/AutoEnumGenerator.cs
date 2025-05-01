@@ -61,10 +61,8 @@ namespace SymphonyFrameWork.Editor
             EnumGenerator.EnumGenerate(InternalEditorUtility.layers,
                 EditorSymphonyConstant.LayersEnumFileName, true);
         }
-        public static async void AudioEnumGenerate()
+        public static void AudioEnumGenerate()
         {
-            await Awaitable.NextFrameAsync(); //ドメインリロードを避けるために待機
-
             var config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();
             string[] list = null;
             if (config)
