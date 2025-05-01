@@ -127,6 +127,11 @@ namespace SymphonyFrameWork.System
             SymphonyDebugLog.TextLog();
         }
 
+        /// <summary>
+        ///     指定したミキサーの音量を割合で変更する
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="value">割合(0~1)</param>
         public static void VolumeSliderChanged(AudioGroupTypeEnum type, float value)
         {
             AudioSourceInitialize();
@@ -156,6 +161,11 @@ namespace SymphonyFrameWork.System
             _config?.AudioMixer.SetFloat(data.ExposedName, db);
         }
 
+        /// <summary>
+        ///     指定されたAudioSourceを取得する
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static AudioSource GetAudioSource(AudioGroupTypeEnum type)
         {
             AudioSourceInitialize();
