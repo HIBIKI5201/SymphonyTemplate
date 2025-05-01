@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.16] - 2025-05-2
+### Fix
+- PackageInitializer
+
 ## [1.20.15] - 2025-04-29
 ### Update
 - PackageInitializer
