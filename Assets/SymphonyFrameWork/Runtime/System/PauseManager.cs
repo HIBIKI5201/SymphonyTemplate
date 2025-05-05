@@ -36,6 +36,18 @@ namespace SymphonyFrameWork.System
         public static event Action<bool> OnPauseChanged;
 
         /// <summary>
+        ///     ポーズ時に停止するNextFrameAsync
+        /// </summary>
+        /// <param name="token"></param>
+        public static async Task PausableNextFrameAsync(CancellationToken token = default)
+        {
+            //ポーズ中は終わるまで待機し続ける
+            if (_pause) await Awaitable.NextFrameAsync(token);
+            
+            await Awaitable.NextFrameAsync(token);
+        }
+
+        /// <summary>
         ///     ポーズ時に停止するWaitForSecond
         /// </summary>
         /// <param name="time"></param>
