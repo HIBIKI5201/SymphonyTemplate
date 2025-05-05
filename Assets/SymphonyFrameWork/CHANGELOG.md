@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.17] - 2025-05-05
+### Update
+- PauseManager
+
 ## [1.20.16] - 2025-05-2
 ### Fix
 - PackageInitializer
