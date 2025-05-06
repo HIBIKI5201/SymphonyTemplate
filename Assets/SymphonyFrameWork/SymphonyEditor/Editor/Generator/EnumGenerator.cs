@@ -101,7 +101,9 @@ namespace SymphonyFrameWork.Editor
                 AssetDatabase.ImportAsset(resourcesPath, ImportAssetOptions.ForceUpdate);
             }
 
-            AssemblyGenerator.CreateEnumAssembly();
+            AssemblyGenerator.CreateEnumAssembly(
+                EditorSymphonyConstant.ENUM_PATH + "/SymphonyFrameWork.Enum",
+                EditorSymphonyConstant.FRAMEWORK_PATH() + "/SymphonyFrameWork");
 
             AssetDatabase.Refresh();
         }
