@@ -37,14 +37,11 @@ namespace SymphonyFrameWork.Editor
                     AutoEnumGenerator.LayersEnumGenerate();
                     AutoEnumGenerator.AudioEnumGenerate();
                 }
-                else
-                {
-                    var enumAsmdefPath =
-                        Path.Combine(EditorSymphonyConstant.ENUM_PATH, "SymphonyFrameWork.Enum.asmdef");
-                    var mainAsmdefPath = EditorSymphonyConstant.FRAMEWORK_PATH() + "/SymphonyFrameWork.asmdef";
-                    AssemblyGenerator.AddAsssemblyReference(mainAsmdefPath, enumAsmdefPath);
-                }
             }
+            
+            var enumAsmdefPath = EditorSymphonyConstant.ENUM_PATH + "/SymphonyFrameWork.Enum.asmdef";
+            var mainAsmdefPath = EditorSymphonyConstant.FRAMEWORK_PATH() + "/SymphonyFrameWork.asmdef";
+            AssemblyGenerator.AddAsssemblyReference(mainAsmdefPath, enumAsmdefPath);
         }
     }
 }
