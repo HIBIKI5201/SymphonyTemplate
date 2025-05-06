@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.20.18] - 2025-05-06
+### Fix
+- AssemblyGenerator
+- EnumGenerator
+
 ## [1.20.17] - 2025-05-05
 ### Update
 - PauseManager
