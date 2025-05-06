@@ -14,6 +14,8 @@ namespace SymphonyFrameWork.Editor
         {
             SymphonyConfigManager.AllConfigCheck();
             EnumInitialize();
+            
+            AssetDatabase.Refresh();
         }
 
         private static void EnumInitialize()
@@ -27,22 +29,19 @@ namespace SymphonyFrameWork.Editor
                 FileUtil.DeleteFileOrDirectory(path + ".meta");
                 AssetDatabase.Refresh();
 
+                //Enumファイルが無ければ生成する
                 if (!Directory.Exists(EditorSymphonyConstant.ENUM_PATH))
                 {
-                    //Enumファイルを生成する
                     AutoEnumGenerator.SceneListEnumGenerate();
                     AutoEnumGenerator.TagsEnumGenerate();
                     AutoEnumGenerator.LayersEnumGenerate();
                     AutoEnumGenerator.AudioEnumGenerate();
                 }
-                else
-                {
-                    var enumAsmdefPath =
-                        Path.Combine(EditorSymphonyConstant.ENUM_PATH, "SymphonyFrameWork.Enum.asmdef");
-                    var mainAsmdefPath = EditorSymphonyConstant.FRAMEWORK_PATH() + "/SymphonyFrameWork.asmdef";
-                    AssemblyGenerator.AddAsssemblyReference(mainAsmdefPath, enumAsmdefPath);
-                }
             }
+            
+            var enumAsmdefPath = EditorSymphonyConstant.ENUM_PATH + "/SymphonyFrameWork.Enum.asmdef";
+            var mainAsmdefPath = EditorSymphonyConstant.FRAMEWORK_PATH() + "/SymphonyFrameWork.asmdef";
+            AssemblyGenerator.AddAsssemblyReference(mainAsmdefPath, enumAsmdefPath);
         }
     }
 }
