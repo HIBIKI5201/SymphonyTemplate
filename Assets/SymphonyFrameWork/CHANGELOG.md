@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.21.0] - 2025-05-14
+### Fix
+- EditorSymphonyConstant
+
 ## [1.20.19] - 2025-05-14
 ### Update
 - SceneLoader
@@ -304,49 +308,49 @@
 - SaveDataSystem
 - PauseManager
 
-## [1.16] - 2025-02-16
+## [1.16.0] - 2025-02-16
 ### Add
 - SymphonyVisualElement
 
-## [1.15] - 2025-02-16
+## [1.15.0] - 2025-02-16
 ### Update
 - SceneLoader
 
-## [1.14] - 2025-02-15
+## [1.14.0] - 2025-02-15
 ### Fix
 - SymphonySystem
 - SceneLoader
 
-## [1.13] - 2025-02-15
+## [1.13.0] - 2025-02-15
 ### Add
 - SymphonySystem
 
-## [1.12] - 2025-02-15
+## [1.12.0] - 2025-02-15
 ### Add
 - SymphonyUtility
 ### Update
 - SingletonDirector -> ServiceLocator
 
-## [1.11] - 2025-02-14
+## [1.11.0] - 2025-02-14
 ### Add
 - Assembly Definition
 
-## [1.03] - 2025-02-14
+## [1.03.0] - 2025-02-14
 ### Update
 - SymphonyDebugLog
 
-## [1.02] - 2025-02-14
+## [1.02.0] - 2025-02-14
 ### Add
 - PauseManager
 
-## [1.01] - 2025-02-13
+## [1.01.0] - 2025-02-13
 ### Update
 - SymphonyStopWatch
 ### Fix
 - SingletonDirector
 - SymphonyTask
 
-## [1.00] - 2025-02-13
+## [1.00.0] - 2025-02-13
 ### Add
 - SaveDataSystem
 - SceneLoader
