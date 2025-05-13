@@ -13,6 +13,7 @@ namespace SymphonyFrameWork.System
     public static class SceneLoader
     {
         private static readonly Dictionary<string, Scene> _sceneDict = new();
+        private static readonly HashSet<string> _loadingSceneList = new();
 
         internal static void Initialize()
         {
@@ -67,7 +68,9 @@ namespace SymphonyFrameWork.System
         /// <param name="sceneName">シーン名</param>
         /// <param name="loadingAction">ロードの進捗率を引数にしたメソッド</param>
         /// <returns>ロードに成功したか</returns>
-        public static async Task<bool> LoadScene(string sceneName, Action<float> loadingAction = null, LoadSceneMode mode = LoadSceneMode.Additive)
+        public static async Task<bool> LoadScene(string sceneName,
+            Action<float> loadingAction = null,
+            LoadSceneMode mode = LoadSceneMode.Additive)
         {
             //ロードしようとしているシーンが既にないか確認
             if (_sceneDict.ContainsKey(sceneName))
@@ -83,7 +86,9 @@ namespace SymphonyFrameWork.System
                 Debug.LogError($"{sceneName}シーンは登録されていません");
                 return false;
             }
-
+            
+            _loadingSceneList.Add(sceneName);
+            
             //ロード中の処理
             while (!operation.isDone)
             {
@@ -96,6 +101,8 @@ namespace SymphonyFrameWork.System
             {
                 _sceneDict.Clear();
             }
+            
+            _loadingSceneList.Remove(sceneName);
 
             //辞書にシーン名とシーン情報を保存
             var loadedScene = SceneManager.GetSceneByName(sceneName);
@@ -138,6 +145,18 @@ namespace SymphonyFrameWork.System
             _sceneDict.Remove(sceneName);
 
             return true;
+        }
+
+        /// <summary>
+        ///     指定したシーンがロードされるまで待機する
+        /// </summary>
+        /// <param name="sceneName"></param>
+        public static async Task WaitForLoadScene(string sceneName)
+        {
+            while (_loadingSceneList.Contains(sceneName))
+            {
+                await Awaitable.NextFrameAsync();
+            }
         }
     }
 }
