@@ -36,6 +36,14 @@ public class VersionLogGenerator : EditorWindow
         var log = ReadChangelog();
         ConvertLogData(log);
 
+        #region バージョンの最新を生成
+
+        var version = logs[0].version.Split('.');
+        version[2] = (int.Parse(version[2]) + 1).ToString();
+        logs[0].version = string.Join(".", version);
+
+        #endregion
+
         OnShowWindow?.Invoke();
     }
 
@@ -82,9 +90,11 @@ public class VersionLogGenerator : EditorWindow
                             case "Add":
                                 data.addText.Add(lines[i].Substring(2));
                                 break;
+                            
                             case "Update":
                                 data.updateText.Add(lines[i].Substring(2));
                                 break;
+                            
                             case "Fix":
                                 data.fixText.Add(lines[i].Substring(2));
                                 break;
@@ -151,7 +161,7 @@ public class VersionLogGenerator : EditorWindow
             return;
         }
 
-        logs = new List<LogData>() { data }.Concat(logs).ToList();
+        logs = new List<LogData> { data }.Concat(logs).ToList();
 
         string text = $"# Changelog\n\n" +
             string.Join("\n\n", logs) + "\n";
