@@ -32,11 +32,10 @@ namespace SymphonyFrameWork.Core
         public static string RESOURCES_EDITOR_PATH = "Assets/Editor/" + SymphonyConstant.SYMPHONY_FRAMEWORK + "/Configs";
         public static string ENUM_PATH = (IsPackage() ? 
             "Assets/Scripts/" + SymphonyConstant.SYMPHONY_FRAMEWORK :
-            "Packages/" + SymphonyConstant.SYMPHONY_PACKAGE)
-            + "/Enum";
+            "Packages/" + SymphonyConstant.SYMPHONY_PACKAGE) + "/Enum";
         #endregion
 
-        public static string UITK_PATH = FRAMEWORK_PATH() + "/SymphonyEditor/Editor/Administrator/UITK/";
+        public static string UITK_PATH = FRAMEWORK_PATH() + "/Editor/Administrator/UITK/";
 
         #region ウィンドウのコンフィグ
         public const string ServiceLocatorSetInstanceKey = "ServiceLocatorSetInstanceLog";
