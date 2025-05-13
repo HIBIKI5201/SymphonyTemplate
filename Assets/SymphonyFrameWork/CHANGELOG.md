@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.19] - 2025-05-14
+### Update
+- SceneLoader
+
 ## [1.20.18] - 2025-05-06
 ### Fix
 - AssemblyGenerator
