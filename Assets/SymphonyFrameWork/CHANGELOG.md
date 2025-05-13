@@ -1,88 +1,92 @@
 # Changelog
 
+## [1.21.1] - 2025-05-14
+### Update
+- SymphonyLocate
+
 ## [1.21.0] - 2025-05-14
 ### Fix
 - EditorSymphonyConstant
 
-## [1.20.19] - 2025-05-14
+## [1.20.18] - 2025-05-14
 ### Update
 - SceneLoader
 
-## [1.20.18] - 2025-05-06
+## [1.20.17] - 2025-05-06
 ### Fix
 - AssemblyGenerator
 - EnumGenerator
 
-## [1.20.17] - 2025-05-05
+## [1.20.16] - 2025-05-05
 ### Update
 - PauseManager
 
-## [1.20.16] - 2025-05-2
+## [1.20.15] - 2025-05-2
 ### Fix
 - PackageInitializer
 
-## [1.20.15] - 2025-04-29
+## [1.20.14] - 2025-04-29
 ### Update
 - PackageInitializer
 - SymphonyConfigManager
 
-## [1.20.14] - 2025-04-05
+## [1.20.13] - 2025-04-05
 ### Fix
 - AutoEnumGeneratorConfig
 - SymphonyAdministrator
 
-## [1.20.13] - 2025-04-05
+## [1.20.12] - 2025-04-05
 ### Update
 - SceneLoader
 
-## [1.20.12] - 2025-04-05
+## [1.20.11] - 2025-04-05
 ### Fix
 - PackageInitializer
 
-## [1.20.11] - 2025-04-05
+## [1.20.10] - 2025-04-05
 ### Update
 - AudioManager
 
-## [1.20.10] - 2025-04-05
+## [1.20.9] - 2025-04-05
 ### Fix
 - AutoEnumGenerator
 
-## [1.20.9] - 2025-04-05
+## [1.20.8] - 2025-04-05
 ### Fix
 - PackageInitializer
 
-## [1.20.8] - 2025-03-12
+## [1.20.7] - 2025-03-12
 ### Update
 - SymphonyAdministrator
 
-## [1.20.7] - 2025-03-12
+## [1.20.6] - 2025-03-12
 ### Fix
 - EnumGenerator
 
-## [1.20.6] - 2025-03-12
+## [1.20.5] - 2025-03-12
 ### Add
 - PackageInitializer
 
-## [1.20.5] - 2025-03-10
+## [1.20.4] - 2025-03-10
 ### Fix
 - SymphonyConfigLocator
 - SymphonyEditorConfigLocator
 
-## [1.20.4] - 2025-03-10
+## [1.20.3] - 2025-03-10
 ### Add
 - AssemblyGenerator
 ### Fix
 - EnumGenerator
 
-## [1.20.3] - 2025-03-10
+## [1.20.2] - 2025-03-10
 ### Update
 - SymphonyPackageLoader
 
-## [1.20.2] - 2025-03-08
+## [1.20.1] - 2025-03-08
 ### Update
 - FoldierGenerator
 
-## [1.20.1] - 2025-03-05
+## [1.20.0] - 2025-03-05
 ### Update
 - AutoEnumGenerator
 - AutoEnumGeneratorConfig
