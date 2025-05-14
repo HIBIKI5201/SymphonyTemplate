@@ -15,7 +15,7 @@ namespace SymphonyFrameWork.Utility
         private Component _target;
 
         [SerializeField] private bool _autoSet = true;
-        [SerializeField] private bool _autoDestroy = false;
+        [SerializeField] private bool _autoDestroy = true;
         private void Awake()
         {
             if (!_autoSet) return;
