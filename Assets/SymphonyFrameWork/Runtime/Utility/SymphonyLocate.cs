@@ -14,7 +14,7 @@ namespace SymphonyFrameWork.Utility
         [SerializeField] [Tooltip("ロケートするコンポーネント")]
         private Component _target;
 
-        private void OnEnable()
+        private void Awake()
         {
             if (_target)
             {
@@ -29,7 +29,7 @@ namespace SymphonyFrameWork.Utility
             }
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             if (_target)
             {

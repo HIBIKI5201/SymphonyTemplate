@@ -20,23 +20,22 @@ namespace SymphonyFrameWork.Editor
 
         private static void EnumInitialize()
         {
+            //Enumファイルが無ければ生成する
+            if (!Directory.Exists(EditorSymphonyConstant.ENUM_PATH))
+            {
+                AutoEnumGenerator.SceneListEnumGenerate();
+                AutoEnumGenerator.TagsEnumGenerate();
+                AutoEnumGenerator.LayersEnumGenerate();
+                AutoEnumGenerator.AudioEnumGenerate();
+            }
+            
+            //パッケージ内のEnumを消す
             var path = $"Packages/{SymphonyConstant.SYMPHONY_PACKAGE}/Enum"; //パッケージ内のEnumフォルダ
-
             if (Directory.Exists(path))
             {
-                //パッケージ内のEnumを消す
                 FileUtil.DeleteFileOrDirectory(path);
                 FileUtil.DeleteFileOrDirectory(path + ".meta");
                 AssetDatabase.Refresh();
-
-                //Enumファイルが無ければ生成する
-                if (!Directory.Exists(EditorSymphonyConstant.ENUM_PATH))
-                {
-                    AutoEnumGenerator.SceneListEnumGenerate();
-                    AutoEnumGenerator.TagsEnumGenerate();
-                    AutoEnumGenerator.LayersEnumGenerate();
-                    AutoEnumGenerator.AudioEnumGenerate();
-                }
             }
             
             var enumAsmdefPath = EditorSymphonyConstant.ENUM_PATH + "/SymphonyFrameWork.Enum.asmdef";

@@ -15,13 +15,13 @@ public class VersionLogGenerator : EditorWindow
 
     private static List<LogData> logs = new();
 
-    private LogData data = new();
+    private LogData _newData = new();
 
     VersionLogGenerator()
     {
         OnShowWindow += () =>
         {
-            data.version = logs.FirstOrDefault().version;
+            _newData.version = logs.FirstOrDefault().version;
         };
     }
 
@@ -35,6 +35,14 @@ public class VersionLogGenerator : EditorWindow
 
         var log = ReadChangelog();
         ConvertLogData(log);
+
+        #region バージョンの最新を生成
+
+        var version = logs[0].version.Split('.');
+        version[2] = (int.Parse(version[2]) + 1).ToString();
+        logs[0].version = string.Join(".", version);
+
+        #endregion
 
         OnShowWindow?.Invoke();
     }
@@ -82,9 +90,11 @@ public class VersionLogGenerator : EditorWindow
                             case "Add":
                                 data.addText.Add(lines[i].Substring(2));
                                 break;
+                            
                             case "Update":
                                 data.updateText.Add(lines[i].Substring(2));
                                 break;
+                            
                             case "Fix":
                                 data.fixText.Add(lines[i].Substring(2));
                                 break;
@@ -102,8 +112,8 @@ public class VersionLogGenerator : EditorWindow
     private void OnGUI()
     {
         DateTime date = DateTime.Now;
-        data.date = $"{date.Year.ToString("0000")}-{date.Month.ToString("00")}-{date.Day.ToString("00")}";
-        GUILayout.Label("date: " + data.date);
+        _newData.date = $"{date.Year.ToString("0000")}-{date.Month.ToString("00")}-{date.Day.ToString("00")}";
+        GUILayout.Label("date: " + _newData.date);
 
         if (GUILayout.Button("Add Log"))
         {
@@ -111,12 +121,12 @@ public class VersionLogGenerator : EditorWindow
         }
 
         // テキストフィールドを追加
-        data.version = EditorGUILayout.TextField("version", data.version);
+        _newData.version = EditorGUILayout.TextField("version", _newData.version);
 
         // リストの編集
-        ListGUI("AddText", ref data.addText);
-        ListGUI("UpdateText", ref data.updateText);
-        ListGUI("FixText", ref data.fixText);
+        ListGUI("AddText", ref _newData.addText);
+        ListGUI("UpdateText", ref _newData.updateText);
+        ListGUI("FixText", ref _newData.fixText);
     }
 
     private void ListGUI(string label, ref List<string> list)
@@ -145,20 +155,26 @@ public class VersionLogGenerator : EditorWindow
 
     private void AddLog()
     {
-        if (logs.Select(data => data.version).Contains(data.version))
+        //ログにこのバージョンが含まれているか
+        string[] versions = logs.Select(l => l.version).ToArray();
+        var version = versions[0].Split('.');
+        version[2] = (int.Parse(version[2]) - 1).ToString();
+        versions[0] = string.Join(".", version);
+        
+        if (versions.Contains(_newData.version))
         {
-            Debug.LogWarning($"version :{data.version}は既に存在します");
+            Debug.LogWarning($"version :{_newData.version}は既に存在します");
             return;
         }
 
-        logs = new List<LogData>() { data }.Concat(logs).ToList();
+        logs = new List<LogData> { _newData }.Concat(logs).ToList();
 
         string text = $"# Changelog\n\n" +
             string.Join("\n\n", logs) + "\n";
 
         File.WriteAllText(logPath, text);
 
-        Debug.Log($"ログを追加\n{data}");
+        Debug.Log($"ログを追加\n{_newData}");
 
         Close();
     }

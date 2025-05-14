@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using SymphonyFrameWork.Debugger;
@@ -150,6 +152,29 @@ namespace SymphonyFrameWork.System
                 }
 #endif
             }
+        }
+
+        /// <summary>
+        ///     インスタンスが返されるまで待機する
+        /// </summary>
+        /// <param name="counter">最大待機フレーム数</param>
+        /// <param name="token"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<T> GetInstanceAsync<T>(byte counter = 120, CancellationToken token = default) where T : Component
+        {
+            while (counter > 0)
+            {
+                T result = GetInstance<T>();
+                
+                if (result) //nullでなければ返して終了
+                    return result;
+                
+                await Awaitable.NextFrameAsync(token);
+                counter--;
+            }
+
+            return null;
         }
     }
 }
