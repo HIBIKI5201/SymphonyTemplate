@@ -13,7 +13,7 @@ namespace SymphonyFrameWork.System
     public static class SceneLoader
     {
         private static readonly Dictionary<string, Scene> _sceneDict = new();
-        private static readonly HashSet<string> _loadingSceneList = new();
+        private static readonly Dictionary<string, Action> _loadingSceneDict = new();
 
         internal static void Initialize()
         {
@@ -40,6 +40,7 @@ namespace SymphonyFrameWork.System
         ///     ない場合はnullを返す
         /// </summary>
         /// <param name="sceneName"></param>
+        /// <param name="scene"></param>
         /// <returns></returns>
         public static bool GetExistScene(string sceneName, out Scene scene)
         {
@@ -67,6 +68,7 @@ namespace SymphonyFrameWork.System
         /// </summary>
         /// <param name="sceneName">シーン名</param>
         /// <param name="loadingAction">ロードの進捗率を引数にしたメソッド</param>
+        /// <param name="mode"></param>
         /// <returns>ロードに成功したか</returns>
         public static async Task<bool> LoadScene(string sceneName,
             Action<float> loadingAction = null,
@@ -86,9 +88,9 @@ namespace SymphonyFrameWork.System
                 Debug.LogError($"{sceneName}シーンは登録されていません");
                 return false;
             }
-            
-            _loadingSceneList.Add(sceneName);
-            
+
+            _loadingSceneDict.Add(sceneName, null);
+
             //ロード中の処理
             while (!operation.isDone)
             {
@@ -101,18 +103,23 @@ namespace SymphonyFrameWork.System
             {
                 _sceneDict.Clear();
             }
-            
-            _loadingSceneList.Remove(sceneName);
+
+            //ロード終了後にロード待ちしていたイベントを実行
+            if (_loadingSceneDict.TryGetValue(sceneName, out var action))
+            {
+                action?.Invoke();
+                _loadingSceneDict.Remove(sceneName);
+            }
 
             //辞書にシーン名とシーン情報を保存
             var loadedScene = SceneManager.GetSceneByName(sceneName);
-            if (loadedScene.IsValid() && loadedScene.isLoaded)
+            var isLoadSuccess = loadedScene.IsValid() && loadedScene.isLoaded;
+            if (isLoadSuccess)
             {
                 _sceneDict.TryAdd(sceneName, loadedScene);
-                return true;
             }
 
-            return false;
+            return loadedScene.IsValid() && loadedScene.isLoaded;
         }
 
         /// <summary>
@@ -148,12 +155,45 @@ namespace SymphonyFrameWork.System
         }
 
         /// <summary>
+        ///     シーンがロードされた時に実行される
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <param name="action"></param>
+        public static void RegistorAfterSceneLoad(string sceneName, Action action)
+        {
+            //既にロードされていたら終了
+            if (_sceneDict.ContainsKey(sceneName))
+            {
+                action?.Invoke();
+                return;
+            }
+
+            if (_loadingSceneDict.TryGetValue(sceneName, out var a))
+            {
+                a += action;
+            }
+        }
+
+        /// <summary>
         ///     指定したシーンがロードされるまで待機する
         /// </summary>
         /// <param name="sceneName"></param>
+        public static async Task WaitForLoadSceneAsync(string sceneName)
+        {
+            while (_loadingSceneDict.ContainsKey(sceneName))
+            {
+                await Awaitable.NextFrameAsync();
+            }
+        }
+
+        /// <summary>
+        ///     指定したシーンがロードされるまで待機する
+        /// </summary>
+        /// <param name="sceneName"></param>
+        [Obsolete]
         public static async Task WaitForLoadScene(string sceneName)
         {
-            while (_loadingSceneList.Contains(sceneName))
+            while (_loadingSceneDict.ContainsKey(sceneName))
             {
                 await Awaitable.NextFrameAsync();
             }
