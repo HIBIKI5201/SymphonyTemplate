@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.21.5] - 2025-05-18
+### Fix
+- SceneLoader
+
+## [1.21.4] - 2025-05-18
+### Update
+- ServiceLocator
+
+## [1.21.3] - 2025-05-15
+### Update
+- SceneLoader
+
 ## [1.21.2] - 2025-05-14
 ### Update
 - ServiceLocator
