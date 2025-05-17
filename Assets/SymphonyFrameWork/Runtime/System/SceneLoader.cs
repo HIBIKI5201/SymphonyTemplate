@@ -159,7 +159,7 @@ namespace SymphonyFrameWork.System
         /// </summary>
         /// <param name="sceneName"></param>
         /// <param name="action"></param>
-        public static void RegistorAfterSceneLoad(string sceneName, Action action)
+        public static void RegisterAfterSceneLoad(string sceneName, Action action)
         {
             //既にロードされていたら終了
             if (_sceneDict.ContainsKey(sceneName))
@@ -168,9 +168,9 @@ namespace SymphonyFrameWork.System
                 return;
             }
 
-            if (_loadingSceneDict.TryGetValue(sceneName, out var a))
+            if (!_loadingSceneDict.TryAdd(sceneName, action))
             {
-                a += action;
+                _loadingSceneDict[sceneName] += action;
             }
         }
 
