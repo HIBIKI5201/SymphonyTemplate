@@ -7,7 +7,6 @@ using Object = UnityEngine.Object;
 using SymphonyFrameWork.Debugger;
 using SymphonyFrameWork.Core;
 
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -30,7 +29,10 @@ namespace SymphonyFrameWork.System
 
         [Tooltip("シングルトン登録されている型のインスタンス辞書")]
         private static readonly Dictionary<Type, Component> _singletonObjects = new();
-
+        
+        [Tooltip("シングルトン登録まで待機してから実行されるイベント")]
+        private static readonly Dictionary<Type, Action> _waitingActions = new();
+        
         internal static void Initialize()
         {
             _instance = null;
@@ -66,6 +68,7 @@ namespace SymphonyFrameWork.System
             }
 
 #if UNITY_EDITOR
+            //ログを出力
             if (EditorPrefs.GetBool(EditorSymphonyConstant.ServiceLocatorSetInstanceKey,
                 EditorSymphonyConstant.ServiceLocatorSetInstanceDefault))
                 Debug.Log($"{typeof(T).Name}クラスの{instance.name}が" +
@@ -101,6 +104,7 @@ namespace SymphonyFrameWork.System
                 _singletonObjects.Remove(typeof(T));
 
 #if UNITY_EDITOR
+                //ログを出力
                 if (EditorPrefs.GetBool(EditorSymphonyConstant.ServiceLocatorDestroyInstanceKey,
                     EditorSymphonyConstant.ServiceLocatorDestroyInstanceDefault))
                     Debug.Log($"{typeof(T).Name}が破棄されました");
@@ -121,6 +125,7 @@ namespace SymphonyFrameWork.System
         public static T GetInstance<T>() where T : Component
         {
 #if UNITY_EDITOR
+            //ログを出力
             if (EditorPrefs.GetBool(EditorSymphonyConstant.ServiceLocatorGetInstanceKey,
                 EditorSymphonyConstant.ServiceLocatorGetInstanceDefault))
                 SymphonyDebugLog.AddText($"ServiceLocator\n{typeof(T).Name}の取得がリクエストされました。");
@@ -155,15 +160,36 @@ namespace SymphonyFrameWork.System
         }
 
         /// <summary>
+        ///     オブジェクトが登録された時に実行される
+        /// </summary>
+        /// <param name="action"></param>
+        public static void RegisterAfterLocate<T>(Action action) where T : Component
+        {
+            //既にロードされていたら終了
+            if (_singletonObjects.ContainsKey(typeof(T)))
+            {
+                action?.Invoke();
+                return;
+            }
+
+            if (!_waitingActions.TryAdd(typeof(T), action))
+            {
+                _waitingActions[typeof(T)] += action;
+            }
+        }
+
+        /// <summary>
         ///     インスタンスが返されるまで待機する
         /// </summary>
-        /// <param name="counter">最大待機フレーム数</param>
+        /// <param name="grace">最大待機フレーム数</param>
         /// <param name="token"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static async Task<T> GetInstanceAsync<T>(byte counter = 120, CancellationToken token = default) where T : Component
+        public static async Task<T> GetInstanceAsync<T>(byte grace = 120, CancellationToken token = default) where T : Component
         {
-            while (counter > 0)
+            float time = Time.time;
+            
+            while (grace + time < Time.time)
             {
                 T result = GetInstance<T>();
                 
@@ -171,7 +197,6 @@ namespace SymphonyFrameWork.System
                     return result;
                 
                 await Awaitable.NextFrameAsync(token);
-                counter--;
             }
 
             return null;
