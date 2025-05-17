@@ -74,8 +74,15 @@ namespace SymphonyFrameWork.System
                 Debug.Log($"{typeof(T).Name}クラスの{instance.name}が" +
                     $"{type switch { LocateType.Locator => "ロケート", LocateType.Singleton => "シングルトン", _ => string.Empty }}登録されました");
 #endif
+            
+            //待機中のイベントを発火
+            if (_waitingActions.TryGetValue(typeof(T), out var action))
+            {
+                action?.Invoke();
+                _waitingActions.Remove(typeof(T));
+            }
 
-            if (type == LocateType.Singleton)
+            if (type == LocateType.Singleton) //もしシングルトンなら親をLocatorに設定
             {
                 CreateInstance();
                 instance.transform.SetParent(_instance.transform);
