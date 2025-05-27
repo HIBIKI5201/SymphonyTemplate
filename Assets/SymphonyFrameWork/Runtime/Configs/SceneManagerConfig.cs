@@ -13,13 +13,13 @@ namespace SymphonyFrameWork.Config
         private bool _isActiveLoadScene;
 
         [SerializeField] [Tooltip("ロード中に表示されるシーン")]
-        private SceneListEnum _loadScene;
+        private string _loadScene;
 
         [SerializeField] [Tooltip("初期化時にロードするシーン")]
-        private List<SceneListEnum> _initializeSceneList;
+        private List<string> _initializeSceneList;
 
         public bool IsActiveLoadScene => _isActiveLoadScene;
-        public SceneListEnum LoadScene => _loadScene;
-        public List<SceneListEnum> InitializeSceneList => _initializeSceneList;
+        public string LoadScene => _loadScene;
+        public List<string> InitializeSceneList => _initializeSceneList;
     }
 }
