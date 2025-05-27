@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.21.9] - 2025-05-28
+### Update
+- AudioManager
+
+## [1.21.8] - 2025-05-28
+### Fix
+- SceneManagerConfig
+
 ## [1.21.7] - 2025-05-19
 ### Fix
 - ServiceLocator
