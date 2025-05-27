@@ -17,7 +17,7 @@ namespace SymphonyFrameWork.System
         private static GameObject _instance;
 
         private static
-            Dictionary<AudioGroupTypeEnum, AudioSettingData> _audioDict = new();
+            Dictionary<string, AudioSettingData> _audioDict = new();
 
         private struct AudioSettingData
         {
@@ -73,12 +73,10 @@ namespace SymphonyFrameWork.System
 
             SymphonyDebugLog.AddText("Audio Managerを初期化しました。");
 
-            foreach (AudioGroupTypeEnum type in Enum.GetValues(typeof(AudioGroupTypeEnum)))
+            foreach (string name in _config.AudioGroupSettingList.Select(s => s.AudioGroupName))
+                
+                
             {
-                if (type == AudioGroupTypeEnum.None) continue;
-
-                //Enumの名前を出す
-                string name = type.ToString();
                 if (string.IsNullOrEmpty(name))
                 {
                     continue;
@@ -116,7 +114,7 @@ namespace SymphonyFrameWork.System
                     }
 
                     //各情報を追加
-                    _audioDict.Add(type, new AudioSettingData(group, source, data.ExposedParameterName, volume ?? 0));
+                    _audioDict.Add(name, new AudioSettingData(group, source, data.ExposedParameterName, volume ?? 0));
                 }
                 else
                 {
@@ -132,11 +130,11 @@ namespace SymphonyFrameWork.System
         /// </summary>
         /// <param name="type"></param>
         /// <param name="value">割合(0~1)</param>
-        public static void VolumeSliderChanged(AudioGroupTypeEnum type, float value)
+        public static void VolumeSliderChanged(string name, float value)
         {
             AudioSourceInitialize();
 
-            if (type == AudioGroupTypeEnum.None)
+            if (string.IsNullOrEmpty(name))
             {
                 return;
             }
@@ -147,11 +145,11 @@ namespace SymphonyFrameWork.System
                 return;
             }
 
-            if (!_audioDict.TryGetValue(type, out var data)) return;
+            if (!_audioDict.TryGetValue(name, out var data)) return;
 
             if (data.OriginalVolume == null)
             {
-                Debug.LogWarning($"{type}のボリュームがありません");
+                Debug.LogWarning($"{name}のボリュームがありません");
                 return;
             }
 
@@ -166,16 +164,16 @@ namespace SymphonyFrameWork.System
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static AudioSource GetAudioSource(AudioGroupTypeEnum type)
+        public static AudioSource GetAudioSource(string name)
         {
             AudioSourceInitialize();
 
-            if (type == AudioGroupTypeEnum.None)
+            if (string.IsNullOrEmpty(name))
             {
                 return null;
             }
 
-            return _audioDict.TryGetValue(type, out var data) ? data.Source : null;
+            return _audioDict.TryGetValue(name, out var data) ? data.Source : null;
         }
     }
 }
