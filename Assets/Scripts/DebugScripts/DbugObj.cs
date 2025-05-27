@@ -18,6 +18,6 @@ public class DbugObj : MonoBehaviour, IGameObject
     {
         _velocity = Vector3.up * _speed;
 
-        AudioManager.VolumeSliderChanged(AudioGroupTypeEnum.BGM, 1);
+        AudioManager.VolumeSliderChanged(AudioGroupTypeEnum.BGM.ToString(), 1);
     }
 }

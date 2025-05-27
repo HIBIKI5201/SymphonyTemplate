@@ -61,6 +61,7 @@ namespace SymphonyFrameWork.Editor
             EnumGenerator.EnumGenerate(InternalEditorUtility.layers,
                 EditorSymphonyConstant.LayersEnumFileName, true);
         }
+        
         public static void AudioEnumGenerate()
         {
             var config = SymphonyConfigLocator.GetConfig<AudioManagerConfig>();

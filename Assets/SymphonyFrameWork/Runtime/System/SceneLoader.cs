@@ -23,7 +23,7 @@ namespace SymphonyFrameWork.System
             var config = SymphonyConfigLocator.GetConfig<SceneManagerConfig>();
             if (config)
                 foreach (var scene in config.InitializeSceneList)
-                    _ = LoadScene(scene.ToString());
+                    _ = LoadScene(scene);
         }
 
         /// <summary>
