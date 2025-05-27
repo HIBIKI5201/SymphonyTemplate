@@ -25,6 +25,22 @@ namespace SymphonyFrameWork.System
             Locator
         }
 
+        public static GameObject Instance
+        {
+            private set => _instance = value;
+            get
+            {
+                if (!_instance)
+                {
+                    var instance = new GameObject("ServiceLocator");
+
+                    SymphonyCoreSystem.MoveObjectToSymphonySystem(instance);
+                    _instance = instance;
+                }
+                
+                return _instance;
+            }
+        }
         [Tooltip("シングルトン化するインスタンスのコンテナ")] private static GameObject _instance;
 
         [Tooltip("シングルトン登録されている型のインスタンス辞書")]
@@ -37,19 +53,6 @@ namespace SymphonyFrameWork.System
         {
             _instance = null;
             _singletonObjects.Clear();
-        }
-
-        /// <summary>
-        ///     インスタンスコンテナが無い場合に生成する
-        /// </summary>
-        private static void CreateInstance()
-        {
-            if (_instance is not null) return;
-
-            var instance = new GameObject("ServiceLocator");
-
-            SymphonyCoreSystem.MoveObjectToSymphonySystem(instance);
-            _instance = instance;
         }
 
         /// <summary>
@@ -84,8 +87,7 @@ namespace SymphonyFrameWork.System
 
             if (type == LocateType.Singleton) //もしシングルトンなら親をLocatorに設定
             {
-                CreateInstance();
-                instance.transform.SetParent(_instance.transform);
+                instance.transform.SetParent(Instance.transform);
             }
         }
 

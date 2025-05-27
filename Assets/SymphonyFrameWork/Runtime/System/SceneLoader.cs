@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using SymphonyFrameWork.Config;
 using UnityEngine;
@@ -70,9 +71,11 @@ namespace SymphonyFrameWork.System
         /// <param name="loadingAction">ロードの進捗率を引数にしたメソッド</param>
         /// <param name="mode"></param>
         /// <returns>ロードに成功したか</returns>
-        public static async Task<bool> LoadScene(string sceneName,
+        public static async Task<bool> LoadScene(
+            string sceneName,
             Action<float> loadingAction = null,
-            LoadSceneMode mode = LoadSceneMode.Additive)
+            LoadSceneMode mode = LoadSceneMode.Additive,
+            CancellationToken token = default)
         {
             //ロードしようとしているシーンが既にないか確認
             if (_sceneDict.ContainsKey(sceneName))
@@ -81,7 +84,7 @@ namespace SymphonyFrameWork.System
                 return false;
             }
 
-            //シーンのロードを開始
+            //ロード開始
             var operation = SceneManager.LoadSceneAsync(sceneName, mode);
             if (operation == null)
             {
@@ -91,11 +94,11 @@ namespace SymphonyFrameWork.System
 
             _loadingSceneDict.Add(sceneName, null);
 
-            //ロード中の処理
+            //ロード中
             while (!operation.isDone)
             {
                 loadingAction?.Invoke(operation.progress);
-                await Awaitable.NextFrameAsync();
+                await Awaitable.NextFrameAsync(token);
             }
 
             //シングルロードの場合は辞書をクリアする
@@ -128,7 +131,10 @@ namespace SymphonyFrameWork.System
         /// <param name="sceneName">シーン名</param>
         /// <param name="loadingAction">ロードの進捗率を引数にしたメソッド</param>
         /// <returns>アンロードに成功したか</returns>
-        public static async Task<bool> UnloadScene(string sceneName, Action<float> loadingAction = null)
+        public static async Task<bool> UnloadScene(
+            string sceneName,
+            Action<float> loadingAction = null,
+            CancellationToken token = default)
         {
             if (!_sceneDict.ContainsKey(sceneName))
             {
@@ -136,6 +142,7 @@ namespace SymphonyFrameWork.System
                 return false;
             }
 
+            //アンロード開始
             var operation = SceneManager.UnloadSceneAsync(sceneName);
             if (operation == null)
             {
@@ -143,10 +150,11 @@ namespace SymphonyFrameWork.System
                 return false;
             }
 
+            //ロード中
             while (!operation.isDone)
             {
                 loadingAction?.Invoke(operation.progress);
-                await Awaitable.NextFrameAsync();
+                await Awaitable.NextFrameAsync(token);
             }
 
             _sceneDict.Remove(sceneName);
@@ -180,7 +188,7 @@ namespace SymphonyFrameWork.System
         /// <param name="sceneName"></param>
         public static async Task WaitForLoadSceneAsync(string sceneName)
         {
-            while (_loadingSceneDict.ContainsKey(sceneName))
+            while (!_loadingSceneDict.ContainsKey(sceneName))
             {
                 await Awaitable.NextFrameAsync();
             }
@@ -193,7 +201,7 @@ namespace SymphonyFrameWork.System
         [Obsolete]
         public static async Task WaitForLoadScene(string sceneName)
         {
-            while (_loadingSceneDict.ContainsKey(sceneName))
+            while (!_loadingSceneDict.ContainsKey(sceneName))
             {
                 await Awaitable.NextFrameAsync();
             }

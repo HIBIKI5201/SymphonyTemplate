@@ -1,11 +1,12 @@
 ﻿using System.IO;
 using SymphonyFrameWork.Core;
 using UnityEditor;
+using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
     /// <summary>
-    ///     UPMからインストールされた時に初期化する
+    ///     起動時に初期化する
     /// </summary>
     [InitializeOnLoad]
     public static class PackageInitializer
@@ -16,6 +17,8 @@ namespace SymphonyFrameWork.Editor
             EnumInitialize();
             
             AssetDatabase.Refresh();
+            
+            Debug.Log("Symphony Framework Initialized");
         }
 
         private static void EnumInitialize()
