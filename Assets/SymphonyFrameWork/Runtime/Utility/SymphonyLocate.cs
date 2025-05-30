@@ -14,6 +14,9 @@ namespace SymphonyFrameWork.Utility
         [SerializeField] [Tooltip("ロケートするコンポーネント")]
         private Component _target;
 
+        [SerializeField]
+        private ServiceLocator.LocateType _locateType = ServiceLocator.LocateType.Locator;
+        
         [SerializeField] private bool _autoSet = true;
         [SerializeField] private bool _autoDestroy = true;
         private void Awake()
@@ -29,7 +32,7 @@ namespace SymphonyFrameWork.Utility
                     ?.MakeGenericMethod(targetType);
 
                 method?.Invoke(null, new object[]
-                    { _target, ServiceLocator.LocateType.Locator });
+                    { _target, _locateType });
             }
         }
 
