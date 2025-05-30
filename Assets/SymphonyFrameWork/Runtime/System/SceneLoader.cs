@@ -176,10 +176,9 @@ namespace SymphonyFrameWork.System
                 return;
             }
 
-            if (!_loadingSceneDict.TryAdd(sceneName, action))
-            {
-                _loadingSceneDict[sceneName] += action;
-            }
+            //アクションを追加
+            if (_loadingSceneDict.TryGetValue(sceneName, out var value)) value += action;
+            else _loadingSceneDict.Add(sceneName, value);
         }
 
         /// <summary>

@@ -198,7 +198,7 @@ namespace SymphonyFrameWork.System
         {
             float time = Time.time;
             
-            while (grace + time < Time.time)
+            while (grace + time > Time.time)
             {
                 T result = GetInstance<T>();
                 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.21.11] - 2025-05-31
+### Update
+- SymphonyLocate
+
+## [1.21.10] - 2025-05-31
+### Fix
+- ServiceLocator
+
 ## [1.21.9] - 2025-05-28
 ### Update
 - AudioManager
