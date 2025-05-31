@@ -70,6 +70,7 @@ namespace SymphonyFrameWork.System
         /// <param name="sceneName">シーン名</param>
         /// <param name="loadingAction">ロードの進捗率を引数にしたメソッド</param>
         /// <param name="mode"></param>
+        /// <param name="token"></param>
         /// <returns>ロードに成功したか</returns>
         public static async Task<bool> LoadScene(
             string sceneName,
@@ -130,6 +131,7 @@ namespace SymphonyFrameWork.System
         /// </summary>
         /// <param name="sceneName">シーン名</param>
         /// <param name="loadingAction">ロードの進捗率を引数にしたメソッド</param>
+        /// <param name="token"></param>
         /// <returns>アンロードに成功したか</returns>
         public static async Task<bool> UnloadScene(
             string sceneName,
@@ -177,8 +179,8 @@ namespace SymphonyFrameWork.System
             }
 
             //アクションを追加
-            if (_loadingSceneDict.TryGetValue(sceneName, out var value)) value += action;
-            else _loadingSceneDict.Add(sceneName, value);
+            if (!_loadingSceneDict.TryAdd(sceneName, action))
+                _loadingSceneDict[sceneName] += action;
         }
 
         /// <summary>
@@ -187,7 +189,7 @@ namespace SymphonyFrameWork.System
         /// <param name="sceneName"></param>
         public static async Task WaitForLoadSceneAsync(string sceneName)
         {
-            while (!_loadingSceneDict.ContainsKey(sceneName))
+            while (!_sceneDict.ContainsKey(sceneName))
             {
                 await Awaitable.NextFrameAsync();
             }
@@ -200,7 +202,7 @@ namespace SymphonyFrameWork.System
         [Obsolete]
         public static async Task WaitForLoadScene(string sceneName)
         {
-            while (!_loadingSceneDict.ContainsKey(sceneName))
+            while (!_sceneDict.ContainsKey(sceneName))
             {
                 await Awaitable.NextFrameAsync();
             }
