@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.21.12] - 2025-05-31
+### Fix
+- SceneLoader
+
 ## [1.21.11] - 2025-05-31
 ### Update
 - SymphonyLocate
