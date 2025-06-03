@@ -51,7 +51,7 @@ namespace SymphonyFrameWork.Editor
         /// <summary>
         ///     ウィンドウ表示
         /// </summary>
-        [MenuItem(SymphonyConstant.MENU_PATH + WINDOW_NAME, priority = 0)]
+        [MenuItem(SymphonyConstant.WINDOW_MENU_PATH + WINDOW_NAME, priority = 0)]
         public static void ShowWindow()
         {
             var wnd = GetWindow<SymphonyAdministrator>();

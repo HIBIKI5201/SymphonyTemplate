@@ -10,6 +10,8 @@
 
         public const string RESOURCES_RUNTIME_PATH = "Assets/Resources/" + SYMPHONY_FRAMEWORK;
 
-        public const string MENU_PATH = "Window/Symphony FrameWork/";
+        public const string TOOL_MENU_PATH = "Tools/" + SYMPHONY_FRAMEWORK + "/";
+        public const string TOOL_MENU_SETTING_PATH = TOOL_MENU_PATH + "Settings/";
+        public const string WINDOW_MENU_PATH = "Window/" + SYMPHONY_FRAMEWORK + "/";
     }
 }

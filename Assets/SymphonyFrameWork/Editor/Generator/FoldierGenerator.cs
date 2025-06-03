@@ -14,7 +14,7 @@ namespace SymphonyFrameWork.Editor
         /// <summary>
         ///     規定のディレクトリ構成を生成する
         /// </summary>
-        [MenuItem(SymphonyConstant.MENU_PATH + nameof(FolderGenerator), priority = 100)]
+        [MenuItem(SymphonyConstant.TOOL_MENU_PATH + nameof(FolderGenerator), priority = 100)]
         public static void GenerateFolder()
         {
             string assetsPath = "Assets";
