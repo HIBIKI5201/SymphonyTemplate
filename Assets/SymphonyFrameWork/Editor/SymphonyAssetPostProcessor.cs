@@ -8,7 +8,7 @@ namespace SymphonyFrameWork.Editor
     /// </summary>
     public class SymphonyAssetPostProcessor : AssetPostprocessor
     {
-        private const string LOCK_PATH = SymphonyConstant.MENU_PATH + "Symphony Asset Lock";
+        private const string LOCK_PATH = SymphonyConstant.TOOL_MENU_SETTING_PATH + "Symphony Asset Lock";
 
         static SymphonyAssetPostProcessor()
         {

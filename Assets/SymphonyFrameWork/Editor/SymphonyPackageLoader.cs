@@ -41,7 +41,7 @@ namespace SymphonyFrameWork.Editor
         /// <summary>
         ///     パッケージがロードされているかチェックする
         /// </summary>
-        [MenuItem(SymphonyConstant.MENU_PATH + nameof(SymphonyPackageLoader), priority = 100)]
+        [MenuItem(SymphonyConstant.TOOL_MENU_PATH + nameof(SymphonyPackageLoader), priority = 100)]
         private static void MenuExecution()
         {
             CheckAndInstallPackagesAsync(false);
