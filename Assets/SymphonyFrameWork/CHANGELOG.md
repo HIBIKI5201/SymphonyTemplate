@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.22.0] - 2025-06-03
+### Add
+- AssetStoreToolsPackager
+
 ## [1.21.13] - 2025-06-03
 ### Update
 - ServiceLocator
