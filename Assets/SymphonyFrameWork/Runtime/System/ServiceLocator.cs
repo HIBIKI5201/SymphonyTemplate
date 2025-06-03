@@ -15,8 +15,8 @@ namespace SymphonyFrameWork.System
 {
     /// <summary>
     ///     シングルトンのインスタンスを統括して管理するクラス
+    ///     インスタンスを一時的にシーンロードから切り離したい時にも使用できる
     /// </summary>
-    //インスタンスを一時的にシーンロードから切り離したい時にも使用できる
     public static class ServiceLocator
     {
         public enum LocateType
@@ -48,7 +48,9 @@ namespace SymphonyFrameWork.System
         
         [Tooltip("シングルトン登録まで待機してから実行されるイベント")]
         private static readonly Dictionary<Type, Action> _waitingActions = new();
-        
+        [Tooltip("シングルトン登録まで待機してから実行されるイベントのインスタンスを返すイベント")]
+        private static readonly Dictionary<Type, Delegate> _waitingActionsWithInstance = new();
+
         internal static void Initialize()
         {
             _instance = null;
@@ -77,13 +79,25 @@ namespace SymphonyFrameWork.System
                 Debug.Log($"{typeof(T).Name}クラスの{instance.name}が" +
                     $"{type switch { LocateType.Locator => "ロケート", LocateType.Singleton => "シングルトン", _ => string.Empty }}登録されました");
 #endif
-            
-            //待機中のイベントを発火
-            if (_waitingActions.TryGetValue(typeof(T), out var action))
+
+            #region 待機中のイベントを発火
+            if (_waitingActions.TryGetValue(typeof(T), out var waitingAction))
             {
-                action?.Invoke();
+                waitingAction?.Invoke();
                 _waitingActions.Remove(typeof(T));
             }
+
+            if (_waitingActionsWithInstance.TryGetValue(typeof(T), out var del))
+            {
+                if (del is Action<T> waitingActionWithInstance)
+                {
+                    waitingActionWithInstance.Invoke(instance);
+                }
+
+                _waitingActionsWithInstance.Remove(typeof(T));
+            }
+
+            #endregion
 
             if (type == LocateType.Singleton) //もしシングルトンなら親をLocatorに設定
             {
@@ -184,6 +198,30 @@ namespace SymphonyFrameWork.System
             if (!_waitingActions.TryAdd(typeof(T), action))
             {
                 _waitingActions[typeof(T)] += action;
+            }
+        }
+
+        /// <summary>
+        ///     オブジェクトが登録された時に実行される
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action"></param>
+        public static void RegisterAfterLocate<T>(Action<T> action) where T : Component
+        {
+            //既にロードされていたら終了
+            if (_singletonObjects.TryGetValue(typeof(T), out var instance))
+            {
+                action?.Invoke((T)instance);
+                return;
+            }
+
+            if (_waitingActionsWithInstance.TryGetValue(typeof(T), out var existing))
+            {
+                _waitingActionsWithInstance[typeof(T)] = Delegate.Combine(existing, action);
+            }
+            else
+            {
+                _waitingActionsWithInstance[typeof(T)] = action;
             }
         }
 
