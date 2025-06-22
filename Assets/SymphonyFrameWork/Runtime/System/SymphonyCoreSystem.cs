@@ -1,4 +1,5 @@
 ﻿using SymphonyFrameWork.Utility;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,12 +20,13 @@ namespace SymphonyFrameWork.System
         {
             //専用のシーン生成
             _systemScene = SceneManager.CreateScene("SymphonySystem");
-
             //各クラスの初期化
             PauseManager.Initialize();
             ServiceLocator.Initialize();
             SceneLoader.Initialize();
             AudioManager.Initialize();
+
+            GC.Collect();
         }
 
         public static async void MoveObjectToSymphonySystem(GameObject go)
