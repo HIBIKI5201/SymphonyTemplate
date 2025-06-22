@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.22.1] - 2025-06-17
+### Update
+- AssemblyGenerator
+
 ## [1.22.0] - 2025-06-03
 ### Add
 - AssetStoreToolsPackager

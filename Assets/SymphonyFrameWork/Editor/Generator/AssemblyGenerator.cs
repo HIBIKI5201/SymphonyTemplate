@@ -41,12 +41,18 @@ namespace SymphonyFrameWork.Editor
 
         public static void AddAsssemblyReference(string mainAsmdefPath, string targetAsmdefPath)
         {
+            const string guidPrefix = "GUID:";
+
             if (File.Exists(mainAsmdefPath))
             {
                 var mainAsmdefJson = File.ReadAllText(mainAsmdefPath);
                 var mainAsmdef = JsonUtility.FromJson<AssemblyDefinitionData>(mainAsmdefJson);
 
-                var enumAsmdefGUID = "GUID:" + AssetDatabase.AssetPathToGUID(targetAsmdefPath);
+                var enumAsmdefGUID = guidPrefix + AssetDatabase.AssetPathToGUID(targetAsmdefPath);
+                
+                //ターゲットアセンブリのGUIDが取得できなければ終了
+                if (enumAsmdefGUID == guidPrefix)
+                    return;
 
                 // 参照がすでに追加されていない場合にのみ追加
                 if (!mainAsmdef.references.Contains(enumAsmdefGUID))
