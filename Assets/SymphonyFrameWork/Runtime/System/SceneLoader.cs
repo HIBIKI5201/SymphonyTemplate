@@ -16,10 +16,14 @@ namespace SymphonyFrameWork.System
         private static readonly Dictionary<string, Scene> _sceneDict = new();
         private static readonly Dictionary<string, Action> _loadingSceneDict = new();
 
+        /// <summary>
+        ///     コアシステムからの初期化
+        /// </summary>
         internal static void Initialize()
         {
             _sceneDict.Clear();
 
+            //初期化シーンのロード開始
             var config = SymphonyConfigLocator.GetConfig<SceneManagerConfig>();
             if (config)
                 foreach (var scene in config.InitializeSceneList)
