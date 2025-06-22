@@ -54,7 +54,7 @@ namespace SymphonyFrameWork.System
 
         internal static void Initialize()
         {
-            _data = new Lazy<ServiceLocatorData> (CreateData());
+            _data = new Lazy<ServiceLocatorData> (CreateData);
         }
 
         /// <summary>
@@ -111,8 +111,18 @@ namespace SymphonyFrameWork.System
         /// <typeparam name="T">破棄したいインスタンスの型</typeparam>
         public static void DestroyInstance<T>(T instance) where T : Component
         {
+            if (instance == null) return;
+
             //インスタンスが登録されたコンポーネントか
-            if (_data.Value.SingletonObjects.TryGetValue(typeof(T), out var md) && md == instance) DestroyInstance<T>();
+            if (_data.Value.SingletonObjects
+                .TryGetValue(typeof(T), out var md) && md == instance)
+            {
+                DestroyInstance<T>();
+            }
+            else
+            {
+                Debug.LogWarning($"{typeof(T).Name}は登録されていません");
+            }
         }
 
         /// <summary>
