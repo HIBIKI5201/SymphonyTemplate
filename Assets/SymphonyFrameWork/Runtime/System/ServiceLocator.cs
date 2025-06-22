@@ -27,34 +27,34 @@ namespace SymphonyFrameWork.System
 
         public static GameObject Instance
         {
-            private set => _instance = value;
-            get
-            {
-                if (!_instance)
-                {
-                    var instance = new GameObject("ServiceLocator");
-
-                    SymphonyCoreSystem.MoveObjectToSymphonySystem(instance);
-                    _instance = instance;
-                }
-                
-                return _instance;
-            }
+            get => _data.Value.Instance;
         }
-        [Tooltip("シングルトン化するインスタンスのコンテナ")] private static GameObject _instance;
 
-        [Tooltip("シングルトン登録されている型のインスタンス辞書")]
-        private static readonly Dictionary<Type, Component> _singletonObjects = new();
-        
-        [Tooltip("シングルトン登録まで待機してから実行されるイベント")]
-        private static readonly Dictionary<Type, Action> _waitingActions = new();
-        [Tooltip("シングルトン登録まで待機してから実行されるイベントのインスタンスを返すイベント")]
-        private static readonly Dictionary<Type, Delegate> _waitingActionsWithInstance = new();
+        private static Lazy<ServiceLocatorData> _data =
+            new Lazy<ServiceLocatorData>(CreateData);
+
+        private class ServiceLocatorData : MonoBehaviour
+        {
+            public GameObject Instance => _instance;
+            public Dictionary<Type, Component> SingletonObjects => _singletonObjects;
+            public Dictionary<Type, Action> WaitingActions => _waitingActions;
+            public Dictionary<Type, Delegate> WaitingActionsWithInstance => _waitingActionsWithInstance;
+
+            [Tooltip("シングルトン化するインスタンスのコンテナ")]
+            private GameObject _instance;
+
+            [Tooltip("シングルトン登録されている型のインスタンス辞書")]
+            private readonly Dictionary<Type, Component> _singletonObjects = new();
+
+            [Tooltip("シングルトン登録まで待機してから実行されるイベント")]
+            private readonly Dictionary<Type, Action> _waitingActions = new();
+            [Tooltip("シングルトン登録まで待機してから実行されるイベントのインスタンスを返すイベント")]
+            private readonly Dictionary<Type, Delegate> _waitingActionsWithInstance = new();
+        }
 
         internal static void Initialize()
         {
-            _instance = null;
-            _singletonObjects.Clear();
+            _data = new Lazy<ServiceLocatorData> (CreateData());
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace SymphonyFrameWork.System
         public static void SetInstance<T>(T instance, LocateType type = LocateType.Locator) where T : Component
         {
             // 既に登録されている場合は追加できない
-            if (!_singletonObjects.TryAdd(typeof(T), instance))
+            if (!_data.Value.SingletonObjects.TryAdd(typeof(T), instance))
             {
                 Object.Destroy(instance.gameObject);
                 return;
@@ -81,20 +81,20 @@ namespace SymphonyFrameWork.System
 #endif
 
             #region 待機中のイベントを発火
-            if (_waitingActions.TryGetValue(typeof(T), out var waitingAction))
+            if (_data.Value.WaitingActions.TryGetValue(typeof(T), out var waitingAction))
             {
                 waitingAction?.Invoke();
-                _waitingActions.Remove(typeof(T));
+                _data.Value.WaitingActions.Remove(typeof(T)); //実行したら解放
             }
 
-            if (_waitingActionsWithInstance.TryGetValue(typeof(T), out var del))
+            if (_data.Value.WaitingActionsWithInstance
+                .TryGetValue(typeof(T), out var del))
             {
-                if (del is Action<T> waitingActionWithInstance)
+                if (del is Action<T> action)
                 {
-                    waitingActionWithInstance.Invoke(instance);
+                    action.Invoke(instance);
                 }
-
-                _waitingActionsWithInstance.Remove(typeof(T));
+                _data.Value.WaitingActionsWithInstance.Remove(typeof(T)); //実行したら解放
             }
 
             #endregion
@@ -112,7 +112,7 @@ namespace SymphonyFrameWork.System
         public static void DestroyInstance<T>(T instance) where T : Component
         {
             //インスタンスが登録されたコンポーネントか
-            if (_singletonObjects.TryGetValue(typeof(T), out var md) && md == instance) DestroyInstance<T>();
+            if (_data.Value.SingletonObjects.TryGetValue(typeof(T), out var md) && md == instance) DestroyInstance<T>();
         }
 
         /// <summary>
@@ -121,10 +121,10 @@ namespace SymphonyFrameWork.System
         /// <typeparam name="T">破棄したいインスタンスの型</typeparam>
         public static void DestroyInstance<T>() where T : Component
         {
-            if (_singletonObjects.TryGetValue(typeof(T), out var md))
+            if (_data.Value.SingletonObjects.TryGetValue(typeof(T), out var md))
             {
                 Object.Destroy(md.gameObject);
-                _singletonObjects.Remove(typeof(T));
+                _data.Value.SingletonObjects.Remove(typeof(T));
 
 #if UNITY_EDITOR
                 //ログを出力
@@ -154,7 +154,7 @@ namespace SymphonyFrameWork.System
                 SymphonyDebugLog.AddText($"ServiceLocator\n{typeof(T).Name}の取得がリクエストされました。");
 #endif
 
-            if (_singletonObjects.TryGetValue(typeof(T), out var md))
+            if (_data.Value.SingletonObjects.TryGetValue(typeof(T), out var md))
             {
                 if (md)
                 {
@@ -189,15 +189,16 @@ namespace SymphonyFrameWork.System
         public static void RegisterAfterLocate<T>(Action action) where T : Component
         {
             //既にロードされていたら終了
-            if (_singletonObjects.ContainsKey(typeof(T)))
+            if (_data.Value.SingletonObjects.ContainsKey(typeof(T)))
             {
                 action?.Invoke();
                 return;
             }
 
-            if (!_waitingActions.TryAdd(typeof(T), action))
+            //ロードされていなければ登録する
+            if (!_data.Value.WaitingActions.TryAdd(typeof(T), action))
             {
-                _waitingActions[typeof(T)] += action;
+                _data.Value.WaitingActions[typeof(T)] += action;
             }
         }
 
@@ -209,19 +210,20 @@ namespace SymphonyFrameWork.System
         public static void RegisterAfterLocate<T>(Action<T> action) where T : Component
         {
             //既にロードされていたら終了
-            if (_singletonObjects.TryGetValue(typeof(T), out var instance))
+            if (_data.Value.SingletonObjects.TryGetValue(typeof(T), out var instance))
             {
                 action?.Invoke((T)instance);
                 return;
             }
 
-            if (_waitingActionsWithInstance.TryGetValue(typeof(T), out var existing))
+            //ロードされていなければ登録する
+            if (_data.Value.WaitingActionsWithInstance.TryGetValue(typeof(T), out var existing))
             {
-                _waitingActionsWithInstance[typeof(T)] = Delegate.Combine(existing, action);
+                _data.Value.WaitingActionsWithInstance[typeof(T)] = Delegate.Combine(existing, action);
             }
             else
             {
-                _waitingActionsWithInstance[typeof(T)] = action;
+                _data.Value.WaitingActionsWithInstance[typeof(T)] = action;
             }
         }
 
@@ -247,6 +249,13 @@ namespace SymphonyFrameWork.System
             }
 
             return null;
+        }
+
+        private static ServiceLocatorData CreateData()
+        {
+            var instance = new GameObject("ServiceLocatorData");
+            SymphonyCoreSystem.MoveObjectToSymphonySystem(instance);
+            return instance.AddComponent<ServiceLocatorData>();
         }
     }
 }
