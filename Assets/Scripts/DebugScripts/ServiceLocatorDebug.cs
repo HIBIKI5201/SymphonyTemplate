@@ -8,19 +8,16 @@ namespace BLINDED_AM_ME
     {
         private async void Start()
         {
-            ServiceLocator.RegisterAfterLocate<ServiceLocatorDebug>(Action);
+            Debug.LogWarning(GC.GetTotalMemory(true));
 
-            await Awaitable.WaitForSecondsAsync(1);
-            
             ServiceLocator.SetInstance(this);
-            
-            await Awaitable.WaitForSecondsAsync(1);
-            
-            ServiceLocator.RegisterAfterLocate<ServiceLocatorDebug>(Action);
+
+            Debug.LogWarning(GC.GetTotalMemory(true));
+
         }
-        
-        
-        
+
+
+
         private void Action() => Debug.Log("After Action called");
     }
 }
