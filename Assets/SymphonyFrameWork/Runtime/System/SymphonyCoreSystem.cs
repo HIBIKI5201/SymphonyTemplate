@@ -10,6 +10,8 @@ namespace SymphonyFrameWork.System
     /// </summary>
     public static class SymphonyCoreSystem
     {
+        private const string SYMPHONY_SCENE_NAME = "SymphonySystem";
+
         private static Scene? _systemScene;
 
         /// <summary>
@@ -19,7 +21,7 @@ namespace SymphonyFrameWork.System
         private static void GameBeforeSceneLoaded()
         {
             //専用のシーン生成
-            _systemScene = SceneManager.CreateScene("SymphonySystem");
+            _systemScene = SceneManager.CreateScene(SYMPHONY_SCENE_NAME);
             //各クラスの初期化
             PauseManager.Initialize();
             ServiceLocator.Initialize();
