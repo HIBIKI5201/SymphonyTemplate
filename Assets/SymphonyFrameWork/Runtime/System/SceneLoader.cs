@@ -14,7 +14,7 @@ namespace SymphonyFrameWork.System
     public static class SceneLoader
     {
         private static readonly Dictionary<string, Scene> _sceneDict = new();
-        private static readonly Dictionary<string, Action> _loadingSceneDict = new();
+        private static readonly Dictionary<string, Action> _loadedActionDict = new();
 
         /// <summary>
         ///     コアシステムからの初期化
@@ -97,13 +97,31 @@ namespace SymphonyFrameWork.System
                 return false;
             }
 
-            _loadingSceneDict.Add(sceneName, null);
-
             //ロード中
             while (!operation.isDone)
             {
                 loadingAction?.Invoke(operation.progress);
                 await Awaitable.NextFrameAsync(token);
+            }
+
+            var loadedScene = SceneManager.GetSceneByName(sceneName);
+
+            //シーン上のオブジェクトの初期化を実行する
+            GameObject[] objs = loadedScene.GetRootGameObjects();
+
+            List<Task> initializeTasks = new();
+
+            foreach (var obj in objs) //初期化インターフェースを取得して実行
+            {
+                if (obj.TryGetComponent<IInitializeAsync>(out var initialize))
+                {
+                    initializeTasks.Add(initialize.DoInitialize());
+                }
+            }
+
+            if (0 < initializeTasks.Count) //初期化が終了するまで待機
+            {
+                await Task.WhenAll(initializeTasks);
             }
 
             //シングルロードの場合は辞書をクリアする
@@ -113,14 +131,13 @@ namespace SymphonyFrameWork.System
             }
 
             //ロード終了後にロード待ちしていたイベントを実行
-            if (_loadingSceneDict.TryGetValue(sceneName, out var action))
+            if (_loadedActionDict.TryGetValue(sceneName, out var action))
             {
                 action?.Invoke();
-                _loadingSceneDict.Remove(sceneName);
+                _loadedActionDict.Remove(sceneName);
             }
 
             //辞書にシーン名とシーン情報を保存
-            var loadedScene = SceneManager.GetSceneByName(sceneName);
             var isLoadSuccess = loadedScene.IsValid() && loadedScene.isLoaded;
             if (isLoadSuccess)
             {
@@ -183,8 +200,8 @@ namespace SymphonyFrameWork.System
             }
 
             //アクションを追加
-            if (!_loadingSceneDict.TryAdd(sceneName, action))
-                _loadingSceneDict[sceneName] += action;
+            if (!_loadedActionDict.TryAdd(sceneName, action))
+                _loadedActionDict[sceneName] += action;
         }
 
         /// <summary>
