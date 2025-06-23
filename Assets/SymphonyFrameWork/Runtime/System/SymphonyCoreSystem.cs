@@ -29,6 +29,10 @@ namespace SymphonyFrameWork.System
             GC.Collect();
         }
 
+        /// <summary>
+        ///     オブジェクトをSymphonySystemシーンに移動する
+        /// </summary>
+        /// <param name="go"></param>
         public static async void MoveObjectToSymphonySystem(GameObject go)
         {
             //シーンが制作されているか、対象がnullになったら進む
