@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.23.0] - 2025-06-23
+### Add
+- IInitializeAsync
+
 ## [1.22.2] - 2025-06-23
 ### Update
 - SaveDataSystem
