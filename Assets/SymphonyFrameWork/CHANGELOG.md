@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.23.1] - 2025-06-23
+### Update
+- SceneLoader
+
 ## [1.23.0] - 2025-06-23
 ### Add
 - IInitializeAsync
