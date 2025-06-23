@@ -144,7 +144,7 @@ namespace SymphonyFrameWork.System
                 _sceneDict.TryAdd(sceneName, loadedScene);
             }
 
-            return loadedScene.IsValid() && loadedScene.isLoaded;
+            return isLoadSuccess;
         }
 
         /// <summary>
