@@ -10,6 +10,10 @@ namespace BLINDED_AM_ME
         {
             Debug.LogWarning(GC.GetTotalMemory(true));
 
+            await Awaitable.WaitForSecondsAsync(5f);
+
+            Debug.LogWarning(GC.GetTotalMemory(true));
+
             ServiceLocator.SetInstance(this);
 
             Debug.LogWarning(GC.GetTotalMemory(true));
