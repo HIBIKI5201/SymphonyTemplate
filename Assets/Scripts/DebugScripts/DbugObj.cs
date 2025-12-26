@@ -1,7 +1,7 @@
 ﻿using SymphonyFrameWork;
 using SymphonyFrameWork.Attribute;
 using SymphonyFrameWork.Debugger;
-using SymphonyFrameWork.System;
+using TestNameSpace;
 using UnityEngine;
 
 public class DbugObj : MonoBehaviour, IGameObject
@@ -12,31 +12,24 @@ public class DbugObj : MonoBehaviour, IGameObject
     [ReadOnly]
     [SerializeField]
     private Vector3 _velocity;
+    [SerializeField, TagSelector]
+    private string _tag;
 
     [SerializeField] private AnimationCurve _curve;
 
     private SymphonyDebugHUD _debugHUD;
 
-    private void Start()
-    {
-        _velocity = Vector3.up * _speed;
+    [SerializeField]
+    private Color _color;
 
-        AudioManager.VolumeSliderChanged(AudioGroupTypeEnum.BGM.ToString(), 1);
-        _debugHUD = FindAnyObjectByType<SymphonyDebugHUD>();
-    }
+    [SerializeReference, SubclassSelector]
+    private ITestInterface _g;
 
     private void Update()
     {
-        transform.position += _velocity * Time.deltaTime;
-        if (transform.position.y > 10)
-        {
-            transform.position = Vector3.zero;
-        }
-
-        SymphonyDebugHUD.AddText($"Current Position: {transform.position}\n" +
-            $"Velocity: {_velocity}\n" +
-            $"Speed: {_speed}\n" +
-            $"Curve Value at 0.5: {_curve.Evaluate(0.5f)}" +
-            $"current time is {Time.time}");
+        SymphonyDebugLogger.NewText("test_text".AddRichTextColor(_color).RemoveRichTextColor());
+        SymphonyDebugLogger.AddText("text2".AddRichTextBold().RemoveRichTextBold());
+        SymphonyDebugLogger.AddText("text3".AddRichTextUnderline().RemoveRichTextUnderline());
+        SymphonyDebugLogger.LogText(text:"text4".AddRichTextBold().AddRichTextUnderline().AddRichTextBold().RemoveRichTextUnderline().RemoveRichTextBold());
     }
 }

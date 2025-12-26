@@ -17,55 +17,86 @@ namespace SymphonyFrameWork.Editor
         [MenuItem(SymphonyConstant.TOOL_MENU_PATH + nameof(FolderGenerator), priority = 100)]
         public static void GenerateFolder()
         {
-            string assetsPath = "Assets";
-            string artPath = "Arts";
-            string animationPath = "Animation";
+            SymphonyDebugLogger.NewText($"[{nameof(GenerateFolder)}]");
 
-            string[] assetsFolders =
-                // アセット直下のフォルダ
-                new string[] { artPath, "AssetStoreTools", "Editor", "Resources", "Prefabs", "Scenes", "Scripts", "Settings" }
-                //Artフォルダ内のフォルダ
-                .Concat(new string[] { animationPath, "Audio", "Materials", "Meshes", "Textures", "Shaders", "Sprites" }
-                    .Select(s => $"{artPath}/{s}"))
-                //Animationのフォルダ
-                .Concat(new string[] { "Clips", "Controllers" }
-                    .Select(s => $"{artPath}/{animationPath}/{s}"))
-                .ToArray();
+            string[] assetsFolders = GetFolderPaths();
 
             //全てのフォルダを生成する
             foreach (string folder in assetsFolders)
             {
-                string path = $"{assetsPath}/{folder}";
+                string path = $"{ASSETS_PATH}/{folder}";
 
                 if (!AssetDatabase.IsValidFolder(path))
                 {
                     FolderCreate(path);
-                    SymphonyDebugLog.AddText($"フォルダ作成: {path}");
+                    SymphonyDebugLogger.AddText($"フォルダ作成: {path}");
                 }
             }
             AssetDatabase.Refresh();
 
-            SymphonyDebugLog.TextLog();
+            SymphonyDebugLogger.LogText();
             EditorUtility.DisplayDialog("フォルダを生成", "フォルダを生成しました", "OK");
         }
 
+        private const string ASSETS_PATH = "Assets";
+
         /// <summary>
-        ///     フォルダを生成する
+        ///     パスのフォルダを生成する。
         /// </summary>
         /// <param name="path"></param>
         private static void FolderCreate(string path)
         {
+            // フォルダがあれば終了。
             if (AssetDatabase.IsValidFolder(path)) return;
 
+            // パスをディレクトリとフォルダ名に分ける。
             string parent = Path.GetDirectoryName(path);
             string folderName = Path.GetFileName(path);
 
+            // ディレクトリが無ければ再帰的にフォルダを生成する。
             if (!AssetDatabase.IsValidFolder(parent))
             {
                 FolderCreate(parent);
             }
 
+            // パスのフォルダを作成。
             AssetDatabase.CreateFolder(parent, folderName);
+        }
+
+        /// <summary>
+        ///     全てのフォルダのパスを生成して返す。
+        /// </summary>
+        /// <returns></returns>
+        private static string[] GetFolderPaths()
+        {
+            string artPath = "Arts";
+            string animationPath = "Animation";
+            string scriptsPath = "Scripts";
+
+            string[] assetsFolders =
+                // アセット直下のフォルダ
+                new string[] {
+                    artPath, "AssetStoreTools", "Editor", "Resources",
+                    "ResourcesForAddressable", "Prefabs", "Scenes", scriptsPath,
+                    "Settings", "StreamingAssets" }
+                
+                //Artsフォルダ内のフォルダ
+                .Concat(new string[] {
+                    animationPath, "Audio", "Models",
+                    "Shaders", "Sprites", "Textures" }
+                    .Select(s => $"{artPath}/{s}"))
+                
+                //Animationのフォルダ
+                .Concat(new string[] { "Clips", "Controllers", "Timelines" }
+                    .Select(s => $"{artPath}/{animationPath}/{s}"))
+
+                //Scriptsのフォルダ
+                .Concat(new string[] {"Runtime", "Develop"}
+                    .Select(s => $"{scriptsPath}/{s}"))
+                .ToArray();
+
+
+            return assetsFolders;
         }
     }
 }

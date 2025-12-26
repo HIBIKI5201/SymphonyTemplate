@@ -259,17 +259,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!4 &129084134 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2665763443570106301, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
@@ -652,7 +658,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -660,6 +665,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!4 &338467035 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6763475861683331540, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
@@ -855,50 +861,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3857481032274542802, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
   m_PrefabInstance: {fileID: 901508532}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &814130960
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 814130962}
-  - component: {fileID: 814130961}
-  m_Layer: 0
-  m_Name: SymphonyDebugHUD
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &814130961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 814130960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0ac75cd28e17554ba9c8ad82f609e25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &814130962
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 814130960}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.08101, y: -0.74187, z: -1.40107}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &828700491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -911097120733497673, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
@@ -1119,50 +1081,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8745244237103098601, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
   m_PrefabInstance: {fileID: 901508532}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &947808004
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 947808006}
-  - component: {fileID: 947808005}
-  m_Layer: 0
-  m_Name: ServiceLocatorDebug
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &947808005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947808004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb2956cb5dd642cdac451a493f9c06e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &947808006
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947808004}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &962253581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7131635956728258557, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
@@ -1181,6 +1099,7 @@ GameObject:
   - component: {fileID: 962773596}
   - component: {fileID: 962773595}
   - component: {fileID: 962773597}
+  - component: {fileID: 962773598}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1195,19 +1114,49 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962773592}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 378966fe497d9ab4294cd787c21d2317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
   _velocity: {x: 0, y: 0, z: 0}
+  _tag: Respawn
   _curve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _color: {r: 0, g: 0, b: 0, a: 0}
+  _g:
+    rid: 7747500992402030713
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7747500992402030713
+      type: {class: TestIntarfaceInstance_1, ns: TestNameSpace, asm: Assembly-CSharp}
+      data:
+        X: 0
+        Y: 0
+        ChildInterface:
+          rid: 7747500992402030719
+    - rid: 7747500992402030719
+      type: {class: TestInterfaceInstance_2, ns: TestNameSpace, asm: Assembly-CSharp}
+      data:
+        Name: 
+        Age: 0
+        testInterface:
+          rid: 7747500992402030722
+    - rid: 7747500992402030722
+      type: {class: TestIntarfaceInstance_1, ns: TestNameSpace, asm: Assembly-CSharp}
+      data:
+        X: 0
+        Y: 0
+        ChildInterface:
+          rid: -2
 --- !u!4 &962773594
 Transform:
   m_ObjectHideFlags: 0
@@ -1251,6 +1200,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1273,6 +1224,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1291,8 +1243,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 962773593}
   _locateType: 1
-  _autoSet: 1
-  _autoDestroy: 1
+  _autoRegister: 1
+  _autoUnregister: 1
+--- !u!114 &962773598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962773592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fcc0f4005194024e9758d5421e6fae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestNameSpace.MultiSceneLoad
+  _sceneListEnums: 0200000003000000
 --- !u!4 &1010547488 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8952017306520206153, guid: ee5a26e667f7a464ebf4a7af5b32595a, type: 3}
@@ -1753,6 +1718,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1774,6 +1741,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1905,5 +1873,3 @@ SceneRoots:
   - {fileID: 962773594}
   - {fileID: 1924717717}
   - {fileID: 901508532}
-  - {fileID: 947808006}
-  - {fileID: 814130962}

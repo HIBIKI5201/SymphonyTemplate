@@ -1,5 +1,113 @@
 # Changelog
 
+## [1.27.0] - 2025-12-05
+### Add
+- SubClassSelector
+
+## [1.26.1] - 2025-12-03
+### Update
+- AssetStoreToolsPackager
+
+## [1.26.0] - 2025-10-30
+### Add
+- SymphonyStringUtil
+
+## [1.25.4] - 2025-10-23
+### Fix
+- SymphonyDebugLogger
+
+## [1.25.3] - 2025-10-23
+### Update
+- FolderGenerator
+
+## [1.25.2] - 2025-10-21
+### Fix
+- SymphonyDebugHUD
+
+## [1.25.1] - 2025-10-19
+### Add
+- SymphonyLocateObject
+
+## [1.24.2] - 2025-10-19
+### Update
+- SymphonyDebugLogger
+
+## [1.24.1] - 2025-10-19
+### Add
+- TagSelectorAttribute
+
+## [1.23.21] - 2025-10-08
+### Update
+- SymphonyDebugHUD
+
+## [1.23.20] - 2025-10-08
+### Update
+- ServiceLocator
+
+## [1.23.19] - 2025-10-08
+### Fix
+- ServiceLocator
+
+## [1.23.18] - 2025-08-06
+### Add
+- SymphonyDebugLogger
+
+## [1.23.17] - 2025-07-19
+### Fix
+- ServiceLocator
+
+## [1.23.16] - 2025-07-17
+### Fix
+- SymphonyLocate
+
+## [1.23.15] - 2025-07-17
+### Update
+- ServiceLocator
+
+## [1.23.14] - 2025-07-17
+### Update
+- ServiceLocator
+
+## [1.23.13] - 2025-07-16
+### Fix
+- ServiceLocator
+
+## [1.23.12] - 2025-07-16
+### Fix
+- SceneLoader
+
+## [1.23.11] - 2025-07-16
+### Fix
+- FolderGenerator
+
+## [1.23.10] - 2025-07-16
+### Fix
+- SymphonyLocate
+
+## [1.23.9] - 2025-07-16
+### Fix
+- SymphonyAdministrator
+
+## [1.23.8] - 2025-07-11
+### Fix
+- SymphonyLocate
+
+## [1.23.7] - 2025-07-11
+### Update
+- ServiceLocator
+
+## [1.23.6] - 2025-07-09
+### Update
+- ServiceLocator
+
+## [1.23.5] - 2025-07-06
+### Fix
+- SymphonyLocate
+
+## [1.23.4] - 2025-07-04
+### Fix
+- SceneLoader
+
 ## [1.23.3] - 2025-07-03
 ### Add
 - SymphonyDebugHUD
