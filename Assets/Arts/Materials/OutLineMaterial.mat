@@ -54,8 +54,8 @@ Material:
     - _Fade_Distance: 30
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Tickeness: 0.001
+    - _Tickeness: 0.0005
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0.554717, g: 0.554717, b: 0.554717, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
