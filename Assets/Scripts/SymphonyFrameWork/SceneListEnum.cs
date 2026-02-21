@@ -2,6 +2,4 @@
 {
     None = 0,
     NewScene = 1,
-    NewScene1 = 2,
-    NewScene2 = 3,
 }
