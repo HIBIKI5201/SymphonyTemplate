@@ -18,6 +18,10 @@ namespace BLINDED_AM_ME
 
             Debug.LogWarning(GC.GetTotalMemory(true));
 
+            await Awaitable.WaitForSecondsAsync(5f);
+
+            Destroy(gameObject);
+
         }
 
 
