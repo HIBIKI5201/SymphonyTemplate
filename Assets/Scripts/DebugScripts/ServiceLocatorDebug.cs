@@ -1,5 +1,5 @@
 ﻿using System;
-using SymphonyFrameWork.System;
+using SymphonyFrameWork.System.ServiceLocate;
 using UnityEngine;
 
 namespace BLINDED_AM_ME
@@ -14,7 +14,7 @@ namespace BLINDED_AM_ME
 
             Debug.LogWarning(GC.GetTotalMemory(true));
 
-            ServiceLocator.SetInstance(this);
+            ServiceLocator.RegisterInstance(this);
 
             Debug.LogWarning(GC.GetTotalMemory(true));
 

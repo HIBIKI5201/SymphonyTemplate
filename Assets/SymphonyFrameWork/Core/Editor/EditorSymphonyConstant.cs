@@ -3,15 +3,20 @@
 namespace SymphonyFrameWork.Core
 {
     /// <summary>
-    ///     エディタ用の定数値を持つ
+    ///     エディタ用の定数値を持つ。
     /// </summary>
     public static class EditorSymphonyConstant
     {
+        /// <summary>
+        ///     パッケージか開発中か判定する。
+        /// </summary>
+        /// <param name="sourceFilePath"></param>
+        /// <returns></returns>
         public static bool IsPackage([CallerFilePath] string sourceFilePath = "") =>
             !sourceFilePath.Replace('\\', '/').Contains("/Assets/");
 
         /// <summary>
-        /// アセットかパッケージのルートパスを返す
+        /// アセットかパッケージのルートパスを返す。
         /// </summary>
         /// <param name="sourceFilePath"></param>
         /// <returns></returns>
@@ -43,6 +48,11 @@ namespace SymphonyFrameWork.Core
         public const bool ServiceLocatorGetInstanceDefault = false;
         public const string ServiceLocatorDestroyInstanceKey = "ServiceLocatorDestroyInstanceLog";
         public const bool ServiceLocatorDestroyInstanceDefault = true;
+        #endregion
+
+        #region Setting Provider
+        public const string PROJCET_SETTING_FILE_PATH = "ProjectSettings/Packages/" + SymphonyConstant.SYMPHONY_PACKAGE + "/";
+        public const string PROJECT_SETTING_PATH = "Project/";
         #endregion
 
         #region Enumの名前
