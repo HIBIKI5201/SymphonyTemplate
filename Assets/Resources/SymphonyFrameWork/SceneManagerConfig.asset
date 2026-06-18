@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SceneManagerConfig
   m_EditorClassIdentifier: 
   _isResetAndLoadOnPlay: 1
-  _initializeSceneList:
-  - NewScene
+  _initializeSceneList: []
+  _resetIgnoreSceneList: []

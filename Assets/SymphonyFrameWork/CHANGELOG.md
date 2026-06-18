@@ -1,5 +1,69 @@
 # Changelog
 
+## [1.27.17] - 2026-05-01
+### Update
+- SceneLoader
+
+## [1.27.16] - 2026-03-29
+### Update
+- AssetStoreToolsPackager
+
+## [1.27.15] - 2026-03-25
+### Add
+- SceneNameSelectorAttribute
+
+## [1.27.14] - 2026-03-19
+### Fix
+- SaveSystem
+
+## [1.27.13] - 2026-03-19
+### Fix
+- AssemblyGenerator
+
+## [1.27.12] - 2026-03-19
+### Fix
+- SaveSystem
+
+## [1.27.11] - 2026-03-19
+### Fix
+- SaveSystem
+
+## [1.27.10] - 2026-03-19
+### Update
+- SaveSystem
+
+## [1.27.9] - 2026-03-19
+### Update
+- SaveSystem
+
+## [1.27.8] - 2026-03-18
+### Update
+- AssemblyGenerator
+
+## [1.27.7] - 2026-03-14
+### Update
+- SymphonyDebugHUD
+
+## [1.27.6] - 2026-03-14
+### Update
+- FolderGenerator
+
+## [1.27.5] - 2026-03-01
+### Update
+- ServiceLocator
+
+## [1.27.4] - 2026-03-01
+### Update
+- ServiceLocator
+
+## [1.27.3] - 2026-03-01
+### Update
+- SymphonyVisualElement
+
+## [1.27.2] - 2026-02-26
+### Update
+- SceneLoader
+
 ## [1.27.0] - 2025-12-05
 ### Add
 - SubClassSelector

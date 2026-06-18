@@ -1,13 +1,13 @@
-﻿using SymphonyFrameWork.Attribute;
+﻿using SymphonyFrameWork.Core;
 using UnityEditor;
 using UnityEngine;
 
 namespace SymphonyFrameWork.Editor
 {
-    public class AutoEnumGeneratorConfig : ScriptableObject
+    [FilePath(EditorSymphonyConstant.PROJCET_SETTING_FILE_PATH + nameof(AutoEnumGeneratorConfig) + ".asset", FilePathAttribute.Location.ProjectFolder)]
+    public class AutoEnumGeneratorConfig : ScriptableSingleton<AutoEnumGeneratorConfig>
     {
-        [ReadOnly, SerializeField] private bool _autoSceneListUpdate = true;
-        public bool AutoSceneListUpdate 
+        public bool AutoSceneListUpdate
         {
             get => _autoSceneListUpdate;
             set
@@ -15,10 +15,9 @@ namespace SymphonyFrameWork.Editor
                 _autoSceneListUpdate = value;
                 EditorUtility.SetDirty(this);
                 AssetDatabase.SaveAssets();
-            } 
+                Save();
+            }
         }
-
-        [ReadOnly, SerializeField] private bool _autoTagsUpdate = false;
 
         public bool AutoTagsUpdate
         {
@@ -28,10 +27,9 @@ namespace SymphonyFrameWork.Editor
                 _autoTagsUpdate = value;
                 EditorUtility.SetDirty(this);
                 AssetDatabase.SaveAssets();
+                Save();
             }
         }
-
-        [ReadOnly, SerializeField] private bool _autoLayersUpdate = false;
 
         public bool AutoLayerUpdate
         {
@@ -41,7 +39,14 @@ namespace SymphonyFrameWork.Editor
                 _autoLayersUpdate = value;
                 EditorUtility.SetDirty(this);
                 AssetDatabase.SaveAssets();
+                Save();
             }
         }
+
+        [SerializeField] private bool _autoSceneListUpdate = true;
+        [SerializeField] private bool _autoTagsUpdate = false;
+        [SerializeField] private bool _autoLayersUpdate = false;
+
+        private void Save() => Save(true);
     }
 }

@@ -1,5 +1,6 @@
-﻿using SymphonyFrameWork.System;
+﻿using SymphonyFrameWork.System.SceneLoad;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace TestNameSpace
@@ -11,11 +12,13 @@ namespace TestNameSpace
 
         void Start()
         {
+            return;
             string[] scenes = _sceneListEnums.Select(s => s.ToString()).ToArray();
-            SceneLoader.LoadScenes(scenes, loadingProgress =>
+            ValueTask<bool> task = SceneLoader.LoadScenes(scenes, loadingProgress =>
             {
                 Debug.Log($"Loading Progress: {loadingProgress * 100}%");
-            }).ContinueWith(task =>
+            });
+            task.AsTask().ContinueWith(task =>
             {
                 if (task.Result)
                 {
