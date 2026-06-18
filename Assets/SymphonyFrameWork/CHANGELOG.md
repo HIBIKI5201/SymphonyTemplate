@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.27.17] - 2026-05-01
+### Update
+- SceneLoader
+
+## [1.27.16] - 2026-03-29
+### Update
+- AssetStoreToolsPackager
+
+## [1.27.15] - 2026-03-25
+### Add
+- SceneNameSelectorAttribute
+
+## [1.27.14] - 2026-03-19
+### Fix
+- SaveSystem
+
 ## [1.27.13] - 2026-03-19
 ### Fix
 - AssemblyGenerator

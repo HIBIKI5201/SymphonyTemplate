@@ -3,6 +3,7 @@ using SymphonyFrameWork.Attribute;
 using SymphonyFrameWork.Debugger;
 using SymphonyFrameWork.Debugger.HUD;
 using SymphonyFrameWork.System.SaveSystem;
+using SymphonyFrameWork.System.SceneLoad;
 using SymphonyFrameWork.System.ServiceLocate;
 using System;
 using TestNameSpace;
@@ -18,6 +19,8 @@ public class DbugObj : MonoBehaviour, IGameObject, IInjectable<MeshRenderer>
     private Vector3 _velocity;
     [SerializeField, TagSelector]
     private string _tag;
+    [SerializeField, SceneNameSelector]
+    private string _sceneName;
 
     [SerializeField] private AnimationCurve _curve;
 
@@ -33,34 +36,34 @@ public class DbugObj : MonoBehaviour, IGameObject, IInjectable<MeshRenderer>
 
         SymphonyDebugHUD.AddText(() => $"time pp: {Time.time}");
 
-        SaveAndLoadDebug();
-    }
-
-    public async void SaveAndLoadDebug()
-    {
-        var data = await SaveSystem<TestData, NugetDataLoader<TestData>>.Get();
-        Debug.Log(data);
-
-        data.Name = "ChangedName";
-        Debug.Log(data);
-
-        var data2 = await SaveSystem<TestData, NugetDataLoader<TestData>>.Get();
-        Debug.Log(data2);
-
-        await SaveSystem<TestData, NugetDataLoader<TestData>>.Save();
+        SceneLoad();
     }
 
     public void Inject(MeshRenderer meshRenderer)
     {
-        Debug.Log(meshRenderer.name);
+        Debug.Log(meshRenderer);
     }
 
-    private void Update()
+    private async void SceneLoad()
     {
-        SymphonyDebugLogger.NewText("test_text".AddRichTextColor(_color).RemoveRichTextColor());
-        SymphonyDebugLogger.AddText("text2".AddRichTextBold().RemoveRichTextBold());
-        SymphonyDebugLogger.AddText("text3".AddRichTextUnderline().RemoveRichTextUnderline());
-        SymphonyDebugLogger.LogText(text: "text4".AddRichTextBold().AddRichTextUnderline().AddRichTextBold().RemoveRichTextUnderline().RemoveRichTextBold());
+        await SceneLoader.LoadScene("Scene2");
+        Debug.Log("Scene2 loaded");
+
+        await Awaitable.WaitForSecondsAsync(3);
+
+        await SceneLoader.LoadScene("Scene3");
+        Debug.Log("Scene3 loaded");
+
+        await Awaitable.WaitForSecondsAsync(3);
+
+        await SceneLoader.UnloadScene("Scene2");
+        await SceneLoader.UnloadScene("Scene3");
+        Debug.Log("Scene2 and Scene3 unloaded");
+
+        await Awaitable.WaitForSecondsAsync(3);
+
+        await SceneLoader.LoadScene("Scene2", priority: 10);
+        await SceneLoader.LoadScene("Scene3", priority: -5);
     }
 
     [Serializable]

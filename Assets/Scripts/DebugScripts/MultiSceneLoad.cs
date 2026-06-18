@@ -12,6 +12,7 @@ namespace TestNameSpace
 
         void Start()
         {
+            return;
             string[] scenes = _sceneListEnums.Select(s => s.ToString()).ToArray();
             ValueTask<bool> task = SceneLoader.LoadScenes(scenes, loadingProgress =>
             {

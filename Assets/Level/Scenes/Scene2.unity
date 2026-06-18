@@ -578,6 +578,7 @@ MonoBehaviour:
   _speed: 5
   _velocity: {x: 0, y: 0, z: 0}
   _tag: Untagged
+  _sceneName: NewScene
   _curve:
     serializedVersion: 2
     m_Curve: []
